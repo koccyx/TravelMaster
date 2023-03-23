@@ -26,15 +26,6 @@ class User:
 
 
 
-# def main():
-#     oleg = User('Oleg', 'Baranov', 'Yurevich', 'oleg@mail.com', 'eeez boy')
-#     b1 = Ticket('Rostov', 'Moscow', 1900)
-#     oleg.buyTicket(b1)
-#     print(oleg.getTicketCart()[0].getPrice())
-
-
-# if __name__ == '__main__':
-#     main()
 
 
 
