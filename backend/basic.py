@@ -1,4 +1,5 @@
 import pandas as pd
+import sys
 from ticket import Ticket
 
 class Base:
@@ -20,4 +21,7 @@ class Base:
         self.__save()
 
 
+
+def testfunc():
+    print('itsworkin')
 

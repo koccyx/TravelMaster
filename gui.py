@@ -1,21 +1,69 @@
 import sys
-from PyQt5.QtWidgets import *
+from PyQt6.QtWidgets import QApplication, QWidget, QLineEdit, QPushButton, QTextEdit, QVBoxLayout
+from PyQt6 import uic
+sys.path.append('..')
+from backend.ticket import Ticket
 
-class MainWindow(QMainWindow):
+
+class RegistrationOrLogin(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle('HI')
+        uic.loadUi('frontend/ui/RoL.ui', self)
+        self.setWindowTitle('Логин или регистрация')
+        self.loginButton.clicked.connect(self.openLoginWindow)
+        self.registrationButton.clicked.connect(self.openRegistrationForm)
 
-        self.button = QPushButton('Seee this')
+    def openLoginWindow(self):
+        self.loginApp = LoginFrom()
+        self.loginApp.show()
+        self.close()
 
-        self.button.setFixedSize(100, 40)
+    def openRegistrationForm(self):
+        self.registrationApp = RegistrationFrom()
+        self.registrationApp.show()
+        self.close()
 
-        self.resize(300, 400)
 
-        self.button.move(100, 30)
+class LoginFrom(QWidget):
+    def __init__(self):
+        super().__init__()
+        uic.loadUi('frontend/ui/LoginForm.ui', self)
+        self.setWindowTitle('Вход')
+        self.passwordInput.setEchoMode(QLineEdit.EchoMode.Password)
 
-        self.setCentralWidget(self.button)
+class RegistrationFrom(QWidget):
+    def __init__(self):
+        super().__init__()
+        uic.loadUi('frontend/ui/registration.ui', self)
+        self.setWindowTitle('Регистрация')
+        self.passwordInput.setEchoMode(QLineEdit.EchoMode.Password)
+        self.registrationButton.clicked.connect(self.printText)
 
+    def printText(self):
+        print(self.passwordInput.text())
+
+
+class myApp(QWidget):
+    def __init__(self):
+        super().__init__()
+        uic.loadUi('frontend/ui/check.ui', self)
+        self.setWindowTitle('Выбор пользователя')
+        self.userButton.clicked.connect(self.openRoLWindow)
+
+    def openRoLWindow(self):
+        self.app2 = RegistrationOrLogin()
+        self.app2.show()
+        self.close()
+
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+
+    newApp = myApp()
+    newApp.show()
+
+    sys.exit(app.exec())
 
 
 
