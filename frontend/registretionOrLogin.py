@@ -1,6 +1,6 @@
 import sys
 import os
-from PyQt6.QtWidgets import QApplication, QWidget, QLineEdit, QPushButton, QTextEdit, QVBoxLayout
+from PyQt6.QtWidgets import QWidget
 from PyQt6 import uic
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from loginForm import LoginFrom

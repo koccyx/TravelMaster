@@ -116,9 +116,29 @@
        </layout>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="inputButton">
         <property name="text">
          <string>Вход</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="errorLabel1">
+        <property name="text">
+         <string>Введите логин и пароль</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="errorLabel2">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
@@ -130,7 +150,7 @@
         <property name="sizeHint" stdset="0">
          <size>
           <width>20</width>
-          <height>160</height>
+          <height>140</height>
          </size>
         </property>
        </spacer>

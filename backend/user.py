@@ -1,3 +1,5 @@
+import pandas as pd
+
 class User:
     USER_BASE = []
     def __init__(self, firstName, lastName, surname, login, password, mail) :
@@ -23,8 +25,16 @@ class User:
                 'Фамилия' : self.__lastName,
                 'Отчество' : self.__surname,
                 'login' : self.__login,
-                'E-mail' : self.__mail,
-                'Пароль' : self.__password}
+                'Пароль' : self.__password,
+                'E-mail' : self.__mail,}
+
+    def save(self):
+        temp = pd.read_excel('backend/data/users.xlsx', index_col=0).to_dict('records')
+        temp.append(self.createDict())
+        temp = pd.DataFrame(temp)
+        temp.to_excel('backend/data/users.xlsx')
+
+
 
 
 
