@@ -4,6 +4,7 @@ from PyQt6.QtWidgets import QWidget, QLineEdit
 from PyQt6 import uic
 import pandas as pd
 from backend.user import User
+from backend.base import Base
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 
 
@@ -18,9 +19,11 @@ class RegistrationFrom(QWidget):
     def createNewUser(self):
         newUser = User(self.nameInput.text(), self.secondNameInput.text(), self.surnameInput.text(), self.loginInput.text(), self.passwordInput.text(), self.emailInput.text())
 
-        temp = pd.read_excel('backend/data/users.xlsx', index_col=0).to_dict('records')
+        tempBase = Base('backend/data/users.xlsx')
 
-        for user in temp:
+        # temp = pd.read_excel('backend/data/users.xlsx', index_col=0).to_dict('records')
+
+        for user in tempBase.showBaseDict():
             if user['Имя'] == self.nameInput.text() and user['Фамилия'] == self.secondNameInput.text() and user['Отчество'] == self.nameInput.text():
                 self.errorsLabel1.setText('Пользователь с таким')
                 self.errorsLabel2.setText('именем уже существует')
@@ -37,7 +40,7 @@ class RegistrationFrom(QWidget):
                 print('Invalid e-mail')
                 return
 
-        newUser.save()
+        tempBase.addElement(newUser)
         print('registration confirmed')
 
 

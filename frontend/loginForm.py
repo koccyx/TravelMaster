@@ -3,7 +3,7 @@ import os
 from PyQt6.QtWidgets import  QWidget, QLineEdit
 from PyQt6 import uic
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
-from backend.user import User
+from backend.base import Base
 import pandas as pd
 
 
@@ -19,9 +19,9 @@ class LoginFrom(QWidget):
 
     def checkLogin(self):
 
-        temp = pd.read_excel('backend/data/users.xlsx', index_col=0).to_dict('records')
+        tempBase = Base('backend/data/users.xlsx')
 
-        for user in temp:
+        for user in tempBase.showBaseDict():
             if user['login'] == self.loginInput.text() and user['Пароль'] == self.passwordInput.text():
                 self.errorLabel1.setText('Отлично')
                 self.errorLabel2.setText('')

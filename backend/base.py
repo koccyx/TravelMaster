@@ -6,6 +6,9 @@ class Base:
         self._link = link
         self._base = pd.read_excel(self._link, index_col=0).to_dict('records')
 
+    def showBaseDict(self):
+        return self._base
+
     def delElement(self, num):
         self._base.pop(num)
         self._save()
@@ -23,3 +26,8 @@ class Base:
 
 
 
+if __name__ == '__main__':
+    base = Base('backend/data/users.xlsx')
+    # print(base.showBaseDict()[1].get('Имяы', 'Данные отсутствуют'))
+    for i in base.showBaseDict():
+        print()
