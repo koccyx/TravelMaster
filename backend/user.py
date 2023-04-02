@@ -11,8 +11,54 @@ class User:
         self.__password = password
         self.__ticketCart = []
 
-    def __del__(self):
-        pass
+    @property
+    def firstName(self):
+        return self.__firstName
+
+    @firstName.setter
+    def firstName(self, firstName):
+        self.__firstName = firstName
+
+    @property
+    def lastName(self):
+        return self.__lastName
+
+    @lastName.setter
+    def lastName(self, lastName):
+        self.__lastName = lastName
+
+    @property
+    def surname(self):
+        return self.__surname
+
+    @surname.setter
+    def surname(self, surname):
+        self.__surname = surname
+
+    @property
+    def login(self):
+        return self.__login
+
+    @login.setter
+    def login(self, login):
+        self.__login = login
+
+    @property
+    def mail(self):
+        return self.__mail
+
+    @mail.setter
+    def mail(self, mail):
+        self.__mail = mail
+
+    @property
+    def password(self):
+        return self.__password
+
+    @password.setter
+    def password(self, password):
+        self.__password = password
+
 
     def buyTicket(self, ticket):
         self.__ticketCart.append(ticket)
@@ -35,7 +81,9 @@ class User:
         temp.to_excel('backend/data/users.xlsx')
 
 
-
+if __name__ == '__main__':
+    b = User('Alex', 'Pivko', 'Nikizhov', 'alex2009', 'dsadsa', 'alex40@mail.com')
+    print(b.mail)
 
 
 

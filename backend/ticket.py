@@ -7,26 +7,39 @@ class Ticket:
         self.__price = price
         self.__date = date
 
-    def getDate(self):
+
+    @property
+    def date(self):
         return self.__date
 
-    def getBeginPoint (self):
+    @date.setter
+    def date(self, date):
+        self.__date = date
+
+    @property
+    def beginPoint (self):
         return self.__beginPoint
 
-    def getEndPoint (self):
-        return self.__endPoint
+    @beginPoint.setter
+    def beginPoint (self, beginPoint):
+        self.__beginPoint = beginPoint
 
-    def getPrice (self):
+    @property
+    def price (self):
         return self.__price
 
-    def setBeginPoint (self, BeginPoint):
-        self.__beginPoint = BeginPoint
-
-    def setEndPoint (self, EndPoint):
-        self.__endPoint = EndPoint
-
-    def setPrice (self, price):
+    @price.setter
+    def price(self, price):
         self.__price = price
+
+    @property
+    def beginPoint(self):
+        return self.__beginPoint
+
+    @beginPoint.setter
+    def beginPoint(self, beginPoint):
+        self.__beginPoint = beginPoint
+
 
     def createDict(self):
         return {'Начало маршрута' : self.__beginPoint,
@@ -35,3 +48,7 @@ class Ticket:
 
 
 
+if __name__ == '__main__':
+    a = Ticket('Klg', 'Rostov', 1000)
+    a.price = 9000
+    print(a.price)

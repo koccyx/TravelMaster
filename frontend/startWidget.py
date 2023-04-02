@@ -2,17 +2,24 @@ import sys
 from PyQt6.QtWidgets import QApplication, QWidget
 from PyQt6 import uic
 from registretionOrLogin import RegistrationOrLogin
+from adminPanel import AdminMenu
 
 class myApp(QWidget):
     def __init__(self):
         super().__init__()
         uic.loadUi('frontend/ui/check.ui', self)
-        self.setWindowTitle('Вид работы с программой')
+        self.setWindowTitle('Вид работы c программой')
         self.userButton.clicked.connect(self.openRoLWindow)
+        self.adminButton.clicked.connect(self.openAdminPanel)
 
     def openRoLWindow(self):
-        self.app2 = RegistrationOrLogin()
-        self.app2.show()
+        self.registrationWidget = RegistrationOrLogin()
+        self.registrationWidget.show()
+        self.close()
+
+    def openAdminPanel(self):
+        self.adminWidget = AdminMenu()
+        self.adminWidget.show()
         self.close()
 
 

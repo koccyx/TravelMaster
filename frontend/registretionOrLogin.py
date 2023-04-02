@@ -16,12 +16,12 @@ class RegistrationOrLogin(QWidget):
         self.registrationButton.clicked.connect(self.openRegistrationForm)
 
     def openLoginWindow(self):
-        self.loginApp = LoginFrom()
-        self.loginApp.show()
+        self.loginWidget = LoginFrom()
+        self.loginWidget.show()
         self.close()
 
     def openRegistrationForm(self):
-        self.registrationApp = RegistrationFrom()
-        self.registrationApp.show()
+        self.registrationWidget = RegistrationFrom()
+        self.registrationWidget.show()
         self.close()
 
