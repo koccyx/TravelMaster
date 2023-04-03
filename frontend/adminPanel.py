@@ -30,18 +30,32 @@ class AdminMenu(QWidget):
         self.changeButton.clicked.connect(lambda _: self.addFrame.hide())
         self.changeFrameButton.clicked.connect(lambda _: self.changeFrame.hide())
         self.changeFrameButton.clicked.connect(self.change_clicked)
+        self.changeFrameButton.clicked.connect(self.number.clear)
+        self.changeFrameButton.clicked.connect(self.name.clear)
+        self.changeFrameButton.clicked.connect(self.lastName.clear)
+        self.changeFrameButton.clicked.connect(self.surName.clear)
+        self.changeFrameButton.clicked.connect(self.login.clear)
+        self.changeFrameButton.clicked.connect(self.password.clear)
+        self.changeFrameButton.clicked.connect(self.mail.clear)
 
         self.deleteButton.clicked.connect(lambda _: self.deleteFrame.show())
         self.deleteButton.clicked.connect(lambda _: self.addFrame.hide())
         self.deleteButton.clicked.connect(lambda _: self.changeFrame.hide())
         self.deleteFrameButton.clicked.connect(lambda _: self.deleteFrame.hide())
         self.deleteFrameButton.clicked.connect(self.delete_clicked)
+        self.deleteFrameButton.clicked.connect(self.change.clear)
 
         self.addButton.clicked.connect(lambda _: self.addFrame.show())
         self.addButton.clicked.connect(lambda _: self.changeFrame.hide())
         self.addButton.clicked.connect(lambda _: self.deleteFrame.hide())
         self.addFrameButton.clicked.connect(lambda _: self.addFrame.hide())
         self.addFrameButton.clicked.connect(self.add_clicked)
+        self.addFrameButton.clicked.connect(self.addName.clear)
+        self.addFrameButton.clicked.connect(self.addsecondName.clear)
+        self.addFrameButton.clicked.connect(self.addSurName.clear)
+        self.addFrameButton.clicked.connect(self.addLogin.clear)
+        self.addFrameButton.clicked.connect(self.addPassword.clear)
+        self.addFrameButton.clicked.connect(self.addMail.clear)
 
     def delete_clicked(self):
         num = int(self.change.text()) - 1
