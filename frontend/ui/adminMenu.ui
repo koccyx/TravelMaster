@@ -122,7 +122,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="QPushButton" name="deleteButton">
+          <widget class="QPushButton" name="deletionButton">
            <property name="minimumSize">
             <size>
              <width>120</width>
@@ -141,7 +141,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="changeButton">
+          <widget class="QPushButton" name="changedButton">
            <property name="minimumSize">
             <size>
              <width>120</width>
@@ -160,7 +160,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="addButton">
+          <widget class="QPushButton" name="additionButton">
            <property name="minimumSize">
             <size>
              <width>120</width>
@@ -183,7 +183,7 @@
       </layout>
      </widget>
     </widget>
-    <widget class="QFrame" name="changeFrame">
+    <widget class="QFrame" name="changedFrame">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -201,7 +201,7 @@
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -233,7 +233,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="number">
+          <widget class="QLineEdit" name="userNumberToChange">
            <property name="minimumSize">
             <size>
              <width>20</width>
@@ -274,7 +274,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="name">
+            <widget class="QLineEdit" name="changedName">
              <property name="minimumSize">
               <size>
                <width>100</width>
@@ -313,7 +313,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="lastName">
+            <widget class="QLineEdit" name="changedSurname">
              <property name="minimumSize">
               <size>
                <width>100</width>
@@ -356,7 +356,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="surName">
+            <widget class="QLineEdit" name="changedFatherName">
              <property name="minimumSize">
               <size>
                <width>100</width>
@@ -395,7 +395,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="login">
+            <widget class="QLineEdit" name="changedLogin">
              <property name="minimumSize">
               <size>
                <width>100</width>
@@ -438,7 +438,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="password">
+            <widget class="QLineEdit" name="changedPassword">
              <property name="minimumSize">
               <size>
                <width>100</width>
@@ -477,7 +477,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="mail">
+            <widget class="QLineEdit" name="changedMail">
              <property name="minimumSize">
               <size>
                <width>100</width>
@@ -498,7 +498,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QPushButton" name="changeFrameButton">
+     <widget class="QPushButton" name="changedButtonFrame">
       <property name="geometry">
        <rect>
         <x>290</x>
@@ -512,7 +512,7 @@
       </property>
      </widget>
     </widget>
-    <widget class="QFrame" name="deleteFrame">
+    <widget class="QFrame" name="deletionFrame">
      <property name="geometry">
       <rect>
        <x>310</x>
@@ -557,7 +557,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="change">
+        <widget class="QLineEdit" name="userNumberToDelete">
          <property name="minimumSize">
           <size>
            <width>20</width>
@@ -574,7 +574,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QPushButton" name="deleteFrameButton">
+     <widget class="QPushButton" name="deletionButtonFrame">
       <property name="geometry">
        <rect>
         <x>50</x>
@@ -588,7 +588,7 @@
       </property>
      </widget>
     </widget>
-    <widget class="QFrame" name="addFrame">
+    <widget class="QFrame" name="additionFrame">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -603,13 +603,13 @@
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>60</x>
         <y>0</y>
-        <width>484</width>
-        <height>50</height>
+        <width>499</width>
+        <height>59</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_16">
@@ -637,7 +637,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="addName">
+            <widget class="QLineEdit" name="newName">
              <property name="minimumSize">
               <size>
                <width>100</width>
@@ -676,7 +676,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="addsecondName">
+            <widget class="QLineEdit" name="newSurname">
              <property name="minimumSize">
               <size>
                <width>100</width>
@@ -719,7 +719,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="addSurName">
+            <widget class="QLineEdit" name="newFatherName">
              <property name="minimumSize">
               <size>
                <width>100</width>
@@ -758,7 +758,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="addLogin">
+            <widget class="QLineEdit" name="newLogin">
              <property name="minimumSize">
               <size>
                <width>100</width>
@@ -801,7 +801,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="addPassword">
+            <widget class="QLineEdit" name="newPassword">
              <property name="minimumSize">
               <size>
                <width>100</width>
@@ -840,7 +840,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="addMail">
+            <widget class="QLineEdit" name="newMail">
              <property name="minimumSize">
               <size>
                <width>100</width>
@@ -861,7 +861,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QPushButton" name="addFrameButton">
+     <widget class="QPushButton" name="additionButtonFrame">
       <property name="geometry">
        <rect>
         <x>280</x>

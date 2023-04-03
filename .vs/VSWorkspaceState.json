@@ -2,7 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\backend",
-    "\\frontend"
+    "\\frontend",
+    "\\frontend\\ui"
   ],
   "SelectedNode": "\\frontend\\startWidget.py",
   "PreviewInSolutionExplorer": false

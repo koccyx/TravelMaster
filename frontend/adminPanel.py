@@ -1,7 +1,7 @@
 import sys
 import os
 import pandas as pd
-from PyQt6.QtWidgets import QVBoxLayout, QTableWidgetItem, QWidget
+from PyQt6.QtWidgets import QVBoxLayout, QTableWidgetItem, QWidget, QMessageBox
 from PyQt6 import uic
 from backend.base import Base
 from backend.user import User
@@ -9,6 +9,7 @@ sys.path.insert(1, os.path.join(sys.path[0], '..'))
 
 
 class AdminMenu(QWidget):
+
     def __init__(self):
         super().__init__()
         uic.loadUi('frontend/ui/adminMenu.ui', self)
@@ -21,69 +22,121 @@ class AdminMenu(QWidget):
 
         self.__loadData()
 
-        self.changeFrame.hide()
-        self.deleteFrame.hide()
-        self.addFrame.hide()
+        self.changedFrame.hide()
+        self.deletionFrame.hide()
+        self.additionFrame.hide()
 
-        self.changeButton.clicked.connect(lambda _: self.changeFrame.show())
-        self.changeButton.clicked.connect(lambda _: self.deleteFrame.hide())
-        self.changeButton.clicked.connect(lambda _: self.addFrame.hide())
-        self.changeFrameButton.clicked.connect(lambda _: self.changeFrame.hide())
-        self.changeFrameButton.clicked.connect(self.change_clicked)
-        self.changeFrameButton.clicked.connect(self.number.clear)
-        self.changeFrameButton.clicked.connect(self.name.clear)
-        self.changeFrameButton.clicked.connect(self.lastName.clear)
-        self.changeFrameButton.clicked.connect(self.surName.clear)
-        self.changeFrameButton.clicked.connect(self.login.clear)
-        self.changeFrameButton.clicked.connect(self.password.clear)
-        self.changeFrameButton.clicked.connect(self.mail.clear)
+        self.showChangeFrame()
+        self.changedButtonFrame.clicked.connect(lambda _: self.changedFrame.hide())
+        self.changedButtonFrame.clicked.connect(self.changeClicked)
+        self.changedButtonFrame.clicked.connect(self.__clearChangingFrame)
+        self.userNumberToChange.textChanged.connect(self.completionFieldsInChangeFrame)
 
-        self.deleteButton.clicked.connect(lambda _: self.deleteFrame.show())
-        self.deleteButton.clicked.connect(lambda _: self.addFrame.hide())
-        self.deleteButton.clicked.connect(lambda _: self.changeFrame.hide())
-        self.deleteFrameButton.clicked.connect(lambda _: self.deleteFrame.hide())
-        self.deleteFrameButton.clicked.connect(self.delete_clicked)
-        self.deleteFrameButton.clicked.connect(self.change.clear)
+        self.showDeleteFrame()
+        self.deletionButtonFrame.clicked.connect(lambda _: self.deletionFrame.hide())
+        self.deletionButtonFrame.clicked.connect(self.deleteClicked)
+        self.deletionButtonFrame.clicked.connect(self.userNumberToDelete.clear)
 
-        self.addButton.clicked.connect(lambda _: self.addFrame.show())
-        self.addButton.clicked.connect(lambda _: self.changeFrame.hide())
-        self.addButton.clicked.connect(lambda _: self.deleteFrame.hide())
-        self.addFrameButton.clicked.connect(lambda _: self.addFrame.hide())
-        self.addFrameButton.clicked.connect(self.add_clicked)
-        self.addFrameButton.clicked.connect(self.addName.clear)
-        self.addFrameButton.clicked.connect(self.addsecondName.clear)
-        self.addFrameButton.clicked.connect(self.addSurName.clear)
-        self.addFrameButton.clicked.connect(self.addLogin.clear)
-        self.addFrameButton.clicked.connect(self.addPassword.clear)
-        self.addFrameButton.clicked.connect(self.addMail.clear)
+        self.showAddFrame()
+        self.additionButtonFrame.clicked.connect(lambda _: self.additionFrame.hide())
+        self.additionButtonFrame.clicked.connect(self.addClicked)
+        self.additionButtonFrame.clicked.connect(self.__clearAdditionFrame)
 
-    def delete_clicked(self):
-        num = int(self.change.text()) - 1
-        self.base.delElement(num)
+    def deleteClicked(self):
+        if (self.userNumberToDelete.text() == ''):
+            return
+        tNumber = int(self.userNumberToDelete.text()) - 1
+        self.base.delElement(tNumber)
         self.__loadData()
 
-    def add_clicked(self):
-        tName = self.addName.text()
-        tSecondname = self.addsecondName.text()
-        tSurname = self.addSurName.text()
-        tLogin = self.addLogin.text()
-        tPassword = self.addPassword.text()
-        tMail = self.addMail.text()
-        tNewUser = User(tName, tSecondname, tSurname, tLogin, tPassword, tMail)
+    def addClicked(self):
+        tName = self.newName.text()
+        tSurname = self.newSurname.text()
+        tFatherName = self.newFatherName.text()
+        tLogin = self.newLogin.text()
+        tPassword = self.newPassword.text()
+        tMail = self.newMail.text()
+        tNewUser = User(tName, tSurname, tFatherName, tLogin, tPassword, tMail)
         self.base.addElement(tNewUser)
         self.__loadData()
 
-    def change_clicked(self):
-        tNumber = int(self.number.text()) - 1
-        tName = self.name.text()
-        tSecondname = self.lastName.text()
-        tSurname = self.surName.text()
-        tLogin = self.login.text()
-        tPassword = self.password.text()
-        tMail = self.mail.text()
-        tNewUser = User(tName, tSecondname, tSurname, tLogin, tPassword, tMail)
+    def changeClicked(self):
+        if (self.userNumberToChange.text() == ''):
+            return
+        tNumber = int(self.userNumberToChange.text()) - 1
+        tName = self.changedName.text()
+        tSurname = self.changedSurname.text()
+        tFatherName = self.changedFatherName.text()
+        tLogin = self.changedLogin.text()
+        tPassword = self.changedPassword.text()
+        tMail = self.changedMail.text()
+        tNewUser = User(tName, tSurname, tFatherName, tLogin, tPassword, tMail)
         self.base.changeElement(tNewUser, tNumber)
         self.__loadData()
+
+    def completionFieldsInChangeFrame(self):
+        try:
+            if (len(self.base.showBaseDict()) >= int(self.userNumberToChange.text()) and int(self.userNumberToChange.text()) > 0):
+                tNumber = int(self.userNumberToChange.text()) - 1
+                tName = self.base.showBaseDict()[tNumber]['Имя']
+                tSurname = self.base.showBaseDict()[tNumber]['Фамилия']
+                tFatherName = self.base.showBaseDict()[tNumber]['Отчество']
+                tLogin = self.base.showBaseDict()[tNumber]['login']
+                tPassword = self.base.showBaseDict()[tNumber]['Пароль']
+                tMail = self.base.showBaseDict()[tNumber]['E-mail']
+                self.changedName.setText(tName)
+                self.changedSurname.setText(tSurname)
+                self.changedFatherName.setText(tFatherName)
+                self.changedLogin.setText(tLogin)
+                self.changedPassword.setText(tPassword)
+                self.changedMail.setText(tMail)
+            else:
+                self.userDoesntExist()
+                self.__clearChangingFrame()
+        except ValueError:
+            if (self.userNumberToChange.text() == ''):
+                return
+            self.invalidInput()
+            self.__clearChangingFrame()
+
+    def userDoesntExist(self):
+        self.msgbox = QMessageBox.warning(self, "Ошибка", "Пользователя не существует.", QMessageBox.StandardButton.Ok)
+        
+
+    def invalidInput(self):
+        self.msgbox = QMessageBox.warning(self, "Ошибка", "Некорректный ввод.", QMessageBox.StandardButton.Ok)
+        
+    def showChangeFrame(self):
+        self.changedButton.clicked.connect(lambda _: self.changedFrame.show())
+        self.changedButton.clicked.connect(lambda _: self.deletionFrame.hide())
+        self.changedButton.clicked.connect(lambda _: self.additionFrame.hide())
+
+    def showDeleteFrame(self):
+        self.deletionButton.clicked.connect(lambda _: self.deletionFrame.show())
+        self.deletionButton.clicked.connect(lambda _: self.additionFrame.hide())
+        self.deletionButton.clicked.connect(lambda _: self.changedFrame.hide())
+
+    def showAddFrame(self):
+        self.additionButton.clicked.connect(lambda _: self.additionFrame.show())
+        self.additionButton.clicked.connect(lambda _: self.changedFrame.hide())
+        self.additionButton.clicked.connect(lambda _: self.deletionFrame.hide())
+
+    def __clearChangingFrame(self):
+        self.userNumberToChange.clear()
+        self.changedName.clear()
+        self.changedSurname.clear()
+        self.changedFatherName.clear()
+        self.changedLogin.clear()
+        self.changedPassword.clear()
+        self.changedMail.clear()
+
+    def __clearAdditionFrame(self):
+        self.newName.clear()
+        self.newSurname.clear()
+        self.newFatherName.clear()
+        self.newLogin.clear()
+        self.newPassword.clear()
+        self.newMail.clear()
 
         # self.deleteButton.clicked.connect(deleteInterface)
 
@@ -107,14 +160,3 @@ class AdminMenu(QWidget):
                 self.userTable.setItem(row, 4, QTableWidgetItem(person.get('Пароль', 'Данные отсутствуют')))
                 self.userTable.setItem(row, 5, QTableWidgetItem(person.get('E-mail', 'Данные отсутствуют')))
                 row += 1
-
-
-
-
-
-
-
-
-
-
-
