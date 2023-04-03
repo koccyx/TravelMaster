@@ -35,7 +35,8 @@ class AdminMenu(QWidget):
         self.showDeleteFrame()
         self.deletionButtonFrame.clicked.connect(lambda _: self.deletionFrame.hide())
         self.deletionButtonFrame.clicked.connect(self.deleteClicked)
-        self.deletionButtonFrame.clicked.connect(self.userNumberToDelete.clear)
+        self.changedButtonFrame.clicked.connect(self.__clearDeletionFrame)
+        self.userNumberToDelete.textChanged.connect(self.completionFieldsInDeleteFrame)
 
         self.showAddFrame()
         self.additionButtonFrame.clicked.connect(lambda _: self.additionFrame.hide())
@@ -43,11 +44,20 @@ class AdminMenu(QWidget):
         self.additionButtonFrame.clicked.connect(self.__clearAdditionFrame)
 
     def deleteClicked(self):
-        if (self.userNumberToDelete.text() == ''):
-            return
-        tNumber = int(self.userNumberToDelete.text()) - 1
-        self.base.delElement(tNumber)
-        self.__loadData()
+        try:
+            if len(self.base.showBaseDict()) >= int(self.userNumberToDelete.text()) and int(self.userNumberToDelete.text()) > 0:
+                tNumber = int(self.userNumberToDelete.text()) - 1
+                self.base.delElement(tNumber)
+                self.__loadData()
+            else:
+                self.userDoesntExist()
+                self.__clearDeleteFrame()
+        except ValueError:
+            if (self.userNumberToDelete.text() == ''):
+                return
+            self.invalidInput()
+            self.__clearDeleteFrame()
+
 
     def addClicked(self):
         tName = self.newName.text()
@@ -61,7 +71,7 @@ class AdminMenu(QWidget):
         self.__loadData()
 
     def changeClicked(self):
-        if (self.userNumberToChange.text() == ''):
+        if self.userNumberToChange.text() == '':
             return
         tNumber = int(self.userNumberToChange.text()) - 1
         tName = self.changedName.text()
@@ -74,9 +84,22 @@ class AdminMenu(QWidget):
         self.base.changeElement(tNewUser, tNumber)
         self.__loadData()
 
+    def completionFieldsInDeleteFrame(self):
+        try:
+            if len(self.base.showBaseDict()) >= int(self.userNumberToDelete.text()) and int(self.userNumberToDelete.text()) > 0:
+                tNumber = int(self.userNumberToDelete.text())
+            else:
+                self.userDoesntExist()
+                self.__clearDeletionFrame()
+        except ValueError:
+            if (self.userNumberToDelete.text() == ''):
+                return
+            self.invalidInput()
+            self.__clearDeletionFrame()
+
     def completionFieldsInChangeFrame(self):
         try:
-            if (len(self.base.showBaseDict()) >= int(self.userNumberToChange.text()) and int(self.userNumberToChange.text()) > 0):
+            if len(self.base.showBaseDict()) >= int(self.userNumberToChange.text()) and int(self.userNumberToChange.text()) > 0:
                 tNumber = int(self.userNumberToChange.text()) - 1
                 tName = self.base.showBaseDict()[tNumber]['Имя']
                 tSurname = self.base.showBaseDict()[tNumber]['Фамилия']
@@ -137,6 +160,9 @@ class AdminMenu(QWidget):
         self.newLogin.clear()
         self.newPassword.clear()
         self.newMail.clear()
+
+    def __clearDeletionFrame(self):
+        self.userNumberToDelete.clear()
 
         # self.deleteButton.clicked.connect(deleteInterface)
 
