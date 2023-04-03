@@ -1,3 +1,4 @@
+#
 import sys
 import os
 import pandas as pd
@@ -35,7 +36,7 @@ class AdminMenu(QWidget):
         self.showDeleteFrame()
         self.deletionButtonFrame.clicked.connect(lambda _: self.deletionFrame.hide())
         self.deletionButtonFrame.clicked.connect(self.deleteClicked)
-        self.changedButtonFrame.clicked.connect(self.__clearDeletionFrame)
+        self.deletionButtonFrame.clicked.connect(self.__clearDeletionFrame)
         self.userNumberToDelete.textChanged.connect(self.completionFieldsInDeleteFrame)
 
         self.showAddFrame()
@@ -55,17 +56,35 @@ class AdminMenu(QWidget):
         except ValueError:
             if (self.userNumberToDelete.text() == ''):
                 return
-            self.invalidInput()
+            self.__invalidInput()
             self.__clearDeleteFrame()
 
 
     def addClicked(self):
         tName = self.newName.text()
+        if (tName == ''):
+            self.__invalidInput()
+            return
         tSurname = self.newSurname.text()
+        if (tSurname == ''):
+            self.__invalidInput()
+            return
         tFatherName = self.newFatherName.text()
+        if (tFatherName == ''):
+            self.__invalidInput()
+            return
         tLogin = self.newLogin.text()
+        if (tLogin == ''):
+            self.__invalidInput()
+            return
         tPassword = self.newPassword.text()
+        if (tPassword == ''):
+            self.__invalidInput()
+            return
         tMail = self.newMail.text()
+        if (tMail == ''):
+            self.__invalidInput()
+            return
         tNewUser = User(tName, tSurname, tFatherName, tLogin, tPassword, tMail)
         self.base.addElement(tNewUser)
         self.__loadData()
@@ -75,11 +94,29 @@ class AdminMenu(QWidget):
             return
         tNumber = int(self.userNumberToChange.text()) - 1
         tName = self.changedName.text()
+        if (tName == ''):
+            self.__invalidInput()
+            return
         tSurname = self.changedSurname.text()
+        if (tSurname == ''):
+            self.__invalidInput()
+            return
         tFatherName = self.changedFatherName.text()
+        if (tFatherName == ''):
+            self.__invalidInput()
+            return
         tLogin = self.changedLogin.text()
+        if (tLogin == ''):
+            self.__invalidInput()
+            return
         tPassword = self.changedPassword.text()
+        if (tPassword == ''):
+            self.__invalidInput()
+            return
         tMail = self.changedMail.text()
+        if (tMail == ''):
+            self.__invalidInput()
+            return
         tNewUser = User(tName, tSurname, tFatherName, tLogin, tPassword, tMail)
         self.base.changeElement(tNewUser, tNumber)
         self.__loadData()
@@ -94,7 +131,7 @@ class AdminMenu(QWidget):
         except ValueError:
             if (self.userNumberToDelete.text() == ''):
                 return
-            self.invalidInput()
+            self.__invalidInput()
             self.__clearDeletionFrame()
 
     def completionFieldsInChangeFrame(self):
@@ -119,14 +156,14 @@ class AdminMenu(QWidget):
         except ValueError:
             if (self.userNumberToChange.text() == ''):
                 return
-            self.invalidInput()
+            self.__invalidInput()
             self.__clearChangingFrame()
 
     def userDoesntExist(self):
         self.msgbox = QMessageBox.warning(self, "Ошибка", "Пользователя не существует.", QMessageBox.StandardButton.Ok)
         
 
-    def invalidInput(self):
+    def __invalidInput(self):
         self.msgbox = QMessageBox.warning(self, "Ошибка", "Некорректный ввод.", QMessageBox.StandardButton.Ok)
         
     def showChangeFrame(self):
@@ -163,17 +200,6 @@ class AdminMenu(QWidget):
 
     def __clearDeletionFrame(self):
         self.userNumberToDelete.clear()
-
-        # self.deleteButton.clicked.connect(deleteInterface)
-
-
-
-
-
-        # self.deleteButton.clicked.connect(lambda _: self.number.show())
-
-    # def deleteInterface():
-    #         self.
 
     def __loadData(self):
         self.userTable.setRowCount(len(self.base.showBaseDict()))
