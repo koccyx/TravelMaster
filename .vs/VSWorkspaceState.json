@@ -1,6 +1,7 @@
 {
   "ExpandedNodes": [
     "",
+    "\\backend",
     "\\frontend"
   ],
   "SelectedNode": "\\frontend\\startWidget.py",

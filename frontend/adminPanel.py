@@ -4,6 +4,7 @@ import pandas as pd
 from PyQt6.QtWidgets import QVBoxLayout, QTableWidgetItem, QWidget
 from PyQt6 import uic
 from backend.base import Base
+from backend.user import User
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 
 
@@ -28,16 +29,47 @@ class AdminMenu(QWidget):
         self.changeButton.clicked.connect(lambda _: self.deleteFrame.hide())
         self.changeButton.clicked.connect(lambda _: self.addFrame.hide())
         self.changeFrameButton.clicked.connect(lambda _: self.changeFrame.hide())
+        self.changeFrameButton.clicked.connect(self.change_clicked)
 
         self.deleteButton.clicked.connect(lambda _: self.deleteFrame.show())
         self.deleteButton.clicked.connect(lambda _: self.addFrame.hide())
         self.deleteButton.clicked.connect(lambda _: self.changeFrame.hide())
         self.deleteFrameButton.clicked.connect(lambda _: self.deleteFrame.hide())
+        self.deleteFrameButton.clicked.connect(self.delete_clicked)
 
         self.addButton.clicked.connect(lambda _: self.addFrame.show())
         self.addButton.clicked.connect(lambda _: self.changeFrame.hide())
         self.addButton.clicked.connect(lambda _: self.deleteFrame.hide())
         self.addFrameButton.clicked.connect(lambda _: self.addFrame.hide())
+        self.addFrameButton.clicked.connect(self.add_clicked)
+
+    def delete_clicked(self):
+        num = int(self.change.text()) - 1
+        self.base.delElement(num)
+        self.__loadData()
+
+    def add_clicked(self):
+        tName = self.addName.text()
+        tSecondname = self.addsecondName.text()
+        tSurname = self.addSurName.text()
+        tLogin = self.addLogin.text()
+        tPassword = self.addPassword.text()
+        tMail = self.addMail.text()
+        tNewUser = User(tName, tSecondname, tSurname, tLogin, tPassword, tMail)
+        self.base.addElement(tNewUser)
+        self.__loadData()
+
+    def change_clicked(self):
+        tNumber = int(self.number.text()) - 1
+        tName = self.name.text()
+        tSecondname = self.lastName.text()
+        tSurname = self.surName.text()
+        tLogin = self.login.text()
+        tPassword = self.password.text()
+        tMail = self.mail.text()
+        tNewUser = User(tName, tSecondname, tSurname, tLogin, tPassword, tMail)
+        self.base.changeElement(tNewUser, tNumber)
+        self.__loadData()
 
         # self.deleteButton.clicked.connect(deleteInterface)
 
