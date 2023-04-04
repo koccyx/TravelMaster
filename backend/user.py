@@ -63,6 +63,9 @@ class User:
     def buyTicket(self, ticket):
         self.__ticketCart.append(ticket)
 
+    def getExactTicket(self, num):
+        return self.__ticketCart[num]
+
     def getTicketCart(self):
         return self.__ticketCart
 

@@ -1,4 +1,3 @@
-#
 import sys
 import os
 import pandas as pd
@@ -10,7 +9,6 @@ sys.path.insert(1, os.path.join(sys.path[0], '..'))
 
 
 class AdminMenu(QWidget):
-
     def __init__(self):
         super().__init__()
         uic.loadUi('frontend/ui/adminMenu.ui', self)
@@ -51,7 +49,7 @@ class AdminMenu(QWidget):
                 self.base.delElement(tNumber)
                 self.__loadData()
             else:
-                self.userDoesntExist()
+                self.__userDoesntExist()
                 self.__clearDeleteFrame()
         except ValueError:
             if (self.userNumberToDelete.text() == ''):
@@ -126,7 +124,7 @@ class AdminMenu(QWidget):
             if len(self.base.showBaseDict()) >= int(self.userNumberToDelete.text()) and int(self.userNumberToDelete.text()) > 0:
                 tNumber = int(self.userNumberToDelete.text())
             else:
-                self.userDoesntExist()
+                self.__userDoesntExist()
                 self.__clearDeletionFrame()
         except ValueError:
             if (self.userNumberToDelete.text() == ''):
@@ -151,7 +149,7 @@ class AdminMenu(QWidget):
                 self.changedPassword.setText(tPassword)
                 self.changedMail.setText(tMail)
             else:
-                self.userDoesntExist()
+                self.__userDoesntExist()
                 self.__clearChangingFrame()
         except ValueError:
             if (self.userNumberToChange.text() == ''):
@@ -161,11 +159,11 @@ class AdminMenu(QWidget):
 
     def userDoesntExist(self):
         self.msgbox = QMessageBox.warning(self, "Ошибка", "Пользователя не существует.", QMessageBox.StandardButton.Ok)
-        
+
 
     def __invalidInput(self):
         self.msgbox = QMessageBox.warning(self, "Ошибка", "Некорректный ввод.", QMessageBox.StandardButton.Ok)
-        
+
     def showChangeFrame(self):
         self.changedButton.clicked.connect(lambda _: self.changedFrame.show())
         self.changedButton.clicked.connect(lambda _: self.deletionFrame.hide())
@@ -208,7 +206,7 @@ class AdminMenu(QWidget):
                 self.userTable.setItem(row, 0, QTableWidgetItem(person.get('Имя', 'Данные отсутствуют')))
                 self.userTable.setItem(row, 1, QTableWidgetItem(person.get('Фамилия', 'Данные отсутствуют')))
                 self.userTable.setItem(row, 2, QTableWidgetItem(person.get('Отчество', 'Данные отсутствуют')))
-                self.userTable.setItem(row, 3, QTableWidgetItem(person.get('login', 'Данные отсутствуют')))
-                self.userTable.setItem(row, 4, QTableWidgetItem(person.get('Пароль', 'Данные отсутствуют')))
-                self.userTable.setItem(row, 5, QTableWidgetItem(person.get('E-mail', 'Данные отсутствуют')))
+                self.userTable.setItem(row, 3, QTableWidgetItem(person.get('E-mail', 'Данные отсутствуют')))
+                self.userTable.setItem(row, 4, QTableWidgetItem(person.get('login', 'Данные отсутствуют')))
+                self.userTable.setItem(row, 5, QTableWidgetItem(person.get('Пароль', 'Данные отсутствуют')))
                 row += 1

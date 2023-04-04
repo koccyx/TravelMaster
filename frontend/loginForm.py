@@ -4,6 +4,7 @@ from PyQt6.QtWidgets import  QWidget, QLineEdit
 from PyQt6 import uic
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from backend.base import Base
+from userPanel import UserMenu
 import pandas as pd
 
 
@@ -16,6 +17,12 @@ class LoginFrom(QWidget):
         self.setWindowTitle('Вход')
         self.passwordInput.setEchoMode(QLineEdit.EchoMode.Password)
         self.inputButton.clicked.connect(self.checkLogin)
+        self.inputButton.clicked.connect(self.openUserPanel)
+
+    def openUserPanel(self):
+        self.userPanel = UserMenu()
+        self.userPanel.show()
+        self.close()
 
     def checkLogin(self):
 
