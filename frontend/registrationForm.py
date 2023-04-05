@@ -5,6 +5,7 @@ from PyQt6 import uic
 import pandas as pd
 from backend.user import User
 from backend.base import Base
+from backend.userBase import UserBase
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 
 
@@ -19,9 +20,8 @@ class RegistrationFrom(QWidget):
     def createNewUser(self):
         newUser = User(self.nameInput.text(), self.secondNameInput.text(), self.surnameInput.text(), self.loginInput.text(), self.passwordInput.text(), self.emailInput.text())
 
-        tempBase = Base('backend/data/users.xlsx')
+        tempBase = UserBase()
 
-        # temp = pd.read_excel('backend/data/users.xlsx', index_col=0).to_dict('records')
 
         for user in tempBase.showBaseDict():
             if user['Имя'] == self.nameInput.text() and user['Фамилия'] == self.secondNameInput.text() and user['Отчество'] == self.nameInput.text():

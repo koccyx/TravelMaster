@@ -1,17 +1,17 @@
 import datetime as dt
 from user import User
-from base import Base
+import pandas as pd
+from ticketBase import TicketBase
 
 
 class Ticket:
-    def __init__(self, id, beginPoint, endPoint, price, startYear, startMonth, startDay, startHours, startMins, endYear, endMonth, endDay, endHours, endMins):
+    def __init__(self, id, beginPoint, endPoint, price, date): #write date like(Y/M/D/H/Min)
         self.__id = id
         self.__beginPoint = beginPoint
         self.__endPoint = endPoint
         self.__price = price
-        self.__dateStart = dt.datetime(startYear, startMonth, startDay, startHours, startMins)
-        self.__dateEnd = dt.datetime(endYear, endMonth, endDay, endHours, endMins)
-        self._tickets = []
+        date = date.split('/')
+        self.__date = dt.datetime(int(date[0]), int(date[1]), int(date[2]), int(date[3]), int(date[4]))
 
 
     @property
@@ -46,23 +46,24 @@ class Ticket:
     def beginPoint(self, beginPoint):
         self.__beginPoint = beginPoint
 
-
     def createDict(self):
         return {'id': self.__id,
                 'Начало маршрута' : self.__beginPoint,
                 'Конец маршрута' : self.__endPoint,
-                'Цена' : self.__price}
+                'Цена' : self.__price,
+                'Дата' : (f'{self.__date.year}/{self.__date.month}/{self.__date.day}/{self.__date.hour}/{self.__date.minute}')}
 
 
 
 if __name__ == '__main__':
-    a = Ticket(1, 'Klg', 'Rostov', 3000, 2010, 4, 10, 10, 10, 2010, 4, 12, 12, 20)
-    base = Base('data/tickets.xlsx')
-    base.addElement(a.createDict())
+    a = Ticket(2, 'Klg', 'RostovSkiRaen', 3000, '2010/4/10/12/35')
+    print(a.createDict().get('Дата').split('/'))
+    base = TicketBase()
+
+    # temp = pd.read_excel('backend/data/tickets.xlsx', index_col=0).to_dict('records')
+    # print(temp[0].get('Дата').split('/'))
+
+    base.addElement(a)
     print(base.showBaseDict())
     a.price = 500
     alex = User('Alex', 'hiam', 'alexov', 'alex1', 'alex2', 'alex@mail.ru')
-    # alex.buyTicket(a)
-    # print(alex.getExactTicket(0).price)
-    # a.price = 9000
-    # print(a.date)
