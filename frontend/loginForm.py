@@ -3,10 +3,10 @@ import os
 from PyQt6.QtWidgets import  QWidget, QLineEdit
 from PyQt6 import uic
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
-from backend.base import Base
+from backend.user import User
 from backend.userBase import UserBase
 from userPanel import UserMenu
-import pandas as pd
+
 
 
 
@@ -17,14 +17,14 @@ class LoginFrom(QWidget):
         uic.loadUi('frontend/ui/LoginForm.ui', self)
         self.setWindowTitle('Вход')
         self.passwordInput.setEchoMode(QLineEdit.EchoMode.Password)
-        self.inputButton.clicked.connect(self.checkLogin)
+        self.inputButton.clicked.connect(self.__checkLogin)
 
-    def openUserPanel(self):
-        self.userPanel = UserMenu()
+    def __openUserPanel(self, user):
+        self.userPanel = UserMenu(user)
         self.userPanel.show()
         self.close()
 
-    def checkLogin(self):
+    def __checkLogin(self):
 
         tempBase = UserBase()
 
@@ -32,7 +32,9 @@ class LoginFrom(QWidget):
             if user['login'] == self.loginInput.text() and user['Пароль'] == self.passwordInput.text():
                 self.errorLabel1.setText('Отлично')
                 self.errorLabel2.setText('')
-                self.inputButton.clicked.connect(self.openUserPanel)
+                for tempUser in tempBase.objecBase:
+                    if tempUser.login == user['login'] and tempUser.password == user['Пароль']:
+                        self.__openUserPanel(tempUser)
                 return
             elif user['login'] == self.loginInput.text() and user['Пароль'] != self.passwordInput.text():
                 self.errorLabel1.setText('Вы ввели')

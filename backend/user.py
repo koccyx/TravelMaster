@@ -11,6 +11,7 @@ class User:
         self.__password = password
         self.__ticketCart = []
 
+
     @property
     def firstName(self):
         return self.__firstName
@@ -66,8 +67,16 @@ class User:
     def getExactTicket(self, num):
         return self.__ticketCart[num]
 
-    def getTicketCart(self):
+    def showTicketCartDict(self):
+        self.__ticketCartDict = []
+        for ticket in self.__ticketCart:
+            self.__ticketCartDict.append(ticket.createDict())
+        return self.__ticketCartDict
+
+    @property
+    def ticketCart(self):
         return self.__ticketCart
+
 
     def createDict(self):
         return {'Имя' :self.__firstName,

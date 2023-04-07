@@ -1,7 +1,5 @@
 import datetime as dt
-from user import User
 import pandas as pd
-from ticketBase import TicketBase
 
 
 class Ticket:
@@ -12,6 +10,15 @@ class Ticket:
         self.__price = price
         date = date.split('/')
         self.__date = dt.datetime(int(date[0]), int(date[1]), int(date[2]), int(date[3]), int(date[4]))
+
+    @property
+    def id(self):
+        return self.__id
+
+    @id.setter
+    def date(self, id):
+        self.__id = id
+
 
 
     @property

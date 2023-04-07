@@ -4,8 +4,8 @@ from PyQt6.QtWidgets import QWidget, QLineEdit
 from PyQt6 import uic
 import pandas as pd
 from backend.user import User
-from backend.base import Base
 from backend.userBase import UserBase
+from userPanel import UserMenu
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 
 
@@ -16,6 +16,12 @@ class RegistrationFrom(QWidget):
         self.setWindowTitle('Регистрация')
         self.passwordInput.setEchoMode(QLineEdit.EchoMode.Password)
         self.registrationButton.clicked.connect(self.createNewUser)#passwordInput.text()
+
+    def openUserPanel(self):
+        self.userPanel = UserMenu()
+        self.userPanel.show()
+        self.close()
+
 
     def createNewUser(self):
         newUser = User(self.nameInput.text(), self.secondNameInput.text(), self.surnameInput.text(), self.loginInput.text(), self.passwordInput.text(), self.emailInput.text())
@@ -41,6 +47,7 @@ class RegistrationFrom(QWidget):
                 return
 
         tempBase.addElement(newUser)
+        self.openUserPanel()
         print('registration confirmed')
 
 
