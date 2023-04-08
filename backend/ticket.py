@@ -20,7 +20,6 @@ class Ticket:
         self.__id = id
 
 
-
     @property
     def date(self):
         return self.__date

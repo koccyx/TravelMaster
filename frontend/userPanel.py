@@ -21,24 +21,46 @@ class UserMenu(QWidget):
 
         self.ticketBase = TicketBase()
 
-        self.__loadData()
+        self.__loadTicketData()
 
         self.buyFrame.hide()
+
+        self.pdfFrame.hide()
+        self.delFrame.hide()
 
         self.buyButton.clicked.connect(lambda _ : self.buyFrame.show())
 
         self.frameBuyButton.clicked.connect(self.__ticketBuy)
 
+        self.pdfButton.clicked.connect(self.__showPdfFrame)
+        self.delButton.clicked.connect(self.__showDelFrame)
+
+        self.delFrameButton.clicked.connect(self.__ticketDel)
+
+    def __showDelFrame(self):
+        self.pdfFrame.hide()
+        self.delFrame.show()
+
+    def __showPdfFrame(self):
+        self.delFrame.hide()
+        self.pdfFrame.show()
+
     def __ticketBuy(self):
         for ticket in self.ticketBase.objectBase:
             if int(ticket.id) == int(self.buyLine.text()):
-                print('yep')
                 self.user.buyTicket(ticket)
+        self.__loadTicketCartData()
         print(self.user.ticketCart)
 
 
+    def __ticketDel(self):
+        for i in range(len(self.user.ticketCart)):
+            if int(self.delLine.text()) == int(self.user.ticketCart[i].id):
+                self.user.delTicket(i)
+                break
+        self.__loadTicketCartData()
 
-    def __loadData(self):
+    def __loadTicketData(self):
         self.ticketTable.setRowCount(len(self.ticketBase.showBaseDict()))
         row = 0
         for ticket in self.ticketBase.showBaseDict():
@@ -48,6 +70,18 @@ class UserMenu(QWidget):
                 self.ticketTable.setItem(row, 2, QTableWidgetItem(ticket.get('Конец маршрута', 'Данные отсутствуют')))
                 self.ticketTable.setItem(row, 3, QTableWidgetItem(ticket.get('Дата', 'Данные отсутствуют')))
                 self.ticketTable.setItem(row, 4, QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют'))))
+                row += 1
+
+    def __loadTicketCartData(self):
+        self.ticketCartTable.setRowCount(len(self.user.showTicketCartDict()))
+        row = 0
+        for ticket in self.user.showTicketCartDict():
+                print(ticket)
+                self.ticketCartTable.setItem(row, 0, QTableWidgetItem(str(ticket.get('id', 'Данные отсутствуют'))))
+                self.ticketCartTable.setItem(row, 1, QTableWidgetItem(ticket.get('Начало маршрута', 'Данные отсутствуют')))
+                self.ticketCartTable.setItem(row, 2, QTableWidgetItem(ticket.get('Конец маршрута', 'Данные отсутствуют')))
+                self.ticketCartTable.setItem(row, 3, QTableWidgetItem(ticket.get('Дата', 'Данные отсутствуют')))
+                self.ticketCartTable.setItem(row, 4, QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют'))))
                 row += 1
 
 
