@@ -25,24 +25,13 @@ class AdminMenu(QWidget):
         self.deletionFrame.hide()
         self.additionFrame.hide()
 
-        self.showChangeFrame()
-        self.changedButtonFrame.clicked.connect(lambda _: self.changedFrame.hide())
-        self.changedButtonFrame.clicked.connect(self.changeClicked)
-        self.changedButtonFrame.clicked.connect(self.__clearChangingFrame)
-        self.userNumberToChange.textChanged.connect(self.completionFieldsInChangeFrame)
+        self.__showChangeFrame()
 
-        self.showDeleteFrame()
-        self.deletionButtonFrame.clicked.connect(lambda _: self.deletionFrame.hide())
-        self.deletionButtonFrame.clicked.connect(self.deleteClicked)
-        self.deletionButtonFrame.clicked.connect(self.__clearDeletionFrame)
-        self.userNumberToDelete.textChanged.connect(self.completionFieldsInDeleteFrame)
+        self.__showDeleteFrame()
 
-        self.showAddFrame()
-        self.additionButtonFrame.clicked.connect(lambda _: self.additionFrame.hide())
-        self.additionButtonFrame.clicked.connect(self.addClicked)
-        self.additionButtonFrame.clicked.connect(self.__clearAdditionFrame)
+        self.__showAddFrame()
 
-    def deleteClicked(self):
+    def __deleteClicked(self):
         try:
             if len(self.base.showBaseDict()) >= int(self.userNumberToDelete.text()) and int(self.userNumberToDelete.text()) > 0:
                 tNumber = int(self.userNumberToDelete.text()) - 1
@@ -50,15 +39,15 @@ class AdminMenu(QWidget):
                 self.__loadData()
             else:
                 self.__userDoesntExist()
-                self.__clearDeleteFrame()
+                self.__clearDeletionFrame()
         except ValueError:
             if (self.userNumberToDelete.text() == ''):
                 return
             self.__invalidInput()
-            self.__clearDeleteFrame()
+            self.__clearDeletionFrame()
 
 
-    def addClicked(self):
+    def __addClicked(self):
         tName = self.newName.text()
         if (tName == ''):
             self.__invalidInput()
@@ -87,7 +76,7 @@ class AdminMenu(QWidget):
         self.base.addElement(tNewUser)
         self.__loadData()
 
-    def changeClicked(self):
+    def __changeClicked(self):
         if self.userNumberToChange.text() == '':
             return
         tNumber = int(self.userNumberToChange.text()) - 1
@@ -119,20 +108,7 @@ class AdminMenu(QWidget):
         self.base.changeElement(tNewUser, tNumber)
         self.__loadData()
 
-    def completionFieldsInDeleteFrame(self):
-        try:
-            if len(self.base.showBaseDict()) >= int(self.userNumberToDelete.text()) and int(self.userNumberToDelete.text()) > 0:
-                tNumber = int(self.userNumberToDelete.text())
-            else:
-                self.__userDoesntExist()
-                self.__clearDeletionFrame()
-        except ValueError:
-            if (self.userNumberToDelete.text() == ''):
-                return
-            self.__invalidInput()
-            self.__clearDeletionFrame()
-
-    def completionFieldsInChangeFrame(self):
+    def __completionFieldsInChangeFrame(self):
         try:
             if len(self.base.showBaseDict()) >= int(self.userNumberToChange.text()) and int(self.userNumberToChange.text()) > 0:
                 tNumber = int(self.userNumberToChange.text()) - 1
@@ -157,27 +133,37 @@ class AdminMenu(QWidget):
             self.__invalidInput()
             self.__clearChangingFrame()
 
-    def userDoesntExist(self):
+    def __userDoesntExist(self):
         self.msgbox = QMessageBox.warning(self, "Ошибка", "Пользователя не существует.", QMessageBox.StandardButton.Ok)
 
 
     def __invalidInput(self):
         self.msgbox = QMessageBox.warning(self, "Ошибка", "Некорректный ввод.", QMessageBox.StandardButton.Ok)
 
-    def showChangeFrame(self):
+    def __showChangeFrame(self):
         self.changedButton.clicked.connect(lambda _: self.changedFrame.show())
         self.changedButton.clicked.connect(lambda _: self.deletionFrame.hide())
         self.changedButton.clicked.connect(lambda _: self.additionFrame.hide())
+        self.changedButtonFrame.clicked.connect(lambda _: self.changedFrame.hide())
+        self.changedButtonFrame.clicked.connect(self.__changeClicked)
+        self.changedButtonFrame.clicked.connect(self.__clearChangingFrame)
+        self.userNumberToChange.textChanged.connect(self.__completionFieldsInChangeFrame)
 
-    def showDeleteFrame(self):
+    def __showDeleteFrame(self):
         self.deletionButton.clicked.connect(lambda _: self.deletionFrame.show())
         self.deletionButton.clicked.connect(lambda _: self.additionFrame.hide())
         self.deletionButton.clicked.connect(lambda _: self.changedFrame.hide())
+        self.deletionButtonFrame.clicked.connect(lambda _: self.deletionFrame.hide())
+        self.deletionButtonFrame.clicked.connect(self.__deleteClicked)
+        self.deletionButtonFrame.clicked.connect(self.__clearDeletionFrame)
 
-    def showAddFrame(self):
+    def __showAddFrame(self):
         self.additionButton.clicked.connect(lambda _: self.additionFrame.show())
         self.additionButton.clicked.connect(lambda _: self.changedFrame.hide())
         self.additionButton.clicked.connect(lambda _: self.deletionFrame.hide())
+        self.additionButtonFrame.clicked.connect(lambda _: self.additionFrame.hide())
+        self.additionButtonFrame.clicked.connect(self.__addClicked)
+        self.additionButtonFrame.clicked.connect(self.__clearAdditionFrame)
 
     def __clearChangingFrame(self):
         self.userNumberToChange.clear()

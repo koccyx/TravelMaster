@@ -10,6 +10,7 @@ class TicketBase(Base):
     @property
     def objectBase(self):
         return self.__objectBase
+
     
 
 if __name__ == '__main__':

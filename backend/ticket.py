@@ -48,9 +48,9 @@ class Ticket:
     def beginPoint(self):
         return self.__beginPoint
 
-    @beginPoint.setter
-    def beginPoint(self, beginPoint):
-        self.__beginPoint = beginPoint
+    @beginPoint.getter
+    def beginPoint(self):
+        return self.__beginPoint
 
     def createDict(self):
         return {'id': self.__id,
