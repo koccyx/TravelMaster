@@ -145,14 +145,36 @@ class UserMenu(QWidget):
     
         
     def __filterByPrice(self):
-        if (self.downtoPriceFilter.text() == '' or self.uptoPriceFilter.text() == ''):
-            return
-        i = 0
-        while i < len(self.ticketBase.showBaseDict()):
-            if not(int(self.downtoPriceFilter.text()) <= int(self.ticketBase.showBaseDict()[i]['Цена']) <= int(self.uptoPriceFilter.text())):
-                del self.ticketBase.showBaseDict()[i]
+        if (self.downtoPriceFilter.text() == '' and self.uptoPriceFilter.text() == ''):
+                return
+
+        try:
+            if (self.downtoPriceFilter.text() != '' and self.uptoPriceFilter.text() != ''):
+                i = 0
+                while i < len(self.ticketBase.showBaseDict()):
+                    if not(int(self.downtoPriceFilter.text()) <= int(self.ticketBase.showBaseDict()[i]['Цена']) <= int(self.uptoPriceFilter.text())):
+                        del self.ticketBase.showBaseDict()[i]
+                    else:
+                        i += 1
+            elif (self.downtoPriceFilter.text() != ''):
+                i = 0
+                while i < len(self.ticketBase.showBaseDict()):
+                    if int(self.downtoPriceFilter.text()) > int(self.ticketBase.showBaseDict()[i]['Цена']):
+                        del self.ticketBase.showBaseDict()[i]
+                    else:
+                        i += 1
             else:
-                i += 1
+                i = 0
+                while i < len(self.ticketBase.showBaseDict()):
+                    if int(self.ticketBase.showBaseDict()[i]['Цена']) > int(self.uptoPriceFilter.text()):
+                        del self.ticketBase.showBaseDict()[i]
+                    else:
+                        i += 1
+        except ValueError:
+            self.downtoPriceFilter.clear()
+            self.uptoPriceFilter.clear()
+            self.returnTicketID.clear()
+            self.__invalidInput()
 
     def __pdfButtonClicked(self):
         try:
