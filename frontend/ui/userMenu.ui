@@ -104,7 +104,7 @@
          </column>
          <column>
           <property name="text">
-           <string>Дата</string>
+           <string>Время</string>
           </property>
          </column>
          <column>
@@ -162,9 +162,9 @@
     <widget class="QFrame" name="buyFrame">
      <property name="geometry">
       <rect>
-       <x>270</x>
-       <y>320</y>
-       <width>361</width>
+       <x>320</x>
+       <y>300</y>
+       <width>191</width>
        <height>141</height>
       </rect>
      </property>
@@ -174,48 +174,126 @@
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QPushButton" name="buyButton">
-      <property name="geometry">
-       <rect>
-        <x>60</x>
-        <y>60</y>
-        <width>121</width>
-        <height>28</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Купить</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="buyTicketID">
-      <property name="geometry">
-       <rect>
-        <x>150</x>
-        <y>35</y>
-        <width>31</width>
-        <height>21</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label">
-      <property name="geometry">
-       <rect>
-        <x>64</x>
-        <y>39</y>
-        <width>91</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>ID Билета</string>
-      </property>
-     </widget>
+     <layout class="QVBoxLayout" name="verticalLayout_5">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="minimumSize">
+           <size>
+            <width>50</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>50</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>ID Билета</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="buyTicketID">
+          <property name="maximumSize">
+           <size>
+            <width>20</width>
+            <height>16777215</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_9">
+        <item>
+         <widget class="QLabel" name="label_10">
+          <property name="minimumSize">
+           <size>
+            <width>50</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>50</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Месяц</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="buyMonth">
+          <property name="maximumSize">
+           <size>
+            <width>20</width>
+            <height>16777215</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_10">
+        <item>
+         <widget class="QLabel" name="label_11">
+          <property name="minimumSize">
+           <size>
+            <width>50</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>50</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>День</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="buyDay">
+          <property name="maximumSize">
+           <size>
+            <width>20</width>
+            <height>16777215</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QPushButton" name="buyButton">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Купить</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
     <widget class="QFrame" name="filterFrame">
      <property name="geometry">
       <rect>
-       <x>19</x>
-       <y>289</y>
+       <x>-40</x>
+       <y>290</y>
        <width>771</width>
        <height>181</height>
       </rect>
@@ -413,6 +491,11 @@
          <column>
           <property name="text">
            <string>Дата</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Время</string>
           </property>
          </column>
          <column>

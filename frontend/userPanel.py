@@ -5,6 +5,7 @@ from PyQt6.QtWidgets import QVBoxLayout, QTableWidgetItem, QWidget, QMessageBox
 from PyQt6 import uic
 from backend.ticketBase import TicketBase
 from backend.user import User
+import datetime
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 
 
@@ -33,7 +34,7 @@ class UserMenu(QWidget):
 
         self.pdfButtonFrame.clicked.connect(self.__showPdfFrame)
         self.pdfButton.clicked.connect(self.__pdfButtonClicked)
-        
+
         self.returnButtonFrame.clicked.connect(self.__showReturnFrame)
         self.returnButton.clicked.connect(self.__ticketReturnButtonClicked)
 
@@ -115,7 +116,7 @@ class UserMenu(QWidget):
                 del self.ticketBase.showBaseDict()[i]
             else:
                 i += 1
-                
+
     def __filterByDestination(self):
         if (self.destinationText.text() == ''):
             return
@@ -142,8 +143,8 @@ class UserMenu(QWidget):
                 del self.ticketBase.showBaseDict()[i]
             else:
                 i += 1
-    
-        
+
+
     def __filterByPrice(self):
         if (self.downtoPriceFilter.text() == '' and self.uptoPriceFilter.text() == ''):
                 return
@@ -190,7 +191,7 @@ class UserMenu(QWidget):
         except  ValueError:
             self.pdfTicketID.clear()
             self.__invalidInput()
-        
+
 
     def __ticketBuyButtonClicked(self):
         try:
@@ -204,6 +205,7 @@ class UserMenu(QWidget):
                 return
             for ticket in self.ticketBase.objectBase:
                 if int(ticket.id) == int(self.buyTicketID.text()):
+                    ticket.exactDay = [self.buyMonth.text(), self.buyDay.text()]
                     self.user.buyTicket(ticket)
             self.__loadTicketCartData()
             print(self.user.ticketCart)
@@ -244,7 +246,7 @@ class UserMenu(QWidget):
                 self.ticketTable.setItem(row, 0, QTableWidgetItem(str(ticket.get('id', 'Данные отсутствуют'))))
                 self.ticketTable.setItem(row, 1, QTableWidgetItem(ticket.get('Начало маршрута', 'Данные отсутствуют')))
                 self.ticketTable.setItem(row, 2, QTableWidgetItem(ticket.get('Конец маршрута', 'Данные отсутствуют')))
-                self.ticketTable.setItem(row, 3, QTableWidgetItem(ticket.get('Дата', 'Данные отсутствуют')))
+                self.ticketTable.setItem(row, 3, QTableWidgetItem(str(ticket.get('Время', 'Данные отсутствуют'))))
                 self.ticketTable.setItem(row, 4, QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют'))))
                 row += 1
 
@@ -256,8 +258,9 @@ class UserMenu(QWidget):
                 self.ticketCartTable.setItem(row, 0, QTableWidgetItem(str(ticket.get('id', 'Данные отсутствуют'))))
                 self.ticketCartTable.setItem(row, 1, QTableWidgetItem(ticket.get('Начало маршрута', 'Данные отсутствуют')))
                 self.ticketCartTable.setItem(row, 2, QTableWidgetItem(ticket.get('Конец маршрута', 'Данные отсутствуют')))
-                self.ticketCartTable.setItem(row, 3, QTableWidgetItem(ticket.get('Дата', 'Данные отсутствуют')))
-                self.ticketCartTable.setItem(row, 4, QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют'))))
+                self.ticketCartTable.setItem(row, 3, QTableWidgetItem(str('/'.join([str(self.ticketBase.objectBase[row].exactDay).split(':')[0], str(self.ticketBase.objectBase[row].exactDay).split(':')[1]]))))
+                self.ticketCartTable.setItem(row, 4, QTableWidgetItem(str(ticket.get('Время', 'Данные отсутствуют'))))
+                self.ticketCartTable.setItem(row, 5 , QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют'))))
                 row += 1
 
 

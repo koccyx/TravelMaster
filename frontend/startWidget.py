@@ -6,15 +6,17 @@ from adminPanel import AdminMenu
 
 class myApp(QWidget):
     def __init__(self):
-        super().__init__() 
+        super().__init__()
         uic.loadUi('frontend/ui/check.ui', self)
         self.setWindowTitle('Вид работы c программой')
+
+
         self.userButton.clicked.connect(self.openRoLWindow)
         self.adminButton.clicked.connect(self.openAdminPanel)
 
     def openRoLWindow(self):
         self.registrationWidget = RegistrationOrLogin()
-        self.registrationWidget.show()  
+        self.registrationWidget.show()
         self.close()
 
     def openAdminPanel(self):
