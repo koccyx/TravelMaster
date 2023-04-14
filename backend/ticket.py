@@ -10,6 +10,7 @@ class Ticket:
         self.__price = price
         self.__date = dt.time(hour=hours, minute=minutes)
         self.__exactDay = dt.date(year=2023,month=1, day=1)
+        self.__place = ''
 
     @property
     def exactDay(self):
@@ -35,6 +36,13 @@ class Ticket:
     def date(self, id):
         self.__id = id
 
+    @property
+    def place(self):
+        return self.__place
+
+    @place.setter
+    def date(self, place):
+        self.__place = place
 
     @property
     def beginPoint (self):

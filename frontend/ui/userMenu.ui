@@ -503,6 +503,11 @@
            <string>Цена</string>
           </property>
          </column>
+         <column>
+          <property name="text">
+           <string>Тип места</string>
+          </property>
+         </column>
         </widget>
        </item>
        <item>
