@@ -225,7 +225,7 @@ class UserMenu(QWidget):
                 self.ticketCartTable.setItem(row, 0, QTableWidgetItem(str(ticket.get('id', 'Данные отсутствуют'))))
                 self.ticketCartTable.setItem(row, 1, QTableWidgetItem(ticket.get('Начало маршрута', 'Данные отсутствуют')))
                 self.ticketCartTable.setItem(row, 2, QTableWidgetItem(ticket.get('Конец маршрута', 'Данные отсутствуют')))
-                self.ticketCartTable.setItem(row, 3, QTableWidgetItem(str('/'.join([str(self.ticketBase.objectBase[row].exactDay).split(':')[0], str(self.ticketBase.objectBase[row].exactDay).split(':')[1]]))))
+                self.ticketCartTable.setItem(row, 3, QTableWidgetItem(str('/'.join([str(self.ticketBase.objectBase[row].exactDay).split('-')[1], str(self.ticketBase.objectBase[row].exactDay).split('-')[2]]))))
                 self.ticketCartTable.setItem(row, 4, QTableWidgetItem(str(ticket.get('Время', 'Данные отсутствуют'))))
                 self.ticketCartTable.setItem(row, 5 , QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют'))))
                 row += 1

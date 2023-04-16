@@ -18,7 +18,7 @@ class Ticket:
 
     @exactDay.setter
     def exactDay(self,date):
-        self.__exactDay = dt.time(hour=int(date[0]), minute=int(date[1]))
+        self.__exactDay = dt.date(year=2023,month=int(date[0]), day=int(date[1]))
 
     @property
     def date(self):
@@ -26,7 +26,7 @@ class Ticket:
 
     @date.setter
     def date(self,time):
-        self.__date = dt.date(hour=int(time[0]), minute=int(time[1]))
+        self.__date = dt.time(hour=int(time[0]), minute=int(time[1]))
 
     @property
     def id(self):
