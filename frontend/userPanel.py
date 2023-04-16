@@ -214,7 +214,8 @@ class UserMenu(QWidget):
                 self.ticketTable.setItem(row, 2, QTableWidgetItem(ticket.get('Конец маршрута', 'Данные отсутствуют')))
                 self.ticketTable.setItem(row, 3, QTableWidgetItem(str(ticket.get('Время', 'Данные отсутствуют'))))
                 self.ticketTable.setItem(row, 4, QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют'))))
-                self.ticketTable.setItem(row, 5, QTableWidgetItem(str(ticket.get('Тип билета', 'Данные отсутствуют'))))
+                self.ticketTable.setItem(row, 5 , QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют')*2)))
+                self.ticketTable.setItem(row, 6 , QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют')*3)))
                 row += 1
 
     def __loadTicketCartData(self):
