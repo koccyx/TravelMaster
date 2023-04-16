@@ -220,6 +220,12 @@
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_9">
+        <property name="spacing">
+         <number>65</number>
+        </property>
+        <property name="rightMargin">
+         <number>15</number>
+        </property>
         <item>
          <widget class="QLabel" name="label_10">
           <property name="minimumSize">
@@ -240,19 +246,18 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="buyMonth">
-          <property name="maximumSize">
-           <size>
-            <width>20</width>
-            <height>16777215</height>
-           </size>
-          </property>
-         </widget>
+         <widget class="QSpinBox" name="monthSpinBox"/>
         </item>
        </layout>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_10">
+        <property name="spacing">
+         <number>65</number>
+        </property>
+        <property name="rightMargin">
+         <number>15</number>
+        </property>
         <item>
          <widget class="QLabel" name="label_11">
           <property name="minimumSize">
@@ -273,14 +278,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="buyDay">
-          <property name="maximumSize">
-           <size>
-            <width>20</width>
-            <height>16777215</height>
-           </size>
-          </property>
-         </widget>
+         <widget class="QSpinBox" name="daySpinBox"/>
         </item>
        </layout>
       </item>
@@ -317,13 +315,19 @@
      <widget class="QWidget" name="horizontalLayoutWidget">
       <property name="geometry">
        <rect>
-        <x>210</x>
+        <x>200</x>
         <y>10</y>
-        <width>321</width>
-        <height>176</height>
+        <width>391</width>
+        <height>189</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <property name="spacing">
+        <number>20</number>
+       </property>
+       <property name="sizeConstraint">
+        <enum>QLayout::SetDefaultConstraint</enum>
+       </property>
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_4">
          <property name="spacing">
@@ -349,13 +353,6 @@
          <item>
           <widget class="QLabel" name="label_4">
            <property name="text">
-            <string>Дата (день/месяц)</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_5">
-           <property name="text">
             <string>Цена</string>
            </property>
           </widget>
@@ -365,13 +362,13 @@
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <property name="spacing">
-          <number>17</number>
+          <number>37</number>
          </property>
          <property name="topMargin">
-          <number>9</number>
+          <number>18</number>
          </property>
          <property name="bottomMargin">
-          <number>18</number>
+          <number>25</number>
          </property>
          <item>
           <widget class="QLineEdit" name="departureText"/>
@@ -380,17 +377,10 @@
           <widget class="QLineEdit" name="destinationText"/>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_7">
-           <item>
-            <widget class="QSpinBox" name="dayFilterSpinbox"/>
-           </item>
-           <item>
-            <widget class="QSpinBox" name="monthFilterSpinbox"/>
-           </item>
-          </layout>
-         </item>
-         <item>
           <layout class="QHBoxLayout" name="horizontalLayout_8">
+           <property name="spacing">
+            <number>26</number>
+           </property>
            <item>
             <widget class="QLabel" name="label_9">
              <property name="text">
@@ -420,7 +410,7 @@
      <widget class="QPushButton" name="applyFilterButton">
       <property name="geometry">
        <rect>
-        <x>550</x>
+        <x>620</x>
         <y>100</y>
         <width>141</width>
         <height>28</height>
@@ -433,7 +423,7 @@
      <widget class="QPushButton" name="cancelFilterButton">
       <property name="geometry">
        <rect>
-        <x>550</x>
+        <x>620</x>
         <y>50</y>
         <width>141</width>
         <height>28</height>
@@ -442,6 +432,36 @@
       <property name="text">
        <string>Отменить фильрацию</string>
       </property>
+     </widget>
+     <widget class="QComboBox" name="comboBox">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>150</y>
+        <width>91</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string/>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>плацкарта</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>купе</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>СВ</string>
+       </property>
+      </item>
      </widget>
     </widget>
     <zorder>splitter</zorder>

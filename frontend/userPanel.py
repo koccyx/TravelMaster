@@ -31,6 +31,11 @@ class UserMenu(QWidget):
 
         self.buyButtonFrame.clicked.connect(self.__showBuyFrame)
         self.buyButton.clicked.connect(self.__ticketBuyButtonClicked)
+        self.monthSpinBox.setMinimum(1)
+        self.daySpinBox.setMinimum(1)
+        self.monthSpinBox.setMaximum(12)
+        self.daySpinBox.setMaximum(31)
+        self.monthSpinBox.valueChanged.connect(self.__setRange)
 
         self.pdfButtonFrame.clicked.connect(self.__showPdfFrame)
         self.pdfButton.clicked.connect(self.__pdfButtonClicked)
@@ -41,12 +46,25 @@ class UserMenu(QWidget):
         self.filterButtonFrame.clicked.connect(self.__showFilterFrame)
         self.applyFilterButton.clicked.connect(self.__ticketFilterButtonClicked)
 
+    def __setRange(self):
+        if (self.monthSpinBox.value() == 2):
+            self.daySpinBox.setMaximum(28)
+            return
+        if (self.monthSpinBox.value() < 8 and self.monthSpinBox.value() % 2 == 1):
+            self.daySpinBox.setMaximum(31)
+            return
+        if (self.monthSpinBox.value() >= 8 and self.monthSpinBox.value() % 2 == 0):
+            self.daySpinBox.setMaximum(31)
+            return
+        self.daySpinBox.setMaximum(30)
+
+
     def __showFilterFrame(self):
         self.filterFrame.show()
         self.buyFrame.hide()
         self.pdfFrame.hide()
         self.returnFrame.hide()
-        self.cancelFilterButton.clicked.connect(self.__downloadBaseFromExcel)
+        #self.cancelFilterButton.clicked.connect(self.__downloadBaseFromExcel)
         self.cancelFilterButton.clicked.connect(self.filterFrame.hide)
         self.cancelFilterButton.clicked.connect(self.__loadTicketData)
         self.cancelFilterButton.clicked.connect(self.__clearFilterFrame)
@@ -89,6 +107,7 @@ class UserMenu(QWidget):
         self.__filterByDestination()
         self.__filterByPrice()
         self.__loadTicketData()
+        self.__downloadBaseFromExcel()
 
     def __filterByDeparture(self):
         if (self.departureText.text() == ''):
@@ -113,35 +132,45 @@ class UserMenu(QWidget):
 
     def __filterByPrice(self):
         if (self.downtoPriceFilter.text() == '' and self.uptoPriceFilter.text() == ''):
-                return
+            return
 
         try:
+            if (self.comboBox.currentText() == ''):
+                temp1 = int(self.downtoPriceFilter.text())
+                temp2 = int(self.uptoPriceFilter.text())
+                return
+            self.__filterByPriceType('плацкарта', 1)
+            self.__filterByPriceType('купе', 2)
+            self.__filterByPriceType('СВ', 3)
+        except ValueError:
+            self.downtoPriceFilter.clear()
+            self.uptoPriceFilter.clear()
+            self.returnTicketID.clear()
+            self.__invalidInput()
+
+    def __filterByPriceType(self, typeTicket, index):
+        if (self.comboBox.currentText() == str(typeTicket)):
             if (self.downtoPriceFilter.text() != '' and self.uptoPriceFilter.text() != ''):
                 i = 0
                 while i < len(self.ticketBase.showBaseDict()):
-                    if not(int(self.downtoPriceFilter.text()) <= int(self.ticketBase.showBaseDict()[i]['Цена']) <= int(self.uptoPriceFilter.text())):
+                    if not(int(self.downtoPriceFilter.text()) <= int(self.ticketBase.showBaseDict()[i]['Цена'])*index <= int(self.uptoPriceFilter.text())):
                         del self.ticketBase.showBaseDict()[i]
                     else:
                         i += 1
             elif (self.downtoPriceFilter.text() != ''):
                 i = 0
                 while i < len(self.ticketBase.showBaseDict()):
-                    if int(self.downtoPriceFilter.text()) > int(self.ticketBase.showBaseDict()[i]['Цена']):
+                    if int(self.downtoPriceFilter.text()) > int(self.ticketBase.showBaseDict()[i]['Цена'])*index:
                         del self.ticketBase.showBaseDict()[i]
                     else:
                         i += 1
             else:
                 i = 0
                 while i < len(self.ticketBase.showBaseDict()):
-                    if int(self.ticketBase.showBaseDict()[i]['Цена']) > int(self.uptoPriceFilter.text()):
+                    if int(self.ticketBase.showBaseDict()[i]['Цена'])*index > int(self.uptoPriceFilter.text()):
                         del self.ticketBase.showBaseDict()[i]
                     else:
                         i += 1
-        except ValueError:
-            self.downtoPriceFilter.clear()
-            self.uptoPriceFilter.clear()
-            self.returnTicketID.clear()
-            self.__invalidInput()
 
     def __pdfButtonClicked(self):
         try:
@@ -168,15 +197,18 @@ class UserMenu(QWidget):
             if (int(self.buyTicketID.text()) < 1 or idExist == False):
                 self.__ticketDoesntExist()
                 self.buyTicketID.clear()
+                self.monthSpinBox.setValue(1)
+                self.daySpinBox.setValue(1)
                 return
             for ticket in self.ticketBase.objectBase:
                 if int(ticket.id) == int(self.buyTicketID.text()):
-                    ticket.exactDay = [self.buyMonth.text(), self.buyDay.text()]
+                    ticket.exactDay = [str(self.monthSpinBox.value()), str(self.daySpinBox.value())]
                     self.user.buyTicket(ticket)
             self.__loadTicketCartData()
             print(self.user.ticketCart)
         except  ValueError:
-            self.buyTicketID.clear()
+            self.monthSpinBox.setValue(1)
+            self.daySpinBox.setValue(1)
             self.__invalidInput()
 
     def __ticketDoesntExist(self):
