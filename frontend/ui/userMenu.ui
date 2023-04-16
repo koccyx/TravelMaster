@@ -315,7 +315,7 @@
         <x>210</x>
         <y>10</y>
         <width>321</width>
-        <height>176</height>
+        <height>179</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_6">
@@ -342,16 +342,16 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_4">
+          <widget class="QLabel" name="label_5">
            <property name="text">
-            <string>Дата (день/месяц)</string>
+            <string>По цене</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_5">
+          <widget class="QLabel" name="label_4">
            <property name="text">
-            <string>Цена</string>
+            <string>По типу билета</string>
            </property>
           </widget>
          </item>
@@ -360,7 +360,7 @@
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <property name="spacing">
-          <number>17</number>
+          <number>20</number>
          </property>
          <property name="topMargin">
           <number>9</number>
@@ -373,16 +373,6 @@
          </item>
          <item>
           <widget class="QLineEdit" name="destinationText"/>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_7">
-           <item>
-            <widget class="QSpinBox" name="dayFilterSpinbox"/>
-           </item>
-           <item>
-            <widget class="QSpinBox" name="monthFilterSpinbox"/>
-           </item>
-          </layout>
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -407,6 +397,9 @@
             <widget class="QLineEdit" name="uptoPriceFilter"/>
            </item>
           </layout>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="typeTicketSpinBox"/>
          </item>
         </layout>
        </item>

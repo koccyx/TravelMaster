@@ -40,20 +40,6 @@ class UserMenu(QWidget):
 
         self.filterButtonFrame.clicked.connect(self.__showFilterFrame)
         self.applyFilterButton.clicked.connect(self.__ticketFilterButtonClicked)
-        self.monthFilterSpinbox.setMaximum(12)
-        self.monthFilterSpinbox.setMinimum(0)
-        self.dayFilterSpinbox.setMinimum(0)
-        self.monthFilterSpinbox.valueChanged.connect(self.__setMaxDay)
-
-    def __setMaxDay(self):
-        month = self.monthFilterSpinbox.value()
-        if (month == 2):
-            self.dayFilterSpinbox.setMaximum(28)
-            return
-        if (month < 8 and month % 2 == 1) or (month > 7 and month % 2 == 0):
-            self.dayFilterSpinbox.setMaximum(31)
-            return
-        self.dayFilterSpinbox.setMaximum(30)
 
     def __showFilterFrame(self):
         self.filterFrame.show()
@@ -73,8 +59,6 @@ class UserMenu(QWidget):
         self.destinationText.clear()
         self.downtoPriceFilter.clear()
         self.uptoPriceFilter.clear()
-        self.monthFilterSpinbox.setValue(0)
-        self.dayFilterSpinbox.setValue(0)
 
     def __showBuyFrame(self):
         self.buyFrame.show()
@@ -103,7 +87,6 @@ class UserMenu(QWidget):
     def __ticketFilterButtonClicked(self):
         self.__filterByDeparture()
         self.__filterByDestination()
-        self.__filterByDate()
         self.__filterByPrice()
         self.__loadTicketData()
 
@@ -127,23 +110,6 @@ class UserMenu(QWidget):
                 del self.ticketBase.showBaseDict()[i]
             else:
                 i += 1
-
-
-    def __filterByDate(self):
-        if (self.monthFilterSpinbox.value() == 0 or self.dayFilterSpinbox.value() == 0):
-            return
-
-        i = 0
-        while i < len(self.ticketBase.showBaseDict()):
-            date = self.ticketBase.showBaseDict()[i]['Дата']
-            date = date[5:-6]
-            month = date[:date.index('/')]
-            day = date[date.index('/')+1:]
-            if not((self.monthFilterSpinbox.value() == int(month)) and (self.dayFilterSpinbox.value() == int(day))):
-                del self.ticketBase.showBaseDict()[i]
-            else:
-                i += 1
-
 
     def __filterByPrice(self):
         if (self.downtoPriceFilter.text() == '' and self.uptoPriceFilter.text() == ''):
@@ -248,6 +214,7 @@ class UserMenu(QWidget):
                 self.ticketTable.setItem(row, 2, QTableWidgetItem(ticket.get('Конец маршрута', 'Данные отсутствуют')))
                 self.ticketTable.setItem(row, 3, QTableWidgetItem(str(ticket.get('Время', 'Данные отсутствуют'))))
                 self.ticketTable.setItem(row, 4, QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют'))))
+                self.ticketTable.setItem(row, 5, QTableWidgetItem(str(ticket.get('Тип билета', 'Данные отсутствуют'))))
                 row += 1
 
     def __loadTicketCartData(self):
