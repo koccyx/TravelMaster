@@ -1,5 +1,6 @@
 import sys
 import os
+import copy
 import pandas as pd
 from PyQt6.QtWidgets import QVBoxLayout, QTableWidgetItem, QWidget, QMessageBox
 from PyQt6 import uic
@@ -197,15 +198,16 @@ class UserMenu(QWidget):
             if (int(self.buyTicketID.text()) < 1 or idExist == False):
                 self.__ticketDoesntExist()
                 self.buyTicketID.clear()
-                self.monthSpinBox.setValue(1)
-                self.daySpinBox.setValue(1)
+                # self.monthSpinBox.setValue(1)
+                # self.daySpinBox.setValue(1)
                 return
             for ticket in self.ticketBase.objectBase:
                 if int(ticket.id) == int(self.buyTicketID.text()):
-                    ticket.exactDay = [str(self.monthSpinBox.value()), str(self.daySpinBox.value())]
-                    self.user.buyTicket(ticket)
-            self.__loadTicketCartData()
-            print(self.user.ticketCart)
+                    newTicket = copy.deepcopy(ticket)
+                    newTicket.exactDay = [int(self.monthSpinBox.value()), int(self.daySpinBox.value())]
+                    self.user.buyTicket(newTicket)
+                    self.__loadTicketCartData()
+                    return
         except  ValueError:
             self.monthSpinBox.setValue(1)
             self.daySpinBox.setValue(1)
@@ -240,29 +242,31 @@ class UserMenu(QWidget):
         self.ticketTable.setRowCount(len(self.ticketBase.showBaseDict()))
         row = 0
         for ticket in self.ticketBase.showBaseDict():
-                print(ticket)
-                self.ticketTable.setItem(row, 0, QTableWidgetItem(str(ticket.get('id', 'Данные отсутствуют'))))
-                self.ticketTable.setItem(row, 1, QTableWidgetItem(ticket.get('Начало маршрута', 'Данные отсутствуют')))
-                self.ticketTable.setItem(row, 2, QTableWidgetItem(ticket.get('Конец маршрута', 'Данные отсутствуют')))
-                self.ticketTable.setItem(row, 3, QTableWidgetItem(str(ticket.get('Время', 'Данные отсутствуют'))))
-                self.ticketTable.setItem(row, 4, QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют'))))
-                self.ticketTable.setItem(row, 5 , QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют')*2)))
-                self.ticketTable.setItem(row, 6 , QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют')*3)))
-                row += 1
+            print(ticket)
+            self.ticketTable.setItem(row, 0, QTableWidgetItem(str(ticket.get('id', 'Данные отсутствуют'))))
+            self.ticketTable.setItem(row, 1, QTableWidgetItem(ticket.get('Начало маршрута', 'Данные отсутствуют')))
+            self.ticketTable.setItem(row, 2, QTableWidgetItem(ticket.get('Конец маршрута', 'Данные отсутствуют')))
+            self.ticketTable.setItem(row, 3, QTableWidgetItem(str(ticket.get('Время', 'Данные отсутствуют'))))
+            self.ticketTable.setItem(row, 4, QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют'))))
+            self.ticketTable.setItem(row, 5 , QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют')*2)))
+            self.ticketTable.setItem(row, 6 , QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют')*3)))
+            row += 1
 
     def __loadTicketCartData(self):
         self.ticketCartTable.setRowCount(len(self.user.showTicketCartDict()))
         row = 0
-        for ticket in self.user.showTicketCartDict():
-                print(ticket)
-                self.ticketCartTable.setItem(row, 0, QTableWidgetItem(str(ticket.get('id', 'Данные отсутствуют'))))
-                self.ticketCartTable.setItem(row, 1, QTableWidgetItem(ticket.get('Начало маршрута', 'Данные отсутствуют')))
-                self.ticketCartTable.setItem(row, 2, QTableWidgetItem(ticket.get('Конец маршрута', 'Данные отсутствуют')))
-                self.ticketCartTable.setItem(row, 3, QTableWidgetItem(str('/'.join([str(self.ticketBase.objectBase[row].exactDay).split('-')[1], str(self.ticketBase.objectBase[row].exactDay).split('-')[2]]))))
-                self.ticketCartTable.setItem(row, 4, QTableWidgetItem(str(ticket.get('Время', 'Данные отсутствуют'))))
-                self.ticketCartTable.setItem(row, 5 , QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют'))))
-                row += 1
-
+        print('-------st--------')
+        for ticket in self.user.ticketCart:
+            print(ticket)
+            self.ticketCartTable.setItem(row, 0, QTableWidgetItem(str(ticket.id)))
+            self.ticketCartTable.setItem(row, 1, QTableWidgetItem(ticket.beginPoint))
+            self.ticketCartTable.setItem(row, 2, QTableWidgetItem(ticket.endPoint))
+            print(ticket.exactDay)
+            self.ticketCartTable.setItem(row, 3, QTableWidgetItem(str('/'.join([str(ticket.exactDay).split('-')[1], str(ticket.exactDay).split('-')[2]]))))
+            self.ticketCartTable.setItem(row, 4, QTableWidgetItem(ticket.createDict()['Время']))
+            self.ticketCartTable.setItem(row, 5 , QTableWidgetItem(str(ticket.price)))
+            row += 1
+        print('-------ed-------')
 
 
 

@@ -1,3 +1,5 @@
 import datetime as dt
 
-print(dt.time(10,12))
+a = dt.time(10,12)
+a
+print(str(dt.time(10,12))[:5])

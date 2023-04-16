@@ -61,12 +61,12 @@ class Ticket:
         self.__price = price
 
     @property
-    def beginPoint(self):
-        return self.__beginPoint
+    def endPoint(self):
+        return self.__endPoint
 
-    @beginPoint.getter
-    def beginPoint(self):
-        return self.__beginPoint
+    @endPoint.getter
+    def endPoint(self):
+        return self.__endPoint
 
     def createDict(self):
         return {'id': self.__id,
