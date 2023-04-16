@@ -112,6 +112,11 @@
            <string>Цена</string>
           </property>
          </column>
+         <column>
+          <property name="text">
+           <string>Тип билета</string>
+          </property>
+         </column>
         </widget>
        </item>
        <item>
