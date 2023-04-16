@@ -174,7 +174,7 @@
       <rect>
        <x>320</x>
        <y>300</y>
-       <width>191</width>
+       <width>241</width>
        <height>141</height>
       </rect>
      </property>
@@ -187,6 +187,15 @@
      <layout class="QVBoxLayout" name="verticalLayout_5">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <property name="spacing">
+         <number>50</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>113</number>
+        </property>
         <item>
          <widget class="QLabel" name="label">
           <property name="minimumSize">
@@ -202,7 +211,7 @@
            </size>
           </property>
           <property name="text">
-           <string>ID Билета</string>
+           <string>ID билета</string>
           </property>
          </widget>
         </item>
@@ -221,10 +230,10 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_9">
         <property name="spacing">
-         <number>65</number>
+         <number>45</number>
         </property>
         <property name="rightMargin">
-         <number>15</number>
+         <number>100</number>
         </property>
         <item>
          <widget class="QLabel" name="label_10">
@@ -253,10 +262,10 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_10">
         <property name="spacing">
-         <number>65</number>
+         <number>45</number>
         </property>
         <property name="rightMargin">
-         <number>15</number>
+         <number>100</number>
         </property>
         <item>
          <widget class="QLabel" name="label_11">
@@ -279,6 +288,42 @@
         </item>
         <item>
          <widget class="QSpinBox" name="daySpinBox"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_13">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>50</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>Тип билета</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="typeTicketSpinBox">
+          <item>
+           <property name="text">
+            <string>Плацкарт</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Купе</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>СВ</string>
+           </property>
+          </item>
+         </widget>
         </item>
        </layout>
       </item>

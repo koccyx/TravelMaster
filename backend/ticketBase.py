@@ -6,7 +6,7 @@ class TicketBase(Base):
     def __init__(self):
         super().__init__('backend/data/tickets.xlsx')
 
-        self.__objectBase = [Ticket(ticket.get('id'), ticket.get('Начало маршрута'),ticket.get('Конец маршрута'),ticket.get('Цена'), int(ticket.get('Время').split(':')[0]), int(ticket.get('Время').split(':')[1])) for ticket in self._base]
+        self.__objectBase = [Ticket(ticket.get('id'), ticket.get('Начало маршрута'),ticket.get('Конец маршрута'),ticket.get('Цена'), int(ticket.get('Время').split(':')[0]), int(ticket.get('Время').split(':')[1]), ticket.get('Тип билета')) for ticket in self._base]
 
     @property
     def objectBase(self):

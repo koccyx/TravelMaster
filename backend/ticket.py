@@ -3,7 +3,7 @@ import pandas as pd
 
 
 class Ticket:
-    def __init__(self, id, beginPoint, endPoint, price, hours=0, minutes=0): #write date like(Y/M/D/H/Min)
+    def __init__(self, id, beginPoint, endPoint, price, hours=0, minutes=0, typeTicket = 'Плацкарт'): #write date like(Y/M/D/H/Min)
         self.__id = id
         self.__beginPoint = beginPoint
         self.__endPoint = endPoint
@@ -11,6 +11,7 @@ class Ticket:
         self.__date = dt.time(hour=hours, minute=minutes)
         self.__exactDay = dt.date(year=2023,month=1, day=1)
         self.__place = ''
+        self.__typeTicket = typeTicket
 
     @property
     def exactDay(self):
@@ -64,16 +65,25 @@ class Ticket:
     def endPoint(self):
         return self.__endPoint
 
-    @endPoint.getter
-    def endPoint(self):
-        return self.__endPoint
+    @endPoint.setter
+    def endPoint(self, endPoint):
+        self.__endPoint = endPoint
+
+    @property
+    def typeTicket(self):
+        return self.__typeTicket
+
+    @typeTicket.setter
+    def typeTicket(self, typeTicket):
+        self.__typeTicket = typeTicket
 
     def createDict(self):
         return {'id': self.__id,
                 'Начало маршрута' : self.__beginPoint,
                 'Конец маршрута' : self.__endPoint,
                 'Цена' : self.__price,
-                'Время' : (f'{self.__date.hour}:{self.__date.minute}')}
+                'Время' : (f'{self.__date.hour}:{self.__date.minute}'),
+                'Тип билета' : self.__typeTicket}
 
 
 

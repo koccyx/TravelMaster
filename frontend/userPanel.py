@@ -198,15 +198,23 @@ class UserMenu(QWidget):
             if (int(self.buyTicketID.text()) < 1 or idExist == False):
                 self.__ticketDoesntExist()
                 self.buyTicketID.clear()
-                # self.monthSpinBox.setValue(1)
-                # self.daySpinBox.setValue(1)
+                self.monthSpinBox.setValue(1)
+                self.daySpinBox.setValue(1)
                 return
             for ticket in self.ticketBase.objectBase:
                 if int(ticket.id) == int(self.buyTicketID.text()):
                     newTicket = copy.deepcopy(ticket)
                     newTicket.exactDay = [int(self.monthSpinBox.value()), int(self.daySpinBox.value())]
+                    newTicket.typeTicket = str(self.typeTicketSpinBox.currentText())
+                    if (newTicket.typeTicket == 'Купе'):
+                        newTicket.price *= 2
+                    elif (newTicket.typeTicket == 'СВ'):
+                        newTicket.price *= 3
+                        
                     self.user.buyTicket(newTicket)
                     self.__loadTicketCartData()
+                    self.monthSpinBox.setValue(1)
+                    self.daySpinBox.setValue(1)
                     return
         except  ValueError:
             self.monthSpinBox.setValue(1)
@@ -265,6 +273,7 @@ class UserMenu(QWidget):
             self.ticketCartTable.setItem(row, 3, QTableWidgetItem(str('/'.join([str(ticket.exactDay).split('-')[1], str(ticket.exactDay).split('-')[2]]))))
             self.ticketCartTable.setItem(row, 4, QTableWidgetItem(ticket.createDict()['Время']))
             self.ticketCartTable.setItem(row, 5 , QTableWidgetItem(str(ticket.price)))
+            self.ticketCartTable.setItem(row, 6, QTableWidgetItem(str(ticket.createDict()['Тип билета'])))
             row += 1
         print('-------ed-------')
 
