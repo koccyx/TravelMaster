@@ -3,6 +3,7 @@
     "",
     "\\backend",
     "\\frontend",
+    "\\frontend\\images",
     "\\frontend\\ui"
   ],
   "SelectedNode": "\\frontend\\startWidget.py",

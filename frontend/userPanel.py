@@ -8,6 +8,8 @@ from backend.ticketBase import TicketBase
 from backend.user import User
 import datetime
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
+from fpdf import *
+#from fpdf2 import *
 
 
 class UserMenu(QWidget):
@@ -183,6 +185,85 @@ class UserMenu(QWidget):
                 self.__ticketDoesntExist()
                 self.pdfTicketID.clear()
                 return
+            pdf = FPDF(orientation="landscape")
+            
+            pdf.add_page()
+            pdf.add_font('DejaVu', '', 'backend/font/DejaVuSansCondensed.ttf', uni = True)
+            pdf.add_font('DejaVuBold', '', 'backend/font/DejaVuSerifCondensed-Bold.ttf', uni = 3)
+            pdf.set_font('DejaVu', size = 25)
+            pdf.cell(275, 10, txt = 'Электронный проездной документ', ln = 1, align = 'C')
+            lineHeight = pdf.font_size
+            pdf.ln(lineHeight)
+
+            pdf.set_font('DejaVu', size = 15)
+            pdf.cell(275, 10, txt = 'Данные о пользователе:', ln = 1, align = 'L')
+            lineWeigth = pdf.epw / 4
+            dataUser = [('Имя', 'Фамилия', 'Отчество', 'Логин'),
+                        (str(self.user.firstName), str(self.user.lastName), str(self.user.surname), str(self.user.login))]
+            i = 0
+            firstIteration = True
+            for row in dataUser:
+                if (firstIteration == True):
+                        pdf.set_font('DejaVuBold', size = 13)
+                        firstIteration = False
+                else:
+                    pdf.set_font('DejaVu', size = 10)
+                for datum in row:
+                    pdf.multi_cell(lineWeigth, lineHeight, datum, border=1, ln=3, max_line_height=pdf.font_size)
+                    i += 1
+                    if (i == 4):
+                        i = 0
+                pdf.ln(lineHeight)
+
+            sizes = [6/29*pdf.epw, 6/29*pdf.epw, 4/29*pdf.epw, 4/29*pdf.epw, 7/29*pdf.epw, 2/29*pdf.epw]
+            for ticket in self.user.ticketCart:
+                if (ticket.id == int(self.pdfTicketID.text())):
+                    dataTicket = (str(ticket.beginPoint), str(ticket.endPoint), str('/'.join([str(ticket.exactDay).split('-')[1], str(ticket.exactDay).split('-')[2]])), str(ticket.createDict()['Время']), str(ticket.typeTicket), '3')
+            data = [('Место отправления', 'Место прибытия', 'Дата отправления', 'Время отправления', 'Тип места', 'Место'),
+                    dataTicket]
+            i = 0
+            pdf.ln(lineHeight)
+            pdf.set_font('DejaVu', size = 15)
+            pdf.cell(275, 10, txt = 'Данные о билете:', ln = 1, align = 'L')
+            firstIteration = True
+            for row in data:
+                if (firstIteration == True):
+                        pdf.set_font('DejaVuBold', size = 13)
+                        firstIteration = False
+                else:
+                    pdf.set_font('DejaVu', size = 10)
+                for datum in row:
+                    pdf.multi_cell(sizes[i], lineHeight, datum, border=1, ln=3, max_line_height=pdf.font_size)
+                    i += 1
+                    if (i == 6):
+                        i = 0
+                pdf.ln(lineHeight)
+            pdf.ln(lineHeight)
+
+            pdf.set_font('DejaVu', size = 15)
+            pdf.ln(2*lineHeight)
+
+            if (str(ticket.typeTicket) == 'Плацкарт'):
+                pdf.image('frontend/images/reservedSeat.png', x = 10, y = 100)
+                pdf.cell(275, 10, txt = '   Вагон оборудован санитарным узлом, платным душем. Имеется кипяток, посуда и кофе на заказ.', ln = 1, align = 'L')
+                
+            if (str(ticket.typeTicket) == 'Купе'):
+                pdf.image('frontend/images/coupe.png', x = 10, y = 100)
+                pdf.cell(275, 10, txt = '   Вагон оборудован санитарным узлом, душем. Имеется кипяток, посуда и кофе на заказ. Утром вам подадут завтрак.', ln = 1, align = 'L')
+            
+            if (str(ticket.typeTicket) == 'СВ'):
+                pdf.image('frontend/images/SV.png', x = 10, y = 100)
+                pdf.cell(275, 10, txt = '   Вагон оборудован санитарным узлом, душем. Имеется кипяток, посуда и кофе на заказ.', ln = 1, align = 'L')
+                pdf.cell(275, 10, txt = 'Предусмотрено 4-ёх разовое питание в вагоне-ресторане.', ln = 1, align = 'L')
+
+            pdf.cell(275, 10, txt = 'Просим вас пребывать на место выезда поезда заранее (желательно за 15 минут).', ln = 1, align = 'L')
+            pdf.cell(275, 10, txt = 'Не забудьте взять с собой документ, удостоверяющий вашу личность.', ln = 1, align = 'L')
+            pdf.ln(2 * lineHeight)
+            pdf.set_font('DejaVuBold', size = 25)
+            pdf.cell(275, 10, txt = 'Счастливого пути!!!', ln = 1, align = 'C')
+            pdf.image('frontend/images/delivery.png', x = 150, y = 182)
+
+            pdf.output('Ticket.pdf')
             print("Success")
         except  ValueError:
             self.pdfTicketID.clear()
