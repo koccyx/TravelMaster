@@ -7,6 +7,7 @@ from PyQt6 import uic
 from backend.ticketBase import TicketBase
 from backend.user import User
 import datetime
+from backend.sendEmail import sendEmail
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from fpdf import *
 #from fpdf2 import *
@@ -186,7 +187,7 @@ class UserMenu(QWidget):
                 self.pdfTicketID.clear()
                 return
             pdf = FPDF(orientation="landscape")
-            
+
             pdf.add_page()
             pdf.add_font('DejaVu', '', 'backend/font/DejaVuSansCondensed.ttf', uni = True)
             pdf.add_font('DejaVuBold', '', 'backend/font/DejaVuSerifCondensed-Bold.ttf', uni = 3)
@@ -246,11 +247,11 @@ class UserMenu(QWidget):
             if (str(ticket.typeTicket) == 'Плацкарт'):
                 pdf.image('frontend/images/reservedSeat.png', x = 10, y = 100)
                 pdf.cell(275, 10, txt = '   Вагон оборудован санитарным узлом, платным душем. Имеется кипяток, посуда и кофе на заказ.', ln = 1, align = 'L')
-                
+
             if (str(ticket.typeTicket) == 'Купе'):
                 pdf.image('frontend/images/coupe.png', x = 10, y = 100)
                 pdf.cell(275, 10, txt = '   Вагон оборудован санитарным узлом, душем. Имеется кипяток, посуда и кофе на заказ. Утром вам подадут завтрак.', ln = 1, align = 'L')
-            
+
             if (str(ticket.typeTicket) == 'СВ'):
                 pdf.image('frontend/images/SV.png', x = 10, y = 100)
                 pdf.cell(275, 10, txt = '   Вагон оборудован санитарным узлом, душем. Имеется кипяток, посуда и кофе на заказ.', ln = 1, align = 'L')
@@ -263,11 +264,12 @@ class UserMenu(QWidget):
             pdf.cell(275, 10, txt = 'Счастливого пути!!!', ln = 1, align = 'C')
             pdf.image('frontend/images/delivery.png', x = 150, y = 182)
 
-            pdf.output('Ticket.pdf')
+            pdf.output('./backend/Ticket.pdf')
             print("Success")
         except  ValueError:
             self.pdfTicketID.clear()
             self.__invalidInput()
+        sendEmail('Биллетsss')
 
 
     def __ticketBuyButtonClicked(self):
@@ -291,7 +293,7 @@ class UserMenu(QWidget):
                         newTicket.price *= 2
                     elif (newTicket.typeTicket == 'СВ'):
                         newTicket.price *= 3
-                        
+
                     self.user.buyTicket(newTicket)
                     self.__loadTicketCartData()
                     self.monthSpinBox.setValue(1)
