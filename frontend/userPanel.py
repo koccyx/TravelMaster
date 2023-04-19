@@ -35,11 +35,8 @@ class UserMenu(QWidget):
 
         self.buyButtonFrame.clicked.connect(self.__showBuyFrame)
         self.buyButton.clicked.connect(self.__ticketBuyButtonClicked)
-        self.monthSpinBox.setMinimum(1)
-        self.daySpinBox.setMinimum(1)
-        self.monthSpinBox.setMaximum(12)
-        self.daySpinBox.setMaximum(31)
-        self.monthSpinBox.valueChanged.connect(self.__setRange)
+        self.calendar.clicked.connect(self.clickedOnCalendar)
+        self.dateEdit.dateChanged.connect(self.dateEditChanged)
 
         self.pdfButtonFrame.clicked.connect(self.__showPdfFrame)
         self.pdfButton.clicked.connect(self.__pdfButtonClicked)
@@ -50,18 +47,11 @@ class UserMenu(QWidget):
         self.filterButtonFrame.clicked.connect(self.__showFilterFrame)
         self.applyFilterButton.clicked.connect(self.__ticketFilterButtonClicked)
 
-    def __setRange(self):
-        if (self.monthSpinBox.value() == 2):
-            self.daySpinBox.setMaximum(28)
-            return
-        if (self.monthSpinBox.value() < 8 and self.monthSpinBox.value() % 2 == 1):
-            self.daySpinBox.setMaximum(31)
-            return
-        if (self.monthSpinBox.value() >= 8 and self.monthSpinBox.value() % 2 == 0):
-            self.daySpinBox.setMaximum(31)
-            return
-        self.daySpinBox.setMaximum(30)
+    def dateEditChanged(self):
+        self.calendar.setSelectedDate(self.dateEdit.date())
 
+    def clickedOnCalendar(self):
+        self.dateEdit.setDate(self.calendar.selectedDate())
 
     def __showFilterFrame(self):
         self.filterFrame.show()
@@ -262,7 +252,6 @@ class UserMenu(QWidget):
             pdf.ln(2 * lineHeight)
             pdf.set_font('DejaVuBold', size = 25)
             pdf.cell(275, 10, txt = 'Счастливого пути!!!', ln = 1, align = 'C')
-            pdf.image('frontend/images/delivery.png', x = 150, y = 182)
 
             pdf.output('./backend/Ticket.pdf')
             print("Success")
@@ -281,13 +270,11 @@ class UserMenu(QWidget):
             if (int(self.buyTicketID.text()) < 1 or idExist == False):
                 self.__ticketDoesntExist()
                 self.buyTicketID.clear()
-                self.monthSpinBox.setValue(1)
-                self.daySpinBox.setValue(1)
                 return
             for ticket in self.ticketBase.objectBase:
                 if int(ticket.id) == int(self.buyTicketID.text()):
                     newTicket = copy.deepcopy(ticket)
-                    newTicket.exactDay = [int(self.monthSpinBox.value()), int(self.daySpinBox.value())]
+                    newTicket.exactDay = [int(self.calendar.selectedDate().toString('dd-MM-yyyy')[3:5]), int(self.calendar.selectedDate().toString('dd-MM-yyyy')[0:2])]
                     newTicket.typeTicket = str(self.typeTicketSpinBox.currentText())
                     if (newTicket.typeTicket == 'Купе'):
                         newTicket.price *= 2
@@ -296,12 +283,10 @@ class UserMenu(QWidget):
 
                     self.user.buyTicket(newTicket)
                     self.__loadTicketCartData()
-                    self.monthSpinBox.setValue(1)
-                    self.daySpinBox.setValue(1)
                     return
+                #self.calendar.selectedDate().toString('dd-MM-yyyy')[0:2]
+                #self.calendar.selectedDate().toString('dd-MM-yyyy')[3:5]
         except  ValueError:
-            self.monthSpinBox.setValue(1)
-            self.daySpinBox.setValue(1)
             self.__invalidInput()
 
     def __ticketDoesntExist(self):

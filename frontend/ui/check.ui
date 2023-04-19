@@ -16,7 +16,7 @@
   <property name="locale">
    <locale language="Russian" country="Russia"/>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -79,6 +79,15 @@
           <property name="text">
            <string>Пользователь</string>
           </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
+          <property name="default">
+           <bool>false</bool>
+          </property>
+          <property name="flat">
+           <bool>false</bool>
+          </property>
          </widget>
         </item>
         <item row="1" column="1">
@@ -100,6 +109,12 @@
           </property>
           <property name="text">
            <string>Администратор</string>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
+          <property name="default">
+           <bool>false</bool>
           </property>
          </widget>
         </item>
