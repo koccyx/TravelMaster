@@ -1,8 +1,10 @@
+from smtplib import quotedata
 import sys
 import os
 import copy
 import pandas as pd
 from PyQt6.QtWidgets import QVBoxLayout, QTableWidgetItem, QWidget, QMessageBox
+from PyQt6.QtCore import QDate
 from PyQt6 import uic
 from backend.ticketBase import TicketBase
 from backend.user import User
@@ -10,6 +12,7 @@ import datetime
 from backend.sendEmail import sendEmail
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from fpdf import *
+from datetime import *
 #from fpdf2 import *
 
 
@@ -35,8 +38,8 @@ class UserMenu(QWidget):
 
         self.buyButtonFrame.clicked.connect(self.__showBuyFrame)
         self.buyButton.clicked.connect(self.__ticketBuyButtonClicked)
-        self.calendar.clicked.connect(self.clickedOnCalendar)
-        self.dateEdit.dateChanged.connect(self.dateEditChanged)
+        self.calendar.clicked.connect(self.__clickedOnCalendar)
+        self.dateEdit.dateChanged.connect(self.__dateEditChanged)
 
         self.pdfButtonFrame.clicked.connect(self.__showPdfFrame)
         self.pdfButton.clicked.connect(self.__pdfButtonClicked)
@@ -47,10 +50,17 @@ class UserMenu(QWidget):
         self.filterButtonFrame.clicked.connect(self.__showFilterFrame)
         self.applyFilterButton.clicked.connect(self.__ticketFilterButtonClicked)
 
-    def dateEditChanged(self):
+        dateNow = str(date.today()+timedelta(days=1))
+        dateToday = QDate(int(dateNow[0:4]), int(dateNow[5:7]), int(dateNow[8:]))
+        self.calendar.setSelectedDate(dateToday)
+        self.calendar.setMinimumDate(dateToday)
+        self.dateEdit.setDate(self.calendar.selectedDate())
+        self.dateEdit.setMinimumDate(dateToday)
+
+    def __dateEditChanged(self):
         self.calendar.setSelectedDate(self.dateEdit.date())
 
-    def clickedOnCalendar(self):
+    def __clickedOnCalendar(self):
         self.dateEdit.setDate(self.calendar.selectedDate())
 
     def __showFilterFrame(self):
