@@ -6,6 +6,7 @@ sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from backend.user import User
 from backend.userBase import UserBase
 from userPanel import UserMenu
+from changePassword import ChangePassword
 
 
 
@@ -18,6 +19,15 @@ class LoginFrom(QWidget):
         self.setWindowTitle('Вход')
         self.passwordInput.setEchoMode(QLineEdit.EchoMode.Password)
         self.inputButton.clicked.connect(self.__checkLogin)
+        self.forgotPasswordButton.clicked.connect(self.__forgotPasswordButtonClicked)
+        self.changePasswordButton.clicked.connect(self.__changePasswordButtonClicked)
+
+    def __changePasswordButtonClicked(self):
+        self.changePasswordWidget = ChangePassword()
+        self.changePasswordWidget.show()
+
+    def __forgotPasswordButtonClicked(self):
+        pass
 
     def __openUserPanel(self, user):
         self.userPanel = UserMenu(user)

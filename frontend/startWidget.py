@@ -7,6 +7,7 @@ from adminPanel import AdminMenu
 class myApp(QWidget):
     def __init__(self):
         super().__init__()
+
         uic.loadUi('frontend/ui/check.ui', self)
         self.setWindowTitle('Вид работы c программой')
 

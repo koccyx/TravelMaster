@@ -26,7 +26,7 @@ def sendEmail(message):
 
     try:
         server.login(sender, password)
-        server.sendmail(sender, 'royale.nigs@gmail.com', f'Subject: Ticket\n{msg.as_string()}')
+        server.sendmail(sender, sender, f'Subject: Ticket\n{msg.as_string()}')
         return 'YEEE'
     except Exception as _ex:
         return f'{_ex}\n Check your login or password'

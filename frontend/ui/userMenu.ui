@@ -2,25 +2,19 @@
 <ui version="4.0">
  <class>Form</class>
  <widget class="QWidget" name="Form">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>500</height>
+    <height>664</height>
    </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>800</width>
-    <height>500</height>
-   </size>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>800</width>
-    <height>500</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -34,20 +28,8 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>500</height>
+     <height>731</height>
     </rect>
-   </property>
-   <property name="minimumSize">
-    <size>
-     <width>800</width>
-     <height>500</height>
-    </size>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>800</width>
-     <height>500</height>
-    </size>
    </property>
    <property name="currentIndex">
     <number>0</number>
@@ -172,10 +154,10 @@
     <widget class="QFrame" name="buyFrame">
      <property name="geometry">
       <rect>
-       <x>320</x>
+       <x>200</x>
        <y>300</y>
-       <width>241</width>
-       <height>141</height>
+       <width>431</width>
+       <height>331</height>
       </rect>
      </property>
      <property name="frameShape">
@@ -188,13 +170,13 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <property name="spacing">
-         <number>50</number>
-        </property>
-        <property name="leftMargin">
          <number>0</number>
         </property>
+        <property name="leftMargin">
+         <number>40</number>
+        </property>
         <property name="rightMargin">
-         <number>113</number>
+         <number>110</number>
         </property>
         <item>
          <widget class="QLabel" name="label">
@@ -228,76 +210,15 @@
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_9">
-        <property name="spacing">
-         <number>45</number>
-        </property>
-        <property name="rightMargin">
-         <number>100</number>
-        </property>
-        <item>
-         <widget class="QLabel" name="label_10">
-          <property name="minimumSize">
-           <size>
-            <width>50</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>50</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Месяц</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QSpinBox" name="monthSpinBox"/>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_10">
-        <property name="spacing">
-         <number>45</number>
-        </property>
-        <property name="rightMargin">
-         <number>100</number>
-        </property>
-        <item>
-         <widget class="QLabel" name="label_11">
-          <property name="minimumSize">
-           <size>
-            <width>50</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>50</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>День</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QSpinBox" name="daySpinBox"/>
-        </item>
-       </layout>
-      </item>
-      <item>
        <layout class="QHBoxLayout" name="horizontalLayout_13">
         <property name="spacing">
          <number>0</number>
         </property>
+        <property name="leftMargin">
+         <number>100</number>
+        </property>
         <property name="rightMargin">
-         <number>50</number>
+         <number>130</number>
         </property>
         <item>
          <widget class="QLabel" name="label_5">
@@ -328,17 +249,53 @@
        </layout>
       </item>
       <item>
-       <widget class="QPushButton" name="buyButton">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>30</height>
-         </size>
+       <layout class="QHBoxLayout" name="horizontalLayout_9">
+        <property name="spacing">
+         <number>0</number>
         </property>
-        <property name="text">
-         <string>Купить</string>
+        <property name="leftMargin">
+         <number>100</number>
         </property>
-       </widget>
+        <property name="rightMargin">
+         <number>128</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="label_10">
+          <property name="text">
+           <string>Дата</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDateEdit" name="dateEdit"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QCalendarWidget" name="calendar"/>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_7">
+        <property name="leftMargin">
+         <number>120</number>
+        </property>
+        <property name="rightMargin">
+         <number>120</number>
+        </property>
+        <item>
+         <widget class="QPushButton" name="buyButton">
+          <property name="text">
+           <string>Купить</string>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
+          <property name="default">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>
