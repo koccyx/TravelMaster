@@ -3,9 +3,8 @@
     "",
     "\\backend",
     "\\frontend",
-    "\\frontend\\images",
     "\\frontend\\ui"
   ],
-  "SelectedNode": "\\frontend\\startWidget.py",
+  "SelectedNode": "\\frontend\\loginForm.py",
   "PreviewInSolutionExplorer": false
 }
