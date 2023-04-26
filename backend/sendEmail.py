@@ -3,10 +3,11 @@ import os
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
+from backend.secr import tenz
 
-def sendEmail(message):
+def sendEmail(message, mail):
     sender = 'royale.nigs@gmail.com'
-    password = 'zubdnsudztrlllhe'
+    password = ''
 
     message = MIMEText(message)
 
@@ -29,6 +30,7 @@ def sendEmail(message):
         server.sendmail(sender, sender, f'Subject: Ticket\n{msg.as_string()}')
         return 'YEEE'
     except Exception as _ex:
+
         return f'{_ex}\n Check your login or password'
 
 if __name__ == '__main__':

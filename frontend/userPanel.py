@@ -268,7 +268,7 @@ class UserMenu(QWidget):
         except  ValueError:
             self.pdfTicketID.clear()
             self.__invalidInput()
-        sendEmail('Биллетsss')
+        sendEmail('Биллетsss', self.user.mail)
 
 
     def __ticketBuyButtonClicked(self):

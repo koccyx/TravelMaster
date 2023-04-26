@@ -21,6 +21,13 @@ class LoginFrom(QWidget):
         self.inputButton.clicked.connect(self.__checkLogin)
         self.forgotPasswordButton.clicked.connect(self.__forgotPasswordButtonClicked)
         self.changePasswordButton.clicked.connect(self.__changePasswordButtonClicked)
+        self.backButton.clicked.connect(self.goBack)
+
+    def goBack(self):
+        from startWidget import myApp
+        self.backWidget = myApp()
+        self.backWidget.show()
+        self.close()
 
     def __changePasswordButtonClicked(self):
         self.changePasswordWidget = ChangePassword()

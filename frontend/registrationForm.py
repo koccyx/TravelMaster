@@ -16,12 +16,17 @@ class RegistrationFrom(QWidget):
         self.setWindowTitle('Регистрация')
         self.passwordInput.setEchoMode(QLineEdit.EchoMode.Password)
         self.registrationButton.clicked.connect(self.createNewUser)#passwordInput.text()
+        self.backButton.clicked.connect(self.goBack)
 
-    def openUserPanel(self):
-        self.userPanel = UserMenu()
+    def goBack(self):
+        from registretionOrLogin import  RegistrationOrLogin
+        self.backWidget = RegistrationOrLogin()
+        self.backWidget.show()
+        self.close()
+    def openUserPanel(self,user):
+        self.userPanel = UserMenu(user)
         self.userPanel.show()
         self.close()
-
 
     def createNewUser(self):
         newUser = User(self.nameInput.text(), self.secondNameInput.text(), self.surnameInput.text(), self.loginInput.text(), self.passwordInput.text(), self.emailInput.text())
@@ -47,7 +52,7 @@ class RegistrationFrom(QWidget):
                 return
 
         tempBase.addElement(newUser)
-        self.openUserPanel()
+        self.openUserPanel(newUser)
         print('registration confirmed')
 
 

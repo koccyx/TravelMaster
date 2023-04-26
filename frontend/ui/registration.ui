@@ -31,7 +31,7 @@
      <x>0</x>
      <y>9</y>
      <width>251</width>
-     <height>229</height>
+     <height>230</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_7">
@@ -211,6 +211,13 @@
          </widget>
         </item>
        </layout>
+      </item>
+      <item>
+       <widget class="QPushButton" name="backButton">
+        <property name="text">
+         <string>Назад</string>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QPushButton" name="registrationButton">

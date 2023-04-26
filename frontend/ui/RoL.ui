@@ -34,7 +34,7 @@
       <property name="sizeHint" stdset="0">
        <size>
         <width>20</width>
-        <height>30</height>
+        <height>40</height>
        </size>
       </property>
      </spacer>
@@ -122,6 +122,25 @@
        </spacer>
       </item>
      </layout>
+    </item>
+    <item>
+     <widget class="QPushButton" name="backButton">
+      <property name="minimumSize">
+       <size>
+        <width>20</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Назад</string>
+      </property>
+     </widget>
     </item>
     <item>
      <spacer name="verticalSpacer_2">
