@@ -3,7 +3,6 @@ import os
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
-from backend.secr import tenz
 
 def sendEmail(message, mail):
     sender = 'royale.nigs@gmail.com'

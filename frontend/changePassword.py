@@ -17,12 +17,20 @@ class ChangePassword(QWidget):
         super().__init__()
         uic.loadUi('frontend/ui/changePassword.ui', self)
         self.changePasswordButton.clicked.connect(self.__changePasswordButtonClicked)
+        self.backButton.clicked.connect(self.close)
+        
+        self.oldPasswordInChangePassword.setEchoMode(QLineEdit.EchoMode.Password)
+        self.newPasswordInChangePassword.setEchoMode(QLineEdit.EchoMode.Password)
+        self.repeatNewPasswordInChangePassword.setEchoMode(QLineEdit.EchoMode.Password)
 
     def __changePasswordButtonClicked(self):
         self.login = self.loginInChangePassword.text()
         self.oldPassword = self.oldPasswordInChangePassword.text()
         self.newPassword = self.newPasswordInChangePassword.text()
         self.repeatNewPassword = self.repeatNewPasswordInChangePassword.text()
+        self.backButton.clicked.connect(self.close)
+
+
 
         if (self.login == '' or self.oldPassword == '' or self.newPassword == '' or self.repeatNewPassword == ''):
             self.__fillError()
@@ -40,7 +48,7 @@ class ChangePassword(QWidget):
                 exist = True
 
         if (exist == False):
-            self.__ticketDoesntExist()
+            self.__userDoesntExist()
             return
 
 
@@ -53,11 +61,18 @@ class ChangePassword(QWidget):
                 self.base.changeElement(tNewUser, num)
             num += 1
 
-    def __ticketDoesntExist(self):
+        self.__access()
+        self.close()
+
+    def __userDoesntExist(self):
         self.msgbox = QMessageBox.warning(self, "Ошибка", "Пользователь с таким логином не существует.", QMessageBox.StandardButton.Ok)
 
     def __passwordError(self):
         self.msgbox = QMessageBox.warning(self, "Ошибка", 'Поле "Новый пароль" не соответствует полю "Повторить новый пароль".', QMessageBox.StandardButton.Ok)
 
+
+    def __access(self):
+        self.msgbox = QMessageBox.warning(self, "Изменение пароля", "Пароль изменён.", QMessageBox.StandardButton.Ok)
+        
     def __fillError(self):
         self.msgbox = QMessageBox.warning(self, "Ошибка", "Не все поля заполнены.", QMessageBox.StandardButton.Ok)

@@ -13,24 +13,24 @@ class RegistrationOrLogin(QWidget):
         super().__init__()
         uic.loadUi('frontend/ui/RoL.ui', self)
         self.setWindowTitle('Логин или регистрация')
-        self.loginButton.clicked.connect(self.openLoginWindow)
-        self.registrationButton.clicked.connect(self.openRegistrationForm)
-        self.backButton.clicked.connect(self.goBack)
+        self.loginButton.clicked.connect(self.__openLoginWindow)
+        self.registrationButton.clicked.connect(self.__openRegistrationForm)
+        self.backButton.clicked.connect(self.__goBack)
 
 
 
-    def goBack(self):
+    def __goBack(self):
         from startWidget import myApp
         self.backWidget = myApp()
         self.backWidget.show()
         self.close()
 
-    def openLoginWindow(self):
+    def __openLoginWindow(self):
         self.loginWidget = LoginFrom()
         self.loginWidget.show()
         self.close()
 
-    def openRegistrationForm(self):
+    def __openRegistrationForm(self):
         self.registrationWidget = RegistrationFrom()
         self.registrationWidget.show()
         self.close()

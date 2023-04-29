@@ -12,15 +12,15 @@ class myApp(QWidget):
         self.setWindowTitle('Вид работы c программой')
 
 
-        self.userButton.clicked.connect(self.openRoLWindow)
-        self.adminButton.clicked.connect(self.openAdminPanel)
+        self.userButton.clicked.connect(self.__openRoLWindow)
+        self.adminButton.clicked.connect(self.__openAdminPanel)
 
-    def openRoLWindow(self):
+    def __openRoLWindow(self):
         self.registrationWidget = RegistrationOrLogin()
         self.registrationWidget.show()
         self.close()
 
-    def openAdminPanel(self):
+    def __openAdminPanel(self):
         self.adminWidget = AdminMenu()
         self.adminWidget.show()
         self.close()

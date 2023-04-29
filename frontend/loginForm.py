@@ -7,6 +7,7 @@ from backend.user import User
 from backend.userBase import UserBase
 from userPanel import UserMenu
 from changePassword import ChangePassword
+from forgotPassword import ForgotPassword
 
 
 
@@ -21,11 +22,11 @@ class LoginFrom(QWidget):
         self.inputButton.clicked.connect(self.__checkLogin)
         self.forgotPasswordButton.clicked.connect(self.__forgotPasswordButtonClicked)
         self.changePasswordButton.clicked.connect(self.__changePasswordButtonClicked)
-        self.backButton.clicked.connect(self.goBack)
+        self.backButton.clicked.connect(self.__goBack)
 
-    def goBack(self):
-        from startWidget import myApp
-        self.backWidget = myApp()
+    def __goBack(self):
+        from registretionOrLogin import RegistrationOrLogin
+        self.backWidget = RegistrationOrLogin()
         self.backWidget.show()
         self.close()
 
@@ -34,7 +35,8 @@ class LoginFrom(QWidget):
         self.changePasswordWidget.show()
 
     def __forgotPasswordButtonClicked(self):
-        pass
+        self.forgotPasswordWidget = ForgotPassword()
+        self.forgotPasswordWidget.show()
 
     def __openUserPanel(self, user):
         self.userPanel = UserMenu(user)

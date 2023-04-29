@@ -16,13 +16,14 @@ class RegistrationFrom(QWidget):
         self.setWindowTitle('Регистрация')
         self.passwordInput.setEchoMode(QLineEdit.EchoMode.Password)
         self.registrationButton.clicked.connect(self.createNewUser)#passwordInput.text()
-        self.backButton.clicked.connect(self.goBack)
+        self.backButton.clicked.connect(self.__goBack)
 
-    def goBack(self):
-        from registretionOrLogin import  RegistrationOrLogin
+    def __goBack(self):
+        from registretionOrLogin import RegistrationOrLogin
         self.backWidget = RegistrationOrLogin()
         self.backWidget.show()
         self.close()
+
     def openUserPanel(self,user):
         self.userPanel = UserMenu(user)
         self.userPanel.show()

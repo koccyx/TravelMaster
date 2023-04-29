@@ -7,20 +7,8 @@
     <x>0</x>
     <y>0</y>
     <width>250</width>
-    <height>250</height>
+    <height>311</height>
    </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>250</width>
-    <height>250</height>
-   </size>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>250</width>
-    <height>250</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -31,7 +19,7 @@
      <x>0</x>
      <y>9</y>
      <width>251</width>
-     <height>230</height>
+     <height>297</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_7">
@@ -213,13 +201,6 @@
        </layout>
       </item>
       <item>
-       <widget class="QPushButton" name="backButton">
-        <property name="text">
-         <string>Назад</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QPushButton" name="registrationButton">
         <property name="text">
          <string>Зарегестрироваться</string>
@@ -267,6 +248,13 @@
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="backButton">
+        <property name="text">
+         <string>Назад</string>
         </property>
        </widget>
       </item>
