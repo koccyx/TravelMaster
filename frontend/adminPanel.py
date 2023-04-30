@@ -4,7 +4,9 @@ import pandas as pd
 from PyQt6.QtWidgets import QVBoxLayout, QTableWidgetItem, QWidget, QMessageBox
 from PyQt6 import uic
 from backend.userBase import UserBase
+from backend.ticketBase import TicketBase
 from backend.user import User
+from backend.ticket import Ticket
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 
 
@@ -19,17 +21,29 @@ class AdminMenu(QWidget):
 
         self.base = UserBase()
 
+        self.ticketBase = TicketBase()
+
         self.__loadData()
+        self.__loadTicketData()
 
         self.changedFrame.hide()
         self.deletionFrame.hide()
         self.additionFrame.hide()
+        self.deleteFrame.hide()
+        self.addFrame.hide()
 
         self.__showChangeFrame()
 
         self.__showDeleteFrame()
 
         self.__showAddFrame()
+
+        self.__showAdditionFrame()
+
+        self.__showDelFrame()
+
+        self.delButton.clicked.connect(self.__delBUttonClicked)
+        self.addButton.clicked.connect(self.__addTicket)
 
     def __deleteClicked(self):
         try:
@@ -140,6 +154,14 @@ class AdminMenu(QWidget):
     def __invalidInput(self):
         self.msgbox = QMessageBox.warning(self, "Ошибка", "Некорректный ввод.", QMessageBox.StandardButton.Ok)
 
+    def __showDelFrame(self):
+        self.deleteFrameButton.clicked.connect(lambda _: self.deleteFrame.show())
+        self.deleteFrameButton.clicked.connect(lambda _: self.addFrame.hide())
+
+    def __showAdditionFrame(self):
+        self.addFrameButton.clicked.connect(lambda _: self.addFrame.show())
+        self.deleteFrameButton.clicked.connect(lambda _: self.deleteFrame.hide())
+
     def __showChangeFrame(self):
         self.changedButton.clicked.connect(lambda _: self.changedFrame.show())
         self.changedButton.clicked.connect(lambda _: self.deletionFrame.hide())
@@ -196,3 +218,27 @@ class AdminMenu(QWidget):
                 self.userTable.setItem(row, 4, QTableWidgetItem(person.get('login', 'Данные отсутствуют')))
                 self.userTable.setItem(row, 5, QTableWidgetItem(person.get('Пароль', 'Данные отсутствуют')))
                 row += 1
+
+    def __loadTicketData(self):
+        self.ticketTable.setRowCount(len(self.ticketBase.showBaseDict()))
+        row = 0
+        for ticket in self.ticketBase.showBaseDict():
+            print(ticket)
+            self.ticketTable.setItem(row, 0, QTableWidgetItem(str(ticket.get('id', 'Данные отсутствуют'))))
+            self.ticketTable.setItem(row, 1, QTableWidgetItem(ticket.get('Начало маршрута', 'Данные отсутствуют')))
+            self.ticketTable.setItem(row, 2, QTableWidgetItem(ticket.get('Конец маршрута', 'Данные отсутствуют')))
+            self.ticketTable.setItem(row, 3, QTableWidgetItem(str(ticket.get('Время', 'Данные отсутствуют'))))
+            self.ticketTable.setItem(row, 4, QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют'))))
+            self.ticketTable.setItem(row, 5 , QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют')*2)))
+            self.ticketTable.setItem(row, 6 , QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют')*3)))
+            row += 1
+
+    def __delBUttonClicked(self):
+        self.ticketBase.delElement(int(self.delTicketID.text()))
+        self.__loadTicketData();
+
+    def __addTicket(self):
+        newTicket = Ticket(int(self.idLine.text()), self.startLine.text(), self.endLine.text(), int(self.priceLine.text()), hours=int(self.timeHoursLine.text()), minutes=int(int(self.timeMinutesLine.text())))
+
+        self.ticketBase.addElement(newTicket)
+        self.__loadTicketData()
