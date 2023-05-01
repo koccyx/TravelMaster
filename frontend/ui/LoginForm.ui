@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>201</width>
-    <height>272</height>
+    <height>348</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,8 +18,8 @@
     <rect>
      <x>19</x>
      <y>29</y>
-     <width>171</width>
-     <height>221</height>
+     <width>173</width>
+     <height>301</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -87,11 +87,14 @@
     </item>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_4">
+      <property name="spacing">
+       <number>7</number>
+      </property>
       <property name="leftMargin">
-       <number>30</number>
+       <number>0</number>
       </property>
       <property name="rightMargin">
-       <number>30</number>
+       <number>0</number>
       </property>
       <item>
        <widget class="QPushButton" name="inputButton">

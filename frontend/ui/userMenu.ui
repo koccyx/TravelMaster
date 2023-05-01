@@ -32,11 +32,11 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
-     <string>Билеты</string>
+     <string>Купить билеты</string>
     </attribute>
     <widget class="QSplitter" name="splitter">
      <property name="geometry">
@@ -60,6 +60,9 @@
          <property name="lineWidth">
           <number>1</number>
          </property>
+         <property name="autoScrollMargin">
+          <number>16</number>
+         </property>
          <property name="editTriggers">
           <set>QAbstractItemView::NoEditTriggers</set>
          </property>
@@ -69,6 +72,12 @@
          <property name="wordWrap">
           <bool>true</bool>
          </property>
+         <attribute name="horizontalHeaderDefaultSectionSize">
+          <number>150</number>
+         </attribute>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
          <column>
           <property name="text">
            <string>id</string>
@@ -472,7 +481,7 @@
    </widget>
    <widget class="QWidget" name="tab2">
     <attribute name="title">
-     <string>Корзина</string>
+     <string>Корзина билетов</string>
     </attribute>
     <widget class="QSplitter" name="splitter_2">
      <property name="geometry">
@@ -505,6 +514,12 @@
          <property name="wordWrap">
           <bool>true</bool>
          </property>
+         <attribute name="horizontalHeaderDefaultSectionSize">
+          <number>150</number>
+         </attribute>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
          <column>
           <property name="text">
            <string>id</string>
@@ -607,8 +622,8 @@
        <rect>
         <x>80</x>
         <y>10</y>
-        <width>92</width>
-        <height>53</height>
+        <width>121</width>
+        <height>71</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -664,7 +679,7 @@
     <widget class="QFrame" name="returnFrame">
      <property name="geometry">
       <rect>
-       <x>270</x>
+       <x>260</x>
        <y>310</y>
        <width>400</width>
        <height>141</height>
@@ -681,8 +696,8 @@
        <rect>
         <x>81</x>
         <y>11</y>
-        <width>92</width>
-        <height>53</height>
+        <width>151</width>
+        <height>91</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">

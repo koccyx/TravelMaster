@@ -30,7 +30,7 @@
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
-     <string>Пользователи</string>
+     <string>База данных пользователей</string>
     </attribute>
     <widget class="QSplitter" name="splitter">
      <property name="geometry">
@@ -63,6 +63,9 @@
          <property name="wordWrap">
           <bool>true</bool>
          </property>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
          <column>
           <property name="text">
            <string>Имя</string>
@@ -168,7 +171,7 @@
        <x>70</x>
        <y>290</y>
        <width>681</width>
-       <height>111</height>
+       <height>121</height>
       </rect>
      </property>
      <property name="frameShape">
@@ -479,8 +482,8 @@
        <rect>
         <x>290</x>
         <y>80</y>
-        <width>70</width>
-        <height>22</height>
+        <width>81</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
@@ -500,7 +503,7 @@
        <x>310</x>
        <y>300</y>
        <width>191</width>
-       <height>80</height>
+       <height>101</height>
       </rect>
      </property>
      <property name="frameShape">
@@ -561,8 +564,8 @@
        <rect>
         <x>50</x>
         <y>50</y>
-        <width>70</width>
-        <height>22</height>
+        <width>91</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
@@ -852,10 +855,10 @@
      <widget class="QPushButton" name="additionButtonFrame">
       <property name="geometry">
        <rect>
-        <x>280</x>
+        <x>270</x>
         <y>70</y>
-        <width>70</width>
-        <height>22</height>
+        <width>91</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
@@ -869,10 +872,14 @@
       </property>
      </widget>
     </widget>
+    <zorder>splitter</zorder>
+    <zorder>changedFrame</zorder>
+    <zorder>additionFrame</zorder>
+    <zorder>deletionFrame</zorder>
    </widget>
    <widget class="QWidget" name="tab2">
     <attribute name="title">
-     <string>Билеты</string>
+     <string>База данных билетов</string>
     </attribute>
     <widget class="QTableWidget" name="ticketTable">
      <property name="geometry">
@@ -898,6 +905,12 @@
      <property name="wordWrap">
       <bool>true</bool>
      </property>
+     <attribute name="horizontalHeaderDefaultSectionSize">
+      <number>150</number>
+     </attribute>
+     <attribute name="verticalHeaderVisible">
+      <bool>false</bool>
+     </attribute>
      <column>
       <property name="text">
        <string>id</string>
@@ -967,8 +980,8 @@
        <rect>
         <x>81</x>
         <y>11</y>
-        <width>92</width>
-        <height>53</height>
+        <width>121</width>
+        <height>71</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -1201,6 +1214,11 @@
       </item>
      </layout>
     </widget>
+    <zorder>ticketTable</zorder>
+    <zorder>label_13</zorder>
+    <zorder>additionTicketFrame</zorder>
+    <zorder>layoutWidget</zorder>
+    <zorder>deletionTicketFrame</zorder>
    </widget>
   </widget>
  </widget>
