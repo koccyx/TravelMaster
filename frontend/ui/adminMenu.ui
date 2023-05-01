@@ -7,20 +7,8 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>500</height>
+    <height>557</height>
    </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>800</width>
-    <height>500</height>
-   </size>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>800</width>
-    <height>500</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -34,20 +22,8 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>500</height>
+     <height>561</height>
     </rect>
-   </property>
-   <property name="minimumSize">
-    <size>
-     <width>800</width>
-     <height>500</height>
-    </size>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>800</width>
-     <height>500</height>
-    </size>
    </property>
    <property name="currentIndex">
     <number>1</number>
@@ -971,7 +947,7 @@
       <string/>
      </property>
     </widget>
-    <widget class="QFrame" name="deleteFrame">
+    <widget class="QFrame" name="deletionTicketFrame">
      <property name="geometry">
       <rect>
        <x>260</x>
@@ -1030,7 +1006,7 @@
         </layout>
        </item>
        <item>
-        <widget class="QPushButton" name="delButton">
+        <widget class="QPushButton" name="deletionTicketButtonFrame">
          <property name="minimumSize">
           <size>
            <width>90</width>
@@ -1045,13 +1021,13 @@
       </layout>
      </widget>
     </widget>
-    <widget class="QFrame" name="addFrame">
+    <widget class="QFrame" name="additionTicketFrame">
      <property name="geometry">
       <rect>
-       <x>90</x>
-       <y>330</y>
-       <width>651</width>
-       <height>131</height>
+       <x>10</x>
+       <y>320</y>
+       <width>781</width>
+       <height>211</height>
       </rect>
      </property>
      <property name="frameShape">
@@ -1060,13 +1036,13 @@
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QWidget" name="layoutWidget_3">
+     <widget class="QWidget" name="horizontalLayoutWidget">
       <property name="geometry">
        <rect>
-        <x>-2</x>
-        <y>0</y>
-        <width>631</width>
-        <height>59</height>
+        <x>120</x>
+        <y>10</y>
+        <width>541</width>
+        <height>111</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_19">
@@ -1074,79 +1050,35 @@
         <layout class="QVBoxLayout" name="verticalLayout_8">
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_20">
+           <property name="spacing">
+            <number>20</number>
+           </property>
            <item>
             <widget class="QLabel" name="label_15">
-             <property name="minimumSize">
-              <size>
-               <width>50</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>70</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>id рейса</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="idLine">
-             <property name="minimumSize">
-              <size>
-               <width>100</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>100</width>
-               <height>16777215</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_21">
-           <item>
-            <widget class="QLabel" name="label_16">
-             <property name="minimumSize">
-              <size>
-               <width>70</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>70</width>
-               <height>16777215</height>
-              </size>
-             </property>
              <property name="text">
               <string>Место отправления</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="startLine">
-             <property name="minimumSize">
-              <size>
-               <width>100</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>70</width>
-               <height>16777215</height>
-              </size>
+            <widget class="QLineEdit" name="departure"/>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_21">
+           <property name="spacing">
+            <number>40</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_16">
+             <property name="text">
+              <string>Место прибытия</string>
              </property>
             </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="arrival"/>
            </item>
           </layout>
          </item>
@@ -1156,161 +1088,35 @@
         <layout class="QVBoxLayout" name="verticalLayout_9">
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_22">
+           <property name="spacing">
+            <number>20</number>
+           </property>
            <item>
             <widget class="QLabel" name="label_17">
-             <property name="minimumSize">
-              <size>
-               <width>50</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>70</width>
-               <height>16777215</height>
-              </size>
-             </property>
              <property name="text">
-              <string>Место прибытия</string>
+              <string>Время отправления</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="endLine">
-             <property name="minimumSize">
-              <size>
-               <width>100</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>100</width>
-               <height>16777215</height>
-              </size>
-             </property>
-            </widget>
+            <widget class="QTimeEdit" name="time"/>
            </item>
           </layout>
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_23">
+           <property name="spacing">
+            <number>45</number>
+           </property>
            <item>
             <widget class="QLabel" name="label_18">
-             <property name="minimumSize">
-              <size>
-               <width>50</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>70</width>
-               <height>16777215</height>
-              </size>
-             </property>
              <property name="text">
-              <string>Время(Часы)</string>
+              <string>Цена плацкарта</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="timeHoursLine">
-             <property name="minimumSize">
-              <size>
-               <width>100</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>100</width>
-               <height>16777215</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_10">
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_26">
-           <item>
-            <widget class="QLabel" name="timine">
-             <property name="minimumSize">
-              <size>
-               <width>50</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>70</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Время(Минуты)</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="timeMinutesLine">
-             <property name="minimumSize">
-              <size>
-               <width>100</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>100</width>
-               <height>16777215</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_24">
-           <item>
-            <widget class="QLabel" name="label_19">
-             <property name="minimumSize">
-              <size>
-               <width>50</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>70</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Цена</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="priceLine">
-             <property name="minimumSize">
-              <size>
-               <width>100</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>100</width>
-               <height>16777215</height>
-              </size>
-             </property>
-            </widget>
+            <widget class="QLineEdit" name="priceReservedSeat"/>
            </item>
           </layout>
          </item>
@@ -1318,27 +1124,21 @@
        </item>
       </layout>
      </widget>
-     <widget class="QPushButton" name="addButton">
+     <widget class="QPushButton" name="additionTicketButtonFrame">
       <property name="geometry">
        <rect>
-        <x>280</x>
-        <y>70</y>
-        <width>70</width>
-        <height>22</height>
+        <x>340</x>
+        <y>150</y>
+        <width>93</width>
+        <height>28</height>
        </rect>
       </property>
       <property name="text">
        <string>Добавить</string>
       </property>
-      <property name="autoDefault">
-       <bool>false</bool>
-      </property>
-      <property name="default">
-       <bool>false</bool>
-      </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>150</x>
@@ -1349,7 +1149,7 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_17" stretch="1000,1000,1000">
       <item>
-       <widget class="QPushButton" name="addFrameButton">
+       <widget class="QPushButton" name="additionTicketButton">
         <property name="minimumSize">
          <size>
           <width>120</width>
@@ -1381,7 +1181,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="deleteFrameButton">
+       <widget class="QPushButton" name="deletionTicketButton">
         <property name="minimumSize">
          <size>
           <width>120</width>

@@ -29,21 +29,18 @@ class AdminMenu(QWidget):
         self.changedFrame.hide()
         self.deletionFrame.hide()
         self.additionFrame.hide()
-        self.deleteFrame.hide()
-        self.addFrame.hide()
+        self.deletionTicketFrame.hide()
+        self.additionTicketFrame.hide()
 
         self.__showChangeFrame()
 
-        self.__showDeleteFrame()
-
-        self.__showAddFrame()
+        self.__showDeletetionFrame()
 
         self.__showAdditionFrame()
 
-        self.__showDelFrame()
+        self.__showAdditionTicketFrame()
 
-        self.delButton.clicked.connect(self.__delBUttonClicked)
-        self.addButton.clicked.connect(self.__addTicket)
+        self.__showDeletetionTicketFrame()
 
     def __deleteClicked(self):
         try:
@@ -150,17 +147,25 @@ class AdminMenu(QWidget):
     def __userDoesntExist(self):
         self.msgbox = QMessageBox.warning(self, "Ошибка", "Пользователя не существует.", QMessageBox.StandardButton.Ok)
 
+    def __ticketDoesntExist(self):
+        self.msgbox = QMessageBox.warning(self, "Ошибка", "Билета не существует.", QMessageBox.StandardButton.Ok)
 
     def __invalidInput(self):
         self.msgbox = QMessageBox.warning(self, "Ошибка", "Некорректный ввод.", QMessageBox.StandardButton.Ok)
 
-    def __showDelFrame(self):
-        self.deleteFrameButton.clicked.connect(lambda _: self.deleteFrame.show())
-        self.deleteFrameButton.clicked.connect(lambda _: self.addFrame.hide())
+    def __showDeletetionTicketFrame(self):
+        self.deletionTicketButton.clicked.connect(lambda _: self.deletionTicketFrame.show())
+        self.deletionTicketButton.clicked.connect(lambda _: self.additionTicketFrame.hide())
+        self.deletionTicketButtonFrame.clicked.connect(self.__deletionButtonClicked)
+        self.deletionTicketButtonFrame.clicked.connect(self.deletionTicketFrame.hide)
+        self.deletionTicketButtonFrame.clicked.connect(self.delTicketID.clear)
 
-    def __showAdditionFrame(self):
-        self.addFrameButton.clicked.connect(lambda _: self.addFrame.show())
-        self.deleteFrameButton.clicked.connect(lambda _: self.deleteFrame.hide())
+    def __showAdditionTicketFrame(self):
+        self.additionTicketButton.clicked.connect(lambda _: self.additionTicketFrame.show())
+        self.additionTicketButton.clicked.connect(lambda _: self.deletionTicketFrame.hide())
+        self.additionTicketButtonFrame.clicked.connect(self.__additionTicket)
+        self.additionTicketButtonFrame.clicked.connect(self.additionTicketFrame.hide)
+        self.additionTicketButtonFrame.clicked.connect(self.__additionTicketClear)
 
     def __showChangeFrame(self):
         self.changedButton.clicked.connect(lambda _: self.changedFrame.show())
@@ -171,7 +176,7 @@ class AdminMenu(QWidget):
         self.changedButtonFrame.clicked.connect(self.__clearChangingFrame)
         self.userNumberToChange.textChanged.connect(self.__completionFieldsInChangeFrame)
 
-    def __showDeleteFrame(self):
+    def __showDeletetionFrame(self):
         self.deletionButton.clicked.connect(lambda _: self.deletionFrame.show())
         self.deletionButton.clicked.connect(lambda _: self.additionFrame.hide())
         self.deletionButton.clicked.connect(lambda _: self.changedFrame.hide())
@@ -179,7 +184,7 @@ class AdminMenu(QWidget):
         self.deletionButtonFrame.clicked.connect(self.__deleteClicked)
         self.deletionButtonFrame.clicked.connect(self.__clearDeletionFrame)
 
-    def __showAddFrame(self):
+    def __showAdditionFrame(self):
         self.additionButton.clicked.connect(lambda _: self.additionFrame.show())
         self.additionButton.clicked.connect(lambda _: self.changedFrame.hide())
         self.additionButton.clicked.connect(lambda _: self.deletionFrame.hide())
@@ -233,12 +238,62 @@ class AdminMenu(QWidget):
             self.ticketTable.setItem(row, 6 , QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют')*3)))
             row += 1
 
-    def __delBUttonClicked(self):
-        self.ticketBase.delElement(int(self.delTicketID.text()))
-        self.__loadTicketData();
+    def __deletionButtonClicked(self):
+        try:
+            tID = int(self.delTicketID.text())
+            ticketExist = False
+            for ticket in self.ticketBase.showBaseDict():
+                if ticket['id'] == tID:
+                    ticketExist = True
+            if (not(ticketExist)):
+                self.__ticketDoesntExist()
+                self.delTicketID.clear()
+                return
+            i = 0
+            for ticket in self.ticketBase.showBaseDict():
+                if ticket['id'] == tID:
+                    break
+                else:
+                    i += 1
+            self.ticketBase.delElement(i)
+            self.__loadTicketData()
 
-    def __addTicket(self):
-        newTicket = Ticket(int(self.idLine.text()), self.startLine.text(), self.endLine.text(), int(self.priceLine.text()), hours=int(self.timeHoursLine.text()), minutes=int(int(self.timeMinutesLine.text())))
+        except ValueError:
+            self.__invalidInput()
+            self.delTicketID.clear()
 
-        self.ticketBase.addElement(newTicket)
-        self.__loadTicketData()
+    def __additionTicketClear(self):
+        self.departure.clear()
+        self.arrival.clear()
+        self.priceReservedSeat.clear()
+
+    def __additionTicket(self):
+
+        if (self.departure.text() == '' or self.arrival.text() == '' or self.priceReservedSeat.text() == ''):
+            self.__invalidInput()
+            self.__additionTicketClear()
+            return
+
+        try:
+            tDeparture = self.departure.text()
+            tArrival = self.arrival.text()
+            tHour = int(self.time.time().hour())
+            tMinutes = int(self.time.time().minute())
+            tPriceReservedSeat = int(self.priceReservedSeat.text())
+            i = 1
+            placeFind = False
+            while (not(placeFind)):
+                exist = True
+                for ticket in self.ticketBase.showBaseDict():
+                    if ticket['id'] == i:
+                        i += 1
+                        exist = False
+                        break
+                if (exist):
+                    placeFind = True
+            newTicket = Ticket(i, tDeparture, tArrival, tPriceReservedSeat, hours=tHour, minutes=tMinutes)
+            self.ticketBase.addElement(newTicket)
+            self.__loadTicketData()
+        except ValueError:
+            self.msgbox = QMessageBox.warning(self, "Ошибка", "Некорректный ввод.", QMessageBox.StandardButton.Ok)
+            self.__additionTicketClear()
