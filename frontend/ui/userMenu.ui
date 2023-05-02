@@ -32,7 +32,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -111,6 +111,11 @@
          <column>
           <property name="text">
            <string>Цена СВ</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>кол-во мест</string>
           </property>
          </column>
         </widget>

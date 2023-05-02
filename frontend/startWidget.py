@@ -28,7 +28,7 @@ class myApp(QWidget):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    
+
     app.setStyleSheet("""
     QLineEdit
     {
@@ -44,7 +44,7 @@ if __name__ == '__main__':
         background-color: #0d6efd;
         border: 1px solid #343155;
         color: #fff;
-        padding 6px;
+        padding: 3px 0;
         margin-top: 10px;
         border-radius: 8px;
     }

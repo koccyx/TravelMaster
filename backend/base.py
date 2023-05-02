@@ -17,8 +17,9 @@ class Base:
         self._base.append(item.createDict())
         self._save()
 
-    def changeElement(self, item, num):
-        self._base[num] = item.createDict()
+    def changeElement(self, num, field ,change):
+        print(self._base)
+        self._base[num][field] = change
         self._save()
 
     def _save(self):

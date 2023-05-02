@@ -236,6 +236,7 @@ class AdminMenu(QWidget):
             self.ticketTable.setItem(row, 4, QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют'))))
             self.ticketTable.setItem(row, 5 , QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют')*2)))
             self.ticketTable.setItem(row, 6 , QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют')*3)))
+            self.ticketTable.setItem(row, 7 , QTableWidgetItem(str(ticket.get('amount', 'Данные отсутствуют'))))
             row += 1
 
     def __deletionButtonClicked(self):
@@ -280,6 +281,7 @@ class AdminMenu(QWidget):
             tHour = int(self.time.time().hour())
             tMinutes = int(self.time.time().minute())
             tPriceReservedSeat = int(self.priceReservedSeat.text())
+            tAmount = int(self.placeLine.text())
             i = 1
             placeFind = False
             while (not(placeFind)):
@@ -291,7 +293,7 @@ class AdminMenu(QWidget):
                         break
                 if (exist):
                     placeFind = True
-            newTicket = Ticket(i, tDeparture, tArrival, tPriceReservedSeat, hours=tHour, minutes=tMinutes)
+            newTicket = Ticket(i, tDeparture, tArrival, tPriceReservedSeat, hours=tHour, minutes=tMinutes, amount=tAmount)
             self.ticketBase.addElement(newTicket)
             self.__loadTicketData()
         except ValueError:

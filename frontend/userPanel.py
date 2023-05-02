@@ -281,15 +281,22 @@ class UserMenu(QWidget):
                 self.__ticketDoesntExist()
                 self.buyTicketID.clear()
                 return
-            for ticket in self.ticketBase.objectBase:
-                if int(ticket.id) == int(self.buyTicketID.text()):
-                    newTicket = copy.deepcopy(ticket)
+            self.ticketBase.update()
+            for ticket in range(len(self.ticketBase.objectBase)):
+                if int(self.ticketBase.objectBase[ticket].id) == int(self.buyTicketID.text()):
+                    self.ticketBase._base[ticket]['amount'] = self.ticketBase._base[ticket]['amount'] - 1
+                    self.ticketBase.objectBase[ticket].amount -= 1
+                    self.ticketBase.update()
+                    self.__loadTicketData()
+                    self.ticketBase._save()
+                    newTicket = copy.deepcopy(self.ticketBase.objectBase[ticket])
                     newTicket.exactDay = [int(self.calendar.selectedDate().toString('dd-MM-yyyy')[3:5]), int(self.calendar.selectedDate().toString('dd-MM-yyyy')[0:2])]
                     newTicket.typeTicket = str(self.typeTicketSpinBox.currentText())
                     if (newTicket.typeTicket == 'Купе'):
                         newTicket.price *= 2
                     elif (newTicket.typeTicket == 'СВ'):
                         newTicket.price *= 3
+
 
                     self.user.buyTicket(newTicket)
                     self.__loadTicketCartData()
@@ -336,6 +343,7 @@ class UserMenu(QWidget):
             self.ticketTable.setItem(row, 4, QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют'))))
             self.ticketTable.setItem(row, 5 , QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют')*2)))
             self.ticketTable.setItem(row, 6 , QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют')*3)))
+            self.ticketTable.setItem(row, 7 , QTableWidgetItem(str(ticket.get('amount', 'Данные отсутствуют'))))
             row += 1
 
     def __loadTicketCartData(self):
