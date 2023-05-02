@@ -63,6 +63,7 @@ class User:
 
     def buyTicket(self, ticket):
         ticket.amount -= 1
+
         self.__ticketCart.append(ticket)
         print(ticket.amount)
 

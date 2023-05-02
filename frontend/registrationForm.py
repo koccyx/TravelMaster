@@ -1,3 +1,4 @@
+from msilib.schema import File
 import sys
 import os
 from PyQt6.QtWidgets import QWidget, QLineEdit
@@ -7,6 +8,7 @@ from backend.user import User
 from backend.userBase import UserBase
 from userPanel import UserMenu
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
+import json
 
 
 class RegistrationFrom(QWidget):
@@ -28,6 +30,15 @@ class RegistrationFrom(QWidget):
         self.userPanel = UserMenu(user)
         self.userPanel.show()
         self.close()
+
+    def writeToJson(self, filename):
+        with open(filename, 'r') as file:
+            users = json.load(file)
+        users[self.loginInput.text()] = []
+        users = json.dumps(users, ensure_ascii = False)
+        users = json.loads(str(users))
+        with open(filename, 'w') as file:
+            json.dump(users, file)
 
     def createNewUser(self):
         newUser = User(self.nameInput.text(), self.secondNameInput.text(), self.surnameInput.text(), self.loginInput.text(), self.passwordInput.text(), self.emailInput.text())
@@ -55,5 +66,9 @@ class RegistrationFrom(QWidget):
         tempBase.addElement(newUser)
         self.openUserPanel(newUser)
         print('registration confirmed')
+
+        self.writeToJson('backend/Tickets.json')
+        
+
 
 

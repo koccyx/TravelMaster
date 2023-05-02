@@ -48,14 +48,14 @@ class LoginFrom(QWidget):
         tempBase = UserBase()
 
         for user in tempBase.showBaseDict():
-            if user['login'] == self.loginInput.text() and user['Пароль'] == self.passwordInput.text():
+            if str(user['login']) == str(self.loginInput.text()) and str(user['Пароль']) == str(self.passwordInput.text()):
                 self.errorLabel1.setText('Отлично')
                 self.errorLabel2.setText('')
                 for tempUser in tempBase.objecBase:
                     if tempUser.login == user['login'] and tempUser.password == user['Пароль']:
                         self.__openUserPanel(tempUser)
                 return
-            elif user['login'] == self.loginInput.text() and user['Пароль'] != self.passwordInput.text():
+            elif str(user['login']) == self.loginInput.text() and str(user['Пароль']) != str(self.passwordInput.text()):
                 self.errorLabel1.setText('Вы ввели')
                 self.errorLabel2.setText('неправильный пароль')
                 return

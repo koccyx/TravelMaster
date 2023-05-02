@@ -216,12 +216,12 @@ class AdminMenu(QWidget):
         self.userTable.setRowCount(len(self.base.showBaseDict()))
         row = 0
         for person in self.base.showBaseDict():
-                self.userTable.setItem(row, 0, QTableWidgetItem(person.get('Имя', 'Данные отсутствуют')))
-                self.userTable.setItem(row, 1, QTableWidgetItem(person.get('Фамилия', 'Данные отсутствуют')))
-                self.userTable.setItem(row, 2, QTableWidgetItem(person.get('Отчество', 'Данные отсутствуют')))
-                self.userTable.setItem(row, 3, QTableWidgetItem(person.get('E-mail', 'Данные отсутствуют')))
-                self.userTable.setItem(row, 4, QTableWidgetItem(person.get('login', 'Данные отсутствуют')))
-                self.userTable.setItem(row, 5, QTableWidgetItem(person.get('Пароль', 'Данные отсутствуют')))
+                self.userTable.setItem(row, 0, QTableWidgetItem(str(person.get('Имя', 'Данные отсутствуют'))))
+                self.userTable.setItem(row, 1, QTableWidgetItem(str(person.get('Фамилия', 'Данные отсутствуют'))))
+                self.userTable.setItem(row, 2, QTableWidgetItem(str(person.get('Отчество', 'Данные отсутствуют'))))
+                self.userTable.setItem(row, 3, QTableWidgetItem(str(person.get('E-mail', 'Данные отсутствуют'))))
+                self.userTable.setItem(row, 4, QTableWidgetItem(str(person.get('login', 'Данные отсутствуют'))))
+                self.userTable.setItem(row, 5, QTableWidgetItem(str(person.get('Пароль', 'Данные отсутствуют'))))
                 row += 1
 
     def __loadTicketData(self):
@@ -230,8 +230,8 @@ class AdminMenu(QWidget):
         for ticket in self.ticketBase.showBaseDict():
             print(ticket)
             self.ticketTable.setItem(row, 0, QTableWidgetItem(str(ticket.get('id', 'Данные отсутствуют'))))
-            self.ticketTable.setItem(row, 1, QTableWidgetItem(ticket.get('Начало маршрута', 'Данные отсутствуют')))
-            self.ticketTable.setItem(row, 2, QTableWidgetItem(ticket.get('Конец маршрута', 'Данные отсутствуют')))
+            self.ticketTable.setItem(row, 1, QTableWidgetItem(str(ticket.get('Начало маршрута', 'Данные отсутствуют'))))
+            self.ticketTable.setItem(row, 2, QTableWidgetItem(str(ticket.get('Конец маршрута', 'Данные отсутствуют'))))
             self.ticketTable.setItem(row, 3, QTableWidgetItem(str(ticket.get('Время', 'Данные отсутствуют'))))
             self.ticketTable.setItem(row, 4, QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют'))))
             self.ticketTable.setItem(row, 5 , QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют')*2)))
@@ -270,7 +270,7 @@ class AdminMenu(QWidget):
 
     def __additionTicket(self):
 
-        if (self.departure.text() == '' or self.arrival.text() == '' or self.priceReservedSeat.text() == ''):
+        if (self.departure.text() == '' or self.arrival.text() == '' or self.priceReservedSeat.text() == '' or self.quantityOfPlaces.text() == ''):
             self.__invalidInput()
             self.__additionTicketClear()
             return
@@ -281,7 +281,11 @@ class AdminMenu(QWidget):
             tHour = int(self.time.time().hour())
             tMinutes = int(self.time.time().minute())
             tPriceReservedSeat = int(self.priceReservedSeat.text())
-            tAmount = int(self.placeLine.text())
+            tAmount = int(self.quantityOfPlaces.text())
+            if tAmount < 1:
+                self.__invalidInput()
+                self.__additionTicketClear()
+                return
             i = 1
             placeFind = False
             while (not(placeFind)):

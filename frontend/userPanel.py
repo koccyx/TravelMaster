@@ -13,6 +13,7 @@ from backend.sendEmail import sendEmail
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from fpdf import *
 from datetime import *
+import json
 #from fpdf2 import *
 
 
@@ -22,14 +23,17 @@ class UserMenu(QWidget):
         uic.loadUi('frontend/ui/userMenu.ui', self)
         self.setWindowTitle('Меню пользователя')
 
-        self.user = user
+        self.users = self.read('backend/Tickets.json')
 
+        self.user = user
+        self.__loadTicketCartData()
         for i in range(6):
             self.ticketTable.setColumnWidth(i,130)
 
         self.__downloadBaseFromExcel()
 
         self.__loadTicketData()
+        self.__loadTicketCartData()
 
         self.buyFrame.hide()
         self.pdfFrame.hide()
@@ -299,6 +303,18 @@ class UserMenu(QWidget):
 
 
                     self.user.buyTicket(newTicket)
+                    newTicketToJson = {
+                        "id": str(self.ticketBase.objectBase[ticket].id),
+                        "Место отправления": str(self.ticketBase.objectBase[ticket].beginPoint),
+                        "Место прибытия": str(self.ticketBase.objectBase[ticket].endPoint),
+                        "Дата": str(newTicket.exactDay),
+                        "Время": str(self.ticketBase._base[ticket]['Время']),
+                        "Цена": str(newTicket.price),
+                        "Тип места": str(newTicket.typeTicket),
+                        }
+                    
+                    self.users[str(self.user.login)].append(newTicketToJson)
+                    self.write(self.users, 'backend/Tickets.json')
                     self.__loadTicketCartData()
                     return
                 #self.calendar.selectedDate().toString('dd-MM-yyyy')[0:2]
@@ -326,7 +342,16 @@ class UserMenu(QWidget):
                 if int(self.returnTicketID.text()) == int(self.user.ticketCart[i].id):
                     self.user.delTicket(i)
                     break
+
+            for i in range(len(self.users[str(self.user.login)])):
+                if (int(self.users[str(self.user.login)]['id']) == int(self.returnTicketID.text())):
+                    self.users[str(self.user.login)].pop(int(self.returnTicketID.text()) - 1)
+
+            self.write(self.users, 'backend/Tickets.json')
+
             self.__loadTicketCartData()
+                
+
         except ValueError:
             self.returnTicketID.clear()
             self.__invalidInput()
@@ -347,21 +372,31 @@ class UserMenu(QWidget):
             row += 1
 
     def __loadTicketCartData(self):
-        self.ticketCartTable.setRowCount(len(self.user.showTicketCartDict()))
+        self.users = self.read('backend/Tickets.json')
+        self.ticketCartTable.setRowCount(len(self.users[str(self.user.login)]))
         row = 0
         print('-------st--------')
-        for ticket in self.user.ticketCart:
-            print(ticket)
-            self.ticketCartTable.setItem(row, 0, QTableWidgetItem(str(ticket.id)))
-            self.ticketCartTable.setItem(row, 1, QTableWidgetItem(ticket.beginPoint))
-            self.ticketCartTable.setItem(row, 2, QTableWidgetItem(ticket.endPoint))
-            print(ticket.exactDay)
-            self.ticketCartTable.setItem(row, 3, QTableWidgetItem(str('/'.join([str(ticket.exactDay).split('-')[1], str(ticket.exactDay).split('-')[2]]))))
-            self.ticketCartTable.setItem(row, 4, QTableWidgetItem(ticket.createDict()['Время']))
-            self.ticketCartTable.setItem(row, 5 , QTableWidgetItem(str(ticket.price)))
-            self.ticketCartTable.setItem(row, 6, QTableWidgetItem(str(ticket.createDict()['Тип билета'])))
+        for ticket in self.users[str(self.user.login)]:
+            print('Билет', ticket)
+            self.ticketCartTable.setItem(row, 0, QTableWidgetItem(str(ticket['id'])))
+            self.ticketCartTable.setItem(row, 1, QTableWidgetItem(ticket['Место отправления']))
+            self.ticketCartTable.setItem(row, 2, QTableWidgetItem(ticket['Место прибытия']))
+            self.ticketCartTable.setItem(row, 3, QTableWidgetItem(str('/'.join([str(ticket['Дата']).split('-')[1], str(ticket['Дата']).split('-')[2]]))))
+            self.ticketCartTable.setItem(row, 4, QTableWidgetItem(ticket['Время']))
+            self.ticketCartTable.setItem(row, 5 , QTableWidgetItem(str(ticket['Цена'])))
+            self.ticketCartTable.setItem(row, 6, QTableWidgetItem(str(ticket['Тип места'])))
             row += 1
         print('-------ed-------')
+
+    def read(self, filename):
+        with open(filename, 'r') as file:
+            return json.load(file)
+
+    def write(self, users, filename):
+        users = json.dumps(users, ensure_ascii = False)
+        users = json.loads(str(users))
+        with open(filename, 'w') as file:
+            json.dump(users, file)
 
 
 

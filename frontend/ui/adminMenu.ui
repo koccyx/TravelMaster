@@ -1161,7 +1161,7 @@
         <x>280</x>
         <y>140</y>
         <width>200</width>
-        <height>21</height>
+        <height>24</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_24">
@@ -1176,7 +1176,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="placeLine"/>
+        <widget class="QLineEdit" name="quantityOfPlaces"/>
        </item>
       </layout>
      </widget>
@@ -1206,7 +1206,7 @@
          </size>
         </property>
         <property name="text">
-         <string>Добавить билет</string>
+         <string>Добавить рейс</string>
         </property>
        </widget>
       </item>
