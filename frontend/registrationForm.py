@@ -64,10 +64,10 @@ class RegistrationFrom(QWidget):
                 return
 
         tempBase.addElement(newUser)
+        self.writeToJson('backend/Tickets.json')
         self.openUserPanel(newUser)
         print('registration confirmed')
 
-        self.writeToJson('backend/Tickets.json')
         
 
 

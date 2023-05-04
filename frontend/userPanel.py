@@ -37,8 +37,8 @@ class UserMenu(QWidget):
         self.__loadTicketCartData()
 
         for ticket in self.users[str(self.user.login)]:
-            pass
-            #newTicket = Ticket(1, str(ticket['Место отправления']), str(ticket['Место отправления']), str(ticket['Цена']))
+            newTicket = Ticket(1, str(ticket['Место отправления']), str(ticket['Место отправления']), str(ticket['Цена']), str(ticket['Время']), str(ticket['Тип места']), 200)
+            self.user.buyTicket(newTicket)
 
         self.buyFrame.hide()
         self.pdfFrame.hide()
@@ -373,7 +373,6 @@ class UserMenu(QWidget):
         self.users = self.read('backend/Tickets.json')
         self.ticketCartTable.setRowCount(len(self.users[str(self.user.login)]))
         row = 0
-        #print('-------st--------')
         for ticket in self.users[str(self.user.login)]:
             print('Билет', ticket)
             self.ticketCartTable.setItem(row, 0, QTableWidgetItem(ticket['Место отправления']))
@@ -383,7 +382,6 @@ class UserMenu(QWidget):
             self.ticketCartTable.setItem(row, 4 , QTableWidgetItem(str(ticket['Цена'])))
             self.ticketCartTable.setItem(row, 5, QTableWidgetItem(str(ticket['Тип места'])))
             row += 1
-        #print('-------ed-------')
 
     def read(self, filename):
         with open(filename, 'r') as file:

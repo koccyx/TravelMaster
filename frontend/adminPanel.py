@@ -153,6 +153,9 @@ class AdminMenu(QWidget):
     def __invalidInput(self):
         self.msgbox = QMessageBox.warning(self, "Ошибка", "Некорректный ввод.", QMessageBox.StandardButton.Ok)
 
+    def __notAllPropertys(self):
+        self.msgbox = QMessageBox.warning(self, "Ошибка", "Не все поля заполнены.", QMessageBox.StandardButton.Ok)
+
     def __showDeletetionTicketFrame(self):
         self.deletionTicketButton.clicked.connect(lambda _: self.deletionTicketFrame.show())
         self.deletionTicketButton.clicked.connect(lambda _: self.additionTicketFrame.hide())
@@ -267,11 +270,12 @@ class AdminMenu(QWidget):
         self.departure.clear()
         self.arrival.clear()
         self.priceReservedSeat.clear()
+        self.quantityOfPlaces.clear()
 
     def __additionTicket(self):
 
         if (self.departure.text() == '' or self.arrival.text() == '' or self.priceReservedSeat.text() == '' or self.quantityOfPlaces.text() == ''):
-            self.__invalidInput()
+            self.__notAllPropertys()
             self.__additionTicketClear()
             return
 
@@ -279,8 +283,7 @@ class AdminMenu(QWidget):
             tDeparture = self.departure.text()
             tArrival = self.arrival.text()
             print('Тип', self.time.time().toString('HH:mm'))
-            tHour = int(self.time.time().hour())
-            tMinutes = int(self.time.time().minute())
+            tTime = self.time.time().toString('HH:mm')
             tPriceReservedSeat = int(self.priceReservedSeat.text())
             tAmount = int(self.quantityOfPlaces.text())
             if tAmount < 1:
@@ -298,9 +301,9 @@ class AdminMenu(QWidget):
                         break
                 if (exist):
                     placeFind = True
-            newTicket = Ticket(i, tDeparture, tArrival, tPriceReservedSeat, hours=tHour, minutes=tMinutes, amount=tAmount)
+            newTicket = Ticket(i, tDeparture, tArrival, tPriceReservedSeat, tTime, amount=tAmount)
             self.ticketBase.addElement(newTicket)
             self.__loadTicketData()
         except ValueError:
-            self.msgbox = QMessageBox.warning(self, "Ошибка", "Некорректный ввод.", QMessageBox.StandardButton.Ok)
+            self.__invalidInput()
             self.__additionTicketClear()

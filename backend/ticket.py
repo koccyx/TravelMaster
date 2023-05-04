@@ -3,12 +3,12 @@ import pandas as pd
 
 
 class Ticket:
-    def __init__(self, id, beginPoint, endPoint, price, hours=0, minutes=0, typeTicket = 'Плацкарт', amount=200): #write date like(Y/M/D/H/Min)
+    def __init__(self, id, beginPoint, endPoint, price, time, typeTicket = 'Плацкарт', amount=200): #write date like(Y/M/D/H/Min)
         self.__id = id
         self.__beginPoint = beginPoint
         self.__endPoint = endPoint
         self.__price = price
-        self.__date = dt.time(hour=hours, minute=minutes)
+        self.__time = time
         self.__exactDay = dt.date(year=2023,month=1, day=1)
         self.__place = ''
         self.__typeTicket = typeTicket
@@ -32,12 +32,12 @@ class Ticket:
 
     @property
     def date(self):
-        return self.__date
+        return self.__time
 
     @date.setter
     def date(self,time):
-        self.__date = dt.time(hour=int(time[0]), minute=int(time[1]))
-        self.__date = dt.time(hour=time[0], minute=time[1])
+        self.__date = time
+        self.__date = time
 
     @property
     def id(self):
@@ -92,7 +92,7 @@ class Ticket:
                 'Начало маршрута' : self.__beginPoint,
                 'Конец маршрута' : self.__endPoint,
                 'Цена' : self.__price,
-                'Время' : (f'{self.__date.hour}:{self.__date.minute}'),
+                'Время' : self.__time,
                 'Тип билета' : self.__typeTicket,
                 'amount' : self.amount}
 
