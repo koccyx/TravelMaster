@@ -37,6 +37,7 @@ class Ticket:
     @date.setter
     def date(self,time):
         self.__date = dt.time(hour=int(time[0]), minute=int(time[1]))
+        self.__date = dt.time(hour=time[0], minute=time[1])
 
     @property
     def id(self):

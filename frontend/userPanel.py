@@ -14,6 +14,7 @@ sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from fpdf import *
 from datetime import *
 import json
+from backend.ticket import Ticket
 #from fpdf2 import *
 
 
@@ -34,6 +35,10 @@ class UserMenu(QWidget):
 
         self.__loadTicketData()
         self.__loadTicketCartData()
+
+        for ticket in self.users[str(self.user.login)]:
+            pass
+            #newTicket = Ticket(1, str(ticket['Место отправления']), str(ticket['Место отправления']), str(ticket['Цена']))
 
         self.buyFrame.hide()
         self.pdfFrame.hide()
@@ -182,11 +187,7 @@ class UserMenu(QWidget):
 
     def __pdfButtonClicked(self):
         try:
-            idExist = False
-            for i in range(len(self.user.ticketCart)):
-                if int(self.user.ticketCart[i].id) == int(self.pdfTicketID.text()):
-                    idExist = True
-            if (int(self.pdfTicketID.text()) < 1 or idExist == False):
+            if (int(self.pdfTicketID.text()) < 1 or int(self.pdfTicketID.text()) > len(self.users[str(self.user.login)])):
                 self.__ticketDoesntExist()
                 self.pdfTicketID.clear()
                 return
@@ -221,9 +222,12 @@ class UserMenu(QWidget):
                 pdf.ln(lineHeight)
 
             sizes = [6/29*pdf.epw, 6/29*pdf.epw, 4/29*pdf.epw, 4/29*pdf.epw, 7/29*pdf.epw, 2/29*pdf.epw]
-            for ticket in self.user.ticketCart:
-                if (ticket.id == int(self.pdfTicketID.text())):
-                    dataTicket = (str(ticket.beginPoint), str(ticket.endPoint), str('/'.join([str(ticket.exactDay).split('-')[1], str(ticket.exactDay).split('-')[2]])), str(ticket.createDict()['Время']), str(ticket.typeTicket), '3')
+            dataTicket = (str(self.users[str(self.user.login)][int(self.pdfTicketID.text()) - 1]['Место отправления']),
+                          str(self.users[str(self.user.login)][int(self.pdfTicketID.text()) - 1]['Место прибытия']),
+                          str('/'.join([str(self.users[str(self.user.login)][int(self.pdfTicketID.text()) - 1]['Дата']).split('-')[1], str(self.users[str(self.user.login)][int(self.pdfTicketID.text()) - 1]['Дата']).split('-')[2]])),
+                          str(self.users[str(self.user.login)][int(self.pdfTicketID.text()) - 1]['Время']),
+                          str(self.users[str(self.user.login)][int(self.pdfTicketID.text()) - 1]['Тип места']),
+                          '3')
             data = [('Место отправления', 'Место прибытия', 'Дата отправления', 'Время отправления', 'Тип места', 'Место'),
                     dataTicket]
             i = 0
@@ -248,15 +252,15 @@ class UserMenu(QWidget):
             pdf.set_font('DejaVu', size = 15)
             pdf.ln(2*lineHeight)
 
-            if (str(ticket.typeTicket) == 'Плацкарт'):
+            if (str(self.users[str(self.user.login)][int(self.pdfTicketID.text()) - 1]['Тип места']) == 'Плацкарт'):
                 pdf.image('frontend/images/reservedSeat.png', x = 10, y = 100)
                 pdf.cell(275, 10, txt = '   Вагон оборудован санитарным узлом, платным душем. Имеется кипяток, посуда и кофе на заказ.', ln = 1, align = 'L')
 
-            if (str(ticket.typeTicket) == 'Купе'):
+            if (str(self.users[str(self.user.login)][int(self.pdfTicketID.text()) - 1]['Тип места']) == 'Купе'):
                 pdf.image('frontend/images/coupe.png', x = 10, y = 100)
                 pdf.cell(275, 10, txt = '   Вагон оборудован санитарным узлом, душем. Имеется кипяток, посуда и кофе на заказ. Утром вам подадут завтрак.', ln = 1, align = 'L')
 
-            if (str(ticket.typeTicket) == 'СВ'):
+            if (str(self.users[str(self.user.login)][int(self.pdfTicketID.text()) - 1]['Тип места']) == 'СВ'):
                 pdf.image('frontend/images/SV.png', x = 10, y = 100)
                 pdf.cell(275, 10, txt = '   Вагон оборудован санитарным узлом, душем. Имеется кипяток, посуда и кофе на заказ.', ln = 1, align = 'L')
                 pdf.cell(275, 10, txt = 'Предусмотрено 4-ёх разовое питание в вагоне-ресторане.', ln = 1, align = 'L')
@@ -269,6 +273,7 @@ class UserMenu(QWidget):
 
             pdf.output('./backend/Ticket.pdf')
             print("Success")
+
         except  ValueError:
             self.pdfTicketID.clear()
             self.__invalidInput()
@@ -304,7 +309,6 @@ class UserMenu(QWidget):
 
                     self.user.buyTicket(newTicket)
                     newTicketToJson = {
-                        "id": str(self.ticketBase.objectBase[ticket].id),
                         "Место отправления": str(self.ticketBase.objectBase[ticket].beginPoint),
                         "Место прибытия": str(self.ticketBase.objectBase[ticket].endPoint),
                         "Дата": str(newTicket.exactDay),
@@ -315,6 +319,7 @@ class UserMenu(QWidget):
                     
                     self.users[str(self.user.login)].append(newTicketToJson)
                     self.write(self.users, 'backend/Tickets.json')
+                    self.users = self.read('backend/Tickets.json')
                     self.__loadTicketCartData()
                     return
                 #self.calendar.selectedDate().toString('dd-MM-yyyy')[0:2]
@@ -330,24 +335,17 @@ class UserMenu(QWidget):
 
     def __ticketReturnButtonClicked(self):
         try:
-            idExist = False
-            for i in range(len(self.user.ticketCart)):
-                if int(self.user.ticketCart[i].id) == int(self.returnTicketID.text()):
-                    idExist = True
-            if (int(self.returnTicketID.text()) < 1 or idExist == False):
+            if (int(self.returnTicketID.text()) < 1 or int(self.returnTicketID.text()) > len(self.users[str(self.user.login)])):
                 self.__ticketDoesntExist()
-                self.returnTicketID.clear()
                 return
-            for i in range(len(self.user.ticketCart)):
-                if int(self.returnTicketID.text()) == int(self.user.ticketCart[i].id):
+            for i in range(len(self.users[str(self.user.login)])):
+                if int(self.returnTicketID.text()) - 1 == i:
                     self.user.delTicket(i)
+                    self.users[str(self.user.login)].pop(i)
                     break
 
-            for i in range(len(self.users[str(self.user.login)])):
-                if (int(self.users[str(self.user.login)]['id']) == int(self.returnTicketID.text())):
-                    self.users[str(self.user.login)].pop(int(self.returnTicketID.text()) - 1)
-
             self.write(self.users, 'backend/Tickets.json')
+            self.users = self.read('backend/Tickets.json')
 
             self.__loadTicketCartData()
                 
@@ -375,18 +373,17 @@ class UserMenu(QWidget):
         self.users = self.read('backend/Tickets.json')
         self.ticketCartTable.setRowCount(len(self.users[str(self.user.login)]))
         row = 0
-        print('-------st--------')
+        #print('-------st--------')
         for ticket in self.users[str(self.user.login)]:
             print('Билет', ticket)
-            self.ticketCartTable.setItem(row, 0, QTableWidgetItem(str(ticket['id'])))
-            self.ticketCartTable.setItem(row, 1, QTableWidgetItem(ticket['Место отправления']))
-            self.ticketCartTable.setItem(row, 2, QTableWidgetItem(ticket['Место прибытия']))
-            self.ticketCartTable.setItem(row, 3, QTableWidgetItem(str('/'.join([str(ticket['Дата']).split('-')[1], str(ticket['Дата']).split('-')[2]]))))
-            self.ticketCartTable.setItem(row, 4, QTableWidgetItem(ticket['Время']))
-            self.ticketCartTable.setItem(row, 5 , QTableWidgetItem(str(ticket['Цена'])))
-            self.ticketCartTable.setItem(row, 6, QTableWidgetItem(str(ticket['Тип места'])))
+            self.ticketCartTable.setItem(row, 0, QTableWidgetItem(ticket['Место отправления']))
+            self.ticketCartTable.setItem(row, 1, QTableWidgetItem(ticket['Место прибытия']))
+            self.ticketCartTable.setItem(row, 2, QTableWidgetItem(str('/'.join([str(ticket['Дата']).split('-')[1], str(ticket['Дата']).split('-')[2]]))))
+            self.ticketCartTable.setItem(row, 3, QTableWidgetItem(ticket['Время']))
+            self.ticketCartTable.setItem(row, 4 , QTableWidgetItem(str(ticket['Цена'])))
+            self.ticketCartTable.setItem(row, 5, QTableWidgetItem(str(ticket['Тип места'])))
             row += 1
-        print('-------ed-------')
+        #print('-------ed-------')
 
     def read(self, filename):
         with open(filename, 'r') as file:

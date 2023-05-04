@@ -278,6 +278,7 @@ class AdminMenu(QWidget):
         try:
             tDeparture = self.departure.text()
             tArrival = self.arrival.text()
+            print('Тип', self.time.time().toString('HH:mm'))
             tHour = int(self.time.time().hour())
             tMinutes = int(self.time.time().minute())
             tPriceReservedSeat = int(self.priceReservedSeat.text())
