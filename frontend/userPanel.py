@@ -127,7 +127,7 @@ class UserMenu(QWidget):
             return
         i = 0
         while i < len(self.ticketBase.showBaseDict()):
-            if (self.ticketBase.showBaseDict()[i]['Начало маршрута'] != self.departureText.text()):
+            if (str(self.ticketBase.showBaseDict()[i]['Начало маршрута']) != str(self.departureText.text())):
                 del self.ticketBase.showBaseDict()[i]
             else:
                 i += 1
@@ -138,19 +138,17 @@ class UserMenu(QWidget):
 
         i = 0
         while i < len(self.ticketBase.showBaseDict()):
-            if (self.ticketBase.showBaseDict()[i]['Конец маршрута'] != self.destinationText.text()):
+            if (str(self.ticketBase.showBaseDict()[i]['Конец маршрута']) != str(self.destinationText.text())):
                 del self.ticketBase.showBaseDict()[i]
             else:
                 i += 1
 
     def __filterByPrice(self):
-        if (self.downtoPriceFilter.text() == '' and self.uptoPriceFilter.text() == ''):
+        if (str(self.uptoPriceFilter) == '') and (str(self.downtoPriceFilter) == ''):
             return
 
         try:
-            if (self.comboBox.currentText() == ''):
-                temp1 = int(self.downtoPriceFilter.text())
-                temp2 = int(self.uptoPriceFilter.text())
+            if (str(self.comboBox.currentText()) == ''):
                 return
             self.__filterByPriceType('плацкарта', 1)
             self.__filterByPriceType('купе', 2)
@@ -162,28 +160,34 @@ class UserMenu(QWidget):
             self.__invalidInput()
 
     def __filterByPriceType(self, typeTicket, index):
-        if (self.comboBox.currentText() == str(typeTicket)):
-            if (self.downtoPriceFilter.text() != '' and self.uptoPriceFilter.text() != ''):
+        if (str(self.comboBox.currentText()) == str(typeTicket)):
+            if (str(self.downtoPriceFilter.text()) != '' and str(self.uptoPriceFilter.text()) != ''):
+                print('lkdsaadsa1')
                 i = 0
                 while i < len(self.ticketBase.showBaseDict()):
                     if not(int(self.downtoPriceFilter.text()) <= int(self.ticketBase.showBaseDict()[i]['Цена'])*index <= int(self.uptoPriceFilter.text())):
                         del self.ticketBase.showBaseDict()[i]
                     else:
                         i += 1
-            elif (self.downtoPriceFilter.text() != ''):
+                return
+            elif (str(self.downtoPriceFilter.text()) != ''):
+                print('lkdsaadsa2')
                 i = 0
                 while i < len(self.ticketBase.showBaseDict()):
-                    if int(self.downtoPriceFilter.text()) > int(self.ticketBase.showBaseDict()[i]['Цена'])*index:
+                    if int(self.downtoPriceFilter.text()) >= int(self.ticketBase.showBaseDict()[i]['Цена'])*index:
                         del self.ticketBase.showBaseDict()[i]
                     else:
                         i += 1
+                return
             else:
+                print('lkdsaadsa3')
                 i = 0
                 while i < len(self.ticketBase.showBaseDict()):
-                    if int(self.ticketBase.showBaseDict()[i]['Цена'])*index > int(self.uptoPriceFilter.text()):
+                    if int(self.ticketBase.showBaseDict()[i]['Цена'])*index >= int(self.uptoPriceFilter.text()):
                         del self.ticketBase.showBaseDict()[i]
                     else:
                         i += 1
+                return
 
     def __pdfButtonClicked(self):
         try:
@@ -277,7 +281,6 @@ class UserMenu(QWidget):
         except  ValueError:
             self.pdfTicketID.clear()
             self.__invalidInput()
-        sendEmail('Биллетsss', self.user.mail)
 
 
     def __ticketBuyButtonClicked(self):
@@ -293,7 +296,7 @@ class UserMenu(QWidget):
             self.ticketBase.update()
             for ticket in range(len(self.ticketBase.objectBase)):
                 if int(self.ticketBase.objectBase[ticket].id) == int(self.buyTicketID.text()):
-                    self.ticketBase._base[ticket]['amount'] = self.ticketBase._base[ticket]['amount'] - 1
+                    self.ticketBase._base[ticket]['amount'] = int(self.ticketBase._base[ticket]['amount']) - 1
                     self.ticketBase.objectBase[ticket].amount -= 1
                     self.ticketBase.update()
                     self.__loadTicketData()
@@ -301,9 +304,9 @@ class UserMenu(QWidget):
                     newTicket = copy.deepcopy(self.ticketBase.objectBase[ticket])
                     newTicket.exactDay = [int(self.calendar.selectedDate().toString('dd-MM-yyyy')[3:5]), int(self.calendar.selectedDate().toString('dd-MM-yyyy')[0:2])]
                     newTicket.typeTicket = str(self.typeTicketSpinBox.currentText())
-                    if (newTicket.typeTicket == 'Купе'):
+                    if (str(newTicket.typeTicket) == 'Купе'):
                         newTicket.price *= 2
-                    elif (newTicket.typeTicket == 'СВ'):
+                    elif (str(newTicket.typeTicket) == 'СВ'):
                         newTicket.price *= 3
 
 
@@ -360,8 +363,8 @@ class UserMenu(QWidget):
         for ticket in self.ticketBase.showBaseDict():
             print(ticket)
             self.ticketTable.setItem(row, 0, QTableWidgetItem(str(ticket.get('id', 'Данные отсутствуют'))))
-            self.ticketTable.setItem(row, 1, QTableWidgetItem(ticket.get('Начало маршрута', 'Данные отсутствуют')))
-            self.ticketTable.setItem(row, 2, QTableWidgetItem(ticket.get('Конец маршрута', 'Данные отсутствуют')))
+            self.ticketTable.setItem(row, 1, QTableWidgetItem(str(ticket.get('Начало маршрута', 'Данные отсутствуют'))))
+            self.ticketTable.setItem(row, 2, QTableWidgetItem(str(ticket.get('Конец маршрута', 'Данные отсутствуют'))))
             self.ticketTable.setItem(row, 3, QTableWidgetItem(str(ticket.get('Время', 'Данные отсутствуют'))))
             self.ticketTable.setItem(row, 4, QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют'))))
             self.ticketTable.setItem(row, 5 , QTableWidgetItem(str(ticket.get('Цена', 'Данные отсутствуют')*2)))
@@ -375,10 +378,10 @@ class UserMenu(QWidget):
         row = 0
         for ticket in self.users[str(self.user.login)]:
             print('Билет', ticket)
-            self.ticketCartTable.setItem(row, 0, QTableWidgetItem(ticket['Место отправления']))
-            self.ticketCartTable.setItem(row, 1, QTableWidgetItem(ticket['Место прибытия']))
+            self.ticketCartTable.setItem(row, 0, QTableWidgetItem(str(ticket['Место отправления'])))
+            self.ticketCartTable.setItem(row, 1, QTableWidgetItem(str(ticket['Место прибытия'])))
             self.ticketCartTable.setItem(row, 2, QTableWidgetItem(str('/'.join([str(ticket['Дата']).split('-')[1], str(ticket['Дата']).split('-')[2]]))))
-            self.ticketCartTable.setItem(row, 3, QTableWidgetItem(ticket['Время']))
+            self.ticketCartTable.setItem(row, 3, QTableWidgetItem(str(ticket['Время'])))
             self.ticketCartTable.setItem(row, 4 , QTableWidgetItem(str(ticket['Цена'])))
             self.ticketCartTable.setItem(row, 5, QTableWidgetItem(str(ticket['Тип места'])))
             row += 1
@@ -391,7 +394,7 @@ class UserMenu(QWidget):
         users = json.dumps(users, ensure_ascii = False)
         users = json.loads(str(users))
         with open(filename, 'w') as file:
-            json.dump(users, file)
+            json.dump(users, file, indent = 4)
 
 
 

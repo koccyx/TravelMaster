@@ -30,13 +30,14 @@ class ForgotPassword(QWidget):
 
         try:
             tCode = int(self.enterCode.text())
-            tLogin = self.enterLogin.text()
+            tLogin = str(self.enterLogin.text())
             exist = False
             tempBase = UserBase()
 
             for user in tempBase.showBaseDict():
-                if (user['login'] == tLogin):
+                if (str(user['login']) == tLogin):
                     exist = True
+                    break
 
             if (exist == False):
                 self.__userDoesntExist()
@@ -46,10 +47,10 @@ class ForgotPassword(QWidget):
                 self.base = UserBase()
                 num = 0
                 for user in tempBase.showBaseDict():
-                    if (user['login'] == tLogin):
+                    if (str(user['login']) == tLogin):
                         user['Пароль'] = '0000'
-                        tNewUser = User(user['Имя'], user['Фамилия'], user['Отчество'], user['login'], user['Пароль'], user['E-mail'])
-                        self.base.changeElement(tNewUser, num)
+                        tNewUser = User(str(user['Имя']), str(user['Фамилия']), str(user['Отчество']), str(user['login']), str(user['Пароль']), str(user['E-mail']))
+                        self.base.changeElement(num, 'Пароль', '0000')
                     num += 1
                 self.__access()
                 self.close()

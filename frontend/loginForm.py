@@ -52,10 +52,10 @@ class LoginFrom(QWidget):
                 self.errorLabel1.setText('Отлично')
                 self.errorLabel2.setText('')
                 for tempUser in tempBase.objecBase:
-                    if tempUser.login == user['login'] and tempUser.password == user['Пароль']:
+                    if str(tempUser.login) == str(user['login']) and str(tempUser.password) == str(user['Пароль']):
                         self.__openUserPanel(tempUser)
                 return
-            elif str(user['login']) == self.loginInput.text() and str(user['Пароль']) != str(self.passwordInput.text()):
+            elif str(user['login']) == str(self.loginInput.text()) and str(user['Пароль']) != str(self.passwordInput.text()):
                 self.errorLabel1.setText('Вы ввели')
                 self.errorLabel2.setText('неправильный пароль')
                 return

@@ -32,7 +32,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -187,25 +187,13 @@
          <number>0</number>
         </property>
         <property name="leftMargin">
-         <number>40</number>
+         <number>100</number>
         </property>
         <property name="rightMargin">
-         <number>110</number>
+         <number>170</number>
         </property>
         <item>
          <widget class="QLabel" name="label">
-          <property name="minimumSize">
-           <size>
-            <width>50</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>50</width>
-            <height>16777215</height>
-           </size>
-          </property>
           <property name="text">
            <string>ID билета</string>
           </property>
@@ -426,10 +414,10 @@
      <widget class="QPushButton" name="applyFilterButton">
       <property name="geometry">
        <rect>
-        <x>620</x>
+        <x>610</x>
         <y>100</y>
-        <width>141</width>
-        <height>28</height>
+        <width>161</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
@@ -439,10 +427,10 @@
      <widget class="QPushButton" name="cancelFilterButton">
       <property name="geometry">
        <rect>
-        <x>620</x>
+        <x>610</x>
         <y>50</y>
-        <width>141</width>
-        <height>28</height>
+        <width>161</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">

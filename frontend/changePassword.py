@@ -24,13 +24,10 @@ class ChangePassword(QWidget):
         self.repeatNewPasswordInChangePassword.setEchoMode(QLineEdit.EchoMode.Password)
 
     def __changePasswordButtonClicked(self):
-        self.login = self.loginInChangePassword.text()
-        self.oldPassword = self.oldPasswordInChangePassword.text()
-        self.newPassword = self.newPasswordInChangePassword.text()
-        self.repeatNewPassword = self.repeatNewPasswordInChangePassword.text()
-        self.backButton.clicked.connect(self.close)
-
-
+        self.login = str(self.loginInChangePassword.text())
+        self.oldPassword = str(self.oldPasswordInChangePassword.text())
+        self.newPassword = str(self.newPasswordInChangePassword.text())
+        self.repeatNewPassword = str(self.repeatNewPasswordInChangePassword.text())
 
         if (self.login == '' or self.oldPassword == '' or self.newPassword == '' or self.repeatNewPassword == ''):
             self.__fillError()
@@ -44,8 +41,9 @@ class ChangePassword(QWidget):
         tempBase = UserBase()
 
         for user in tempBase.showBaseDict():
-            if (user['login'] == self.login and user['Пароль'] == self.oldPassword):
+            if (str(user['login']) == self.login and str(user['Пароль']) == self.oldPassword):
                 exist = True
+                break
 
         if (exist == False):
             self.__userDoesntExist()
@@ -55,10 +53,10 @@ class ChangePassword(QWidget):
         self.base = UserBase()
         num = 0
         for user in tempBase.showBaseDict():
-            if (user['login'] == self.login and user['Пароль'] == self.oldPassword):
+            if (str(user['login']) == self.login and str(user['Пароль']) == self.oldPassword):
                 user['Пароль'] = self.newPassword
-                tNewUser = User(user['Имя'], user['Фамилия'], user['Отчество'], user['login'], user['Пароль'], user['E-mail'])
-                self.base.changeElement(tNewUser, num)
+                tNewUser = User(str(user['Имя']), str(user['Фамилия']), str(user['Отчество']), str(user['login']), str(user['Пароль']), str(user['E-mail']))
+                self.base.changeElement(num, 'Пароль', self.newPassword)
             num += 1
 
         self.__access()

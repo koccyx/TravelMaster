@@ -8,6 +8,7 @@ from backend.ticketBase import TicketBase
 from backend.user import User
 from backend.ticket import Ticket
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
+import json
 
 
 class AdminMenu(QWidget):
@@ -20,7 +21,11 @@ class AdminMenu(QWidget):
             self.userTable.setColumnWidth(i,130)
 
         self.base = UserBase()
-
+        print(self.base.showBaseDict())
+        print(type(self.base.showBaseDict()))
+        print(len(self.base.showBaseDict()))
+        print(str(self.base.showBaseDict()[0]['login']))
+        self.users = self.read('backend/Tickets.json')
         self.ticketBase = TicketBase()
 
         self.__loadData()
@@ -46,7 +51,10 @@ class AdminMenu(QWidget):
         try:
             if len(self.base.showBaseDict()) >= int(self.userNumberToDelete.text()) and int(self.userNumberToDelete.text()) > 0:
                 tNumber = int(self.userNumberToDelete.text()) - 1
+                del self.users[str(self.base.showBaseDict()[tNumber]['login'])]
                 self.base.delElement(tNumber)
+                self.write(self.users, 'backend/Tickets.json')
+                self.users = self.read('backend/Tickets.json')
                 self.__loadData()
             else:
                 self.__userDoesntExist()
@@ -59,81 +67,109 @@ class AdminMenu(QWidget):
 
 
     def __addClicked(self):
-        tName = self.newName.text()
+        tName = str(self.newName.text())
         if (tName == ''):
             self.__invalidInput()
             return
-        tSurname = self.newSurname.text()
+        tSurname = str(self.newSurname.text())
         if (tSurname == ''):
             self.__invalidInput()
             return
-        tFatherName = self.newFatherName.text()
+        tFatherName = str(self.newFatherName.text())
         if (tFatherName == ''):
             self.__invalidInput()
             return
-        tLogin = self.newLogin.text()
+        tLogin = str(self.newLogin.text())
         if (tLogin == ''):
             self.__invalidInput()
             return
-        tPassword = self.newPassword.text()
+        tPassword = str(self.newPassword.text())
         if (tPassword == ''):
             self.__invalidInput()
             return
-        tMail = self.newMail.text()
+        tMail = str(self.newMail.text())
         if (tMail == ''):
             self.__invalidInput()
             return
         tNewUser = User(tName, tSurname, tFatherName, tLogin, tPassword, tMail)
         self.base.addElement(tNewUser)
+        self.users[tLogin] = []
+        self.write(self.users, 'backend/Tickets.json')
+        self.users = self.read('backend/Tickets.json')
         self.__loadData()
 
     def __changeClicked(self):
-        if self.userNumberToChange.text() == '':
+        if str(self.userNumberToChange.text()) == '':
             return
         tNumber = int(self.userNumberToChange.text()) - 1
-        tName = self.changedName.text()
+        tName = str(self.changedName.text())
         if (tName == ''):
             self.__invalidInput()
             return
-        tSurname = self.changedSurname.text()
+        tSurname = str(self.changedSurname.text())
         if (tSurname == ''):
             self.__invalidInput()
             return
-        tFatherName = self.changedFatherName.text()
+        tFatherName = str(self.changedFatherName.text())
         if (tFatherName == ''):
             self.__invalidInput()
             return
-        tLogin = self.changedLogin.text()
+        tLogin = str(self.changedLogin.text())
         if (tLogin == ''):
             self.__invalidInput()
             return
-        tPassword = self.changedPassword.text()
+        tPassword = str(self.changedPassword.text())
         if (tPassword == ''):
             self.__invalidInput()
             return
-        tMail = self.changedMail.text()
+        tMail = str(self.changedMail.text())
         if (tMail == ''):
             self.__invalidInput()
             return
-        tNewUser = User(tName, tSurname, tFatherName, tLogin, tPassword, tMail)
-        self.base.changeElement(tNewUser, tNumber)
+        self.base.changeElement(tNumber, 'Имя', tName)
+        self.base.changeElement(tNumber, 'Фамилия', tSurname)
+        self.base.changeElement(tNumber, 'Отчество', tFatherName)
+        self.base.changeElement(tNumber, 'login', tLogin)
+        self.newLogin = tLogin
+        self.base.changeElement(tNumber, 'Пароль', tPassword)
+        self.base.changeElement(tNumber, 'E-mail', tMail)
+        self.changeLoginInJSON()
         self.__loadData()
+
+    def read(self, filename):
+        with open(filename, 'r') as file:
+            return json.load(file)
+
+    def write(self, users, filename):
+        users = json.dumps(users, ensure_ascii = False)
+        users = json.loads(str(users))
+        with open(filename, 'w') as file:
+            json.dump(users, file, indent = 4)
+
+    def changeLoginInJSON(self):
+        tickets = self.users[self.pastLogin]
+        del self.users[self.pastLogin]
+        self.users[self.newLogin] = tickets
+        self.write(self.users, 'backend/Tickets.json')
+        self.users = self.read('backend/Tickets.json')
 
     def __completionFieldsInChangeFrame(self):
         try:
+            print(len(self.base.showBaseDict()))
             if len(self.base.showBaseDict()) >= int(self.userNumberToChange.text()) and int(self.userNumberToChange.text()) > 0:
                 tNumber = int(self.userNumberToChange.text()) - 1
-                tName = self.base.showBaseDict()[tNumber]['Имя']
-                tSurname = self.base.showBaseDict()[tNumber]['Фамилия']
-                tFatherName = self.base.showBaseDict()[tNumber]['Отчество']
-                tLogin = self.base.showBaseDict()[tNumber]['login']
-                tPassword = self.base.showBaseDict()[tNumber]['Пароль']
-                tMail = self.base.showBaseDict()[tNumber]['E-mail']
+                tName = str(self.base.showBaseDict()[tNumber]['Имя'])
+                tSurname = str(self.base.showBaseDict()[tNumber]['Фамилия'])
+                tFatherName = str(self.base.showBaseDict()[tNumber]['Отчество'])
+                tLogin = str(self.base.showBaseDict()[tNumber]['login'])
+                tPassword = str(self.base.showBaseDict()[tNumber]['Пароль'])
+                tMail = str(self.base.showBaseDict()[tNumber]['E-mail'])
+                self.pastLogin = tLogin
                 self.changedName.setText(tName)
                 self.changedSurname.setText(tSurname)
                 self.changedFatherName.setText(tFatherName)
                 self.changedLogin.setText(tLogin)
-                self.changedPassword.setText(tPassword)
+                self.changedPassword.setText(str(tPassword))
                 self.changedMail.setText(tMail)
             else:
                 self.__userDoesntExist()
@@ -247,7 +283,7 @@ class AdminMenu(QWidget):
             tID = int(self.delTicketID.text())
             ticketExist = False
             for ticket in self.ticketBase.showBaseDict():
-                if ticket['id'] == tID:
+                if int(ticket['id']) == tID:
                     ticketExist = True
             if (not(ticketExist)):
                 self.__ticketDoesntExist()
@@ -255,7 +291,7 @@ class AdminMenu(QWidget):
                 return
             i = 0
             for ticket in self.ticketBase.showBaseDict():
-                if ticket['id'] == tID:
+                if int(ticket['id']) == tID:
                     break
                 else:
                     i += 1
@@ -274,16 +310,15 @@ class AdminMenu(QWidget):
 
     def __additionTicket(self):
 
-        if (self.departure.text() == '' or self.arrival.text() == '' or self.priceReservedSeat.text() == '' or self.quantityOfPlaces.text() == ''):
+        if (str(self.departure.text()) == '' or str(self.arrival.text()) == '' or str(self.priceReservedSeat.text()) == '' or str(self.quantityOfPlaces.text()) == ''):
             self.__notAllPropertys()
             self.__additionTicketClear()
             return
 
         try:
-            tDeparture = self.departure.text()
-            tArrival = self.arrival.text()
-            print('Тип', self.time.time().toString('HH:mm'))
-            tTime = self.time.time().toString('HH:mm')
+            tDeparture = str(self.departure.text())
+            tArrival = str(self.arrival.text())
+            tTime = str(self.time.time().toString('HH:mm'))
             tPriceReservedSeat = int(self.priceReservedSeat.text())
             tAmount = int(self.quantityOfPlaces.text())
             if tAmount < 1:
@@ -295,7 +330,7 @@ class AdminMenu(QWidget):
             while (not(placeFind)):
                 exist = True
                 for ticket in self.ticketBase.showBaseDict():
-                    if ticket['id'] == i:
+                    if int(ticket['id']) == i:
                         i += 1
                         exist = False
                         break

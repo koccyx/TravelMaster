@@ -1,7 +1,7 @@
 from msilib.schema import File
 import sys
 import os
-from PyQt6.QtWidgets import QWidget, QLineEdit
+from PyQt6.QtWidgets import QWidget, QLineEdit, QMessageBox
 from PyQt6 import uic
 import pandas as pd
 from backend.user import User
@@ -34,39 +34,42 @@ class RegistrationFrom(QWidget):
     def writeToJson(self, filename):
         with open(filename, 'r') as file:
             users = json.load(file)
-        users[self.loginInput.text()] = []
+        users[str(self.loginInput.text())] = []
         users = json.dumps(users, ensure_ascii = False)
         users = json.loads(str(users))
         with open(filename, 'w') as file:
-            json.dump(users, file)
+            json.dump(users, file, indent = 4)
+
+    def __fillError(self):
+        self.msgbox = QMessageBox.warning(self, "Ошибка", "Не все поля заполнены.", QMessageBox.StandardButton.Ok)
 
     def createNewUser(self):
-        newUser = User(self.nameInput.text(), self.secondNameInput.text(), self.surnameInput.text(), self.loginInput.text(), self.passwordInput.text(), self.emailInput.text())
+        if str(self.nameInput.text()) == '' or str(self.secondNameInput.text()) == '' or str(self.surnameInput.text()) == '' or str(self.loginInput.text()) == '' or str(self.passwordInput.text()) == '' or str(self.emailInput.text()) == '':
+            self.__fillError()
+            return
+        else:
+            newUser = User(str(self.nameInput.text()), str(self.secondNameInput.text()), str(self.surnameInput.text()), str(self.loginInput.text()), str(self.passwordInput.text()), str(self.emailInput.text()))
 
-        tempBase = UserBase()
+            tempBase = UserBase()
 
 
-        for user in tempBase.showBaseDict():
-            if user['Имя'] == self.nameInput.text() and user['Фамилия'] == self.secondNameInput.text() and user['Отчество'] == self.nameInput.text():
-                self.errorsLabel1.setText('Пользователь с таким')
-                self.errorsLabel2.setText('именем уже существует')
-                print('this user is already exist')
-                return
-            elif user['login'] == self.loginInput.text():
-                self.errorsLabel1.setText('Пользователь с таким')
-                self.errorsLabel2.setText('логином уже существует')
-                print('Invalid login')
-                return
-            elif user['E-mail'] == self.emailInput.text():
-                self.errorsLabel1.setText('Пользователь с такой')
-                self.errorsLabel2.setText('почтой уже существует')
-                print('Invalid e-mail')
-                return
+            for user in tempBase.showBaseDict():
+                if str(user['Имя']) == str(self.nameInput.text()) and str(user['Фамилия']) == str(self.secondNameInput.text()) and str(user['Отчество']) == str(self.nameInput.text()):
+                    self.errorsLabel1.setText('Пользователь с таким')
+                    self.errorsLabel2.setText('именем уже существует')
+                    return
+                elif str(user['login']) == str(self.loginInput.text()):
+                    self.errorsLabel1.setText('Пользователь с таким')
+                    self.errorsLabel2.setText('логином уже существует')
+                    return
+                elif str(user['E-mail']) == str(self.emailInput.text()):
+                    self.errorsLabel1.setText('Пользователь с такой')
+                    self.errorsLabel2.setText('почтой уже существует')
+                    return
 
-        tempBase.addElement(newUser)
-        self.writeToJson('backend/Tickets.json')
-        self.openUserPanel(newUser)
-        print('registration confirmed')
+            tempBase.addElement(newUser)
+            self.writeToJson('backend/Tickets.json')
+            self.openUserPanel(newUser)
 
         
 

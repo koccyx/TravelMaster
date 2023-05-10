@@ -26,7 +26,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -63,9 +63,6 @@
          <property name="wordWrap">
           <bool>true</bool>
          </property>
-         <attribute name="verticalHeaderVisible">
-          <bool>false</bool>
-         </attribute>
          <column>
           <property name="text">
            <string>Имя</string>
@@ -168,10 +165,10 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>70</x>
+       <x>40</x>
        <y>290</y>
-       <width>681</width>
-       <height>121</height>
+       <width>711</width>
+       <height>181</height>
       </rect>
      </property>
      <property name="frameShape">
@@ -185,29 +182,23 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>641</width>
+        <width>684</width>
         <height>64</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="bottomLayout">
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_8">
+         <property name="leftMargin">
+          <number>30</number>
+         </property>
+         <property name="rightMargin">
+          <number>20</number>
+         </property>
          <item>
-          <widget class="QLabel" name="numberLabel">
-           <property name="minimumSize">
-            <size>
-             <width>50</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>100</width>
-             <height>16777215</height>
-            </size>
-           </property>
+          <widget class="QLabel" name="label_20">
            <property name="text">
-            <string>номер пользователя</string>
+            <string>номер билета</string>
            </property>
           </widget>
          </item>
@@ -873,9 +864,9 @@
      </widget>
     </widget>
     <zorder>splitter</zorder>
-    <zorder>changedFrame</zorder>
     <zorder>additionFrame</zorder>
     <zorder>deletionFrame</zorder>
+    <zorder>changedFrame</zorder>
    </widget>
    <widget class="QWidget" name="tab2">
     <attribute name="title">
