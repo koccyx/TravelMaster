@@ -38,7 +38,7 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>330</x>
+       <x>260</x>
        <y>360</y>
        <width>681</width>
        <height>121</height>
@@ -370,7 +370,7 @@
     <widget class="QFrame" name="deletionFrame">
      <property name="geometry">
       <rect>
-       <x>570</x>
+       <x>500</x>
        <y>370</y>
        <width>191</width>
        <height>101</height>
@@ -452,7 +452,7 @@
     <widget class="QFrame" name="additionFrame">
      <property name="geometry">
       <rect>
-       <x>340</x>
+       <x>270</x>
        <y>370</y>
        <width>581</width>
        <height>131</height>
@@ -745,7 +745,7 @@
     <widget class="QTableWidget" name="userTable">
      <property name="geometry">
       <rect>
-       <x>250</x>
+       <x>210</x>
        <y>0</y>
        <width>800</width>
        <height>271</height>
@@ -800,10 +800,10 @@
       </property>
      </column>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>390</x>
+       <x>330</x>
        <y>290</y>
        <width>562</width>
        <height>52</height>
@@ -872,7 +872,8 @@
       </item>
      </layout>
     </widget>
-    <zorder>splitter</zorder>
+    <zorder>userTable</zorder>
+    <zorder>layoutWidget</zorder>
     <zorder>changedFrame</zorder>
     <zorder>additionFrame</zorder>
     <zorder>deletionFrame</zorder>

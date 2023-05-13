@@ -427,7 +427,7 @@
       </property>
      </column>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>440</x>
@@ -480,11 +480,10 @@
       </item>
      </layout>
     </widget>
+    <zorder>layoutWidget</zorder>
     <zorder>filterFrame</zorder>
     <zorder>buyFrame</zorder>
     <zorder>ticketTable</zorder>
-    <zorder>buyButtonFrame</zorder>
-    <zorder>filterButtonFrame</zorder>
    </widget>
    <widget class="QWidget" name="tab2">
     <attribute name="title">
@@ -493,7 +492,7 @@
     <widget class="QFrame" name="pdfFrame">
      <property name="geometry">
       <rect>
-       <x>470</x>
+       <x>480</x>
        <y>360</y>
        <width>291</width>
        <height>80</height>
@@ -567,10 +566,10 @@
     <widget class="QFrame" name="returnFrame">
      <property name="geometry">
       <rect>
-       <x>410</x>
+       <x>420</x>
        <y>350</y>
        <width>400</width>
-       <height>141</height>
+       <height>201</height>
       </rect>
      </property>
      <property name="frameShape">
@@ -638,87 +637,10 @@
       </layout>
      </widget>
     </widget>
-    <widget class="QSplitter" name="splitter_2">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>90</x>
-       <y>0</y>
-       <width>1050</width>
-       <height>290</height>
-      </rect>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <widget class="QTableWidget" name="ticketCartTable">
-      <property name="minimumSize">
-       <size>
-        <width>1100</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="locale">
-       <locale language="Russian" country="Russia"/>
-      </property>
-      <property name="lineWidth">
-       <number>1</number>
-      </property>
-      <property name="editTriggers">
-       <set>QAbstractItemView::NoEditTriggers</set>
-      </property>
-      <property name="sortingEnabled">
-       <bool>false</bool>
-      </property>
-      <property name="wordWrap">
-       <bool>true</bool>
-      </property>
-      <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>150</number>
-      </attribute>
-      <attribute name="verticalHeaderVisible">
-       <bool>false</bool>
-      </attribute>
-      <column>
-       <property name="text">
-        <string>id</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Место отправления</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Место прибытия</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Дата</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Время</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Цена</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Тип места</string>
-       </property>
-      </column>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="">
-     <property name="geometry">
-      <rect>
-       <x>420</x>
+       <x>440</x>
        <y>290</y>
        <width>342</width>
        <height>52</height>
@@ -767,6 +689,64 @@
        </widget>
       </item>
      </layout>
+    </widget>
+    <widget class="QTableWidget" name="ticketCartTable">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>0</y>
+       <width>911</width>
+       <height>281</height>
+      </rect>
+     </property>
+     <property name="locale">
+      <locale language="Russian" country="Russia"/>
+     </property>
+     <property name="lineWidth">
+      <number>1</number>
+     </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="sortingEnabled">
+      <bool>false</bool>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+     <attribute name="horizontalHeaderDefaultSectionSize">
+      <number>150</number>
+     </attribute>
+     <column>
+      <property name="text">
+       <string>Место отправления</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Место прибытия</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Дата</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Время</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Цена</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Тип места</string>
+      </property>
+     </column>
     </widget>
    </widget>
   </widget>
