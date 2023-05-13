@@ -12,8 +12,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>664</height>
+    <width>1920</width>
+    <height>1080</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,149 +27,22 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
-     <height>731</height>
+     <width>1920</width>
+     <height>1080</height>
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
      <string>Купить билеты</string>
     </attribute>
-    <widget class="QSplitter" name="splitter">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>800</width>
-       <height>290</height>
-      </rect>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <widget class="QWidget" name="layoutWidget">
-      <layout class="QVBoxLayout" name="usersVLayout">
-       <item>
-        <widget class="QTableWidget" name="ticketTable">
-         <property name="locale">
-          <locale language="Russian" country="Russia"/>
-         </property>
-         <property name="lineWidth">
-          <number>1</number>
-         </property>
-         <property name="autoScrollMargin">
-          <number>16</number>
-         </property>
-         <property name="editTriggers">
-          <set>QAbstractItemView::NoEditTriggers</set>
-         </property>
-         <property name="sortingEnabled">
-          <bool>false</bool>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
-         </property>
-         <attribute name="horizontalHeaderDefaultSectionSize">
-          <number>150</number>
-         </attribute>
-         <attribute name="verticalHeaderVisible">
-          <bool>false</bool>
-         </attribute>
-         <column>
-          <property name="text">
-           <string>id</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Место отправления</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Место прибытия</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Время</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Цена плацкарт</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Цена купе</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Цена СВ</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>кол-во мест</string>
-          </property>
-         </column>
-        </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <widget class="QPushButton" name="buyButtonFrame">
-           <property name="minimumSize">
-            <size>
-             <width>120</width>
-             <height>50</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>120</width>
-             <height>50</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Купить</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="filterButtonFrame">
-           <property name="minimumSize">
-            <size>
-             <width>120</width>
-             <height>50</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>120</width>
-             <height>50</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Фильтровать</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
-    </widget>
     <widget class="QFrame" name="buyFrame">
      <property name="geometry">
       <rect>
-       <x>200</x>
-       <y>300</y>
+       <x>410</x>
+       <y>290</y>
        <width>431</width>
        <height>331</height>
       </rect>
@@ -187,13 +60,25 @@
          <number>0</number>
         </property>
         <property name="leftMargin">
-         <number>100</number>
+         <number>40</number>
         </property>
         <property name="rightMargin">
-         <number>170</number>
+         <number>110</number>
         </property>
         <item>
          <widget class="QLabel" name="label">
+          <property name="minimumSize">
+           <size>
+            <width>50</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>50</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="text">
            <string>ID билета</string>
           </property>
@@ -304,8 +189,8 @@
     <widget class="QFrame" name="filterFrame">
      <property name="geometry">
       <rect>
-       <x>-40</x>
-       <y>290</y>
+       <x>170</x>
+       <y>280</y>
        <width>771</width>
        <height>181</height>
       </rect>
@@ -414,10 +299,10 @@
      <widget class="QPushButton" name="applyFilterButton">
       <property name="geometry">
        <rect>
-        <x>610</x>
+        <x>620</x>
         <y>100</y>
-        <width>161</width>
-        <height>31</height>
+        <width>141</width>
+        <height>28</height>
        </rect>
       </property>
       <property name="text">
@@ -427,10 +312,10 @@
      <widget class="QPushButton" name="cancelFilterButton">
       <property name="geometry">
        <rect>
-        <x>610</x>
+        <x>620</x>
         <y>50</y>
-        <width>161</width>
-        <height>31</height>
+        <width>141</width>
+        <height>28</height>
        </rect>
       </property>
       <property name="text">
@@ -468,130 +353,148 @@
       </item>
      </widget>
     </widget>
-    <zorder>splitter</zorder>
+    <widget class="QTableWidget" name="ticketTable">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>0</y>
+       <width>1101</width>
+       <height>232</height>
+      </rect>
+     </property>
+     <property name="locale">
+      <locale language="Russian" country="Russia"/>
+     </property>
+     <property name="lineWidth">
+      <number>1</number>
+     </property>
+     <property name="autoScrollMargin">
+      <number>16</number>
+     </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="sortingEnabled">
+      <bool>false</bool>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+     <attribute name="horizontalHeaderDefaultSectionSize">
+      <number>150</number>
+     </attribute>
+     <attribute name="verticalHeaderVisible">
+      <bool>false</bool>
+     </attribute>
+     <column>
+      <property name="text">
+       <string>id</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Место отправления</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Место прибытия</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Время</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Цена плацкарт</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Цена купе</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Цена СВ</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>кол-во мест</string>
+      </property>
+     </column>
+    </widget>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>440</x>
+       <y>230</y>
+       <width>342</width>
+       <height>52</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="spacing">
+       <number>100</number>
+      </property>
+      <item>
+       <widget class="QPushButton" name="filterButtonFrame">
+        <property name="minimumSize">
+         <size>
+          <width>120</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>120</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Фильтровать</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="buyButtonFrame">
+        <property name="minimumSize">
+         <size>
+          <width>120</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>120</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Купить</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
     <zorder>filterFrame</zorder>
     <zorder>buyFrame</zorder>
+    <zorder>ticketTable</zorder>
+    <zorder>buyButtonFrame</zorder>
+    <zorder>filterButtonFrame</zorder>
    </widget>
    <widget class="QWidget" name="tab2">
     <attribute name="title">
      <string>Корзина билетов</string>
     </attribute>
-    <widget class="QSplitter" name="splitter_2">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>800</width>
-       <height>290</height>
-      </rect>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <widget class="QWidget" name="layoutWidget_2">
-      <layout class="QVBoxLayout" name="usersVLayout_2">
-       <item>
-        <widget class="QTableWidget" name="ticketCartTable">
-         <property name="locale">
-          <locale language="Russian" country="Russia"/>
-         </property>
-         <property name="lineWidth">
-          <number>1</number>
-         </property>
-         <property name="editTriggers">
-          <set>QAbstractItemView::NoEditTriggers</set>
-         </property>
-         <property name="sortingEnabled">
-          <bool>false</bool>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
-         </property>
-         <attribute name="horizontalHeaderDefaultSectionSize">
-          <number>150</number>
-         </attribute>
-         <column>
-          <property name="text">
-           <string>Место отправления</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Место прибытия</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Дата</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Время</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Цена</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Тип места</string>
-          </property>
-         </column>
-        </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item>
-          <widget class="QPushButton" name="pdfButtonFrame">
-           <property name="minimumSize">
-            <size>
-             <width>120</width>
-             <height>50</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>120</width>
-             <height>50</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Перевести в PDF</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="returnButtonFrame">
-           <property name="minimumSize">
-            <size>
-             <width>120</width>
-             <height>50</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>120</width>
-             <height>50</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Вернуть билет</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
-    </widget>
     <widget class="QFrame" name="pdfFrame">
      <property name="geometry">
       <rect>
-       <x>270</x>
-       <y>310</y>
+       <x>470</x>
+       <y>360</y>
        <width>291</width>
        <height>80</height>
       </rect>
@@ -607,23 +510,29 @@
        <rect>
         <x>80</x>
         <y>10</y>
-        <width>129</width>
+        <width>121</width>
         <height>71</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_5">
-         <property name="leftMargin">
-          <number>20</number>
-         </property>
-         <property name="rightMargin">
-          <number>20</number>
-         </property>
          <item>
           <widget class="QLabel" name="label_3">
+           <property name="minimumSize">
+            <size>
+             <width>50</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>50</width>
+             <height>16777215</height>
+            </size>
+           </property>
            <property name="text">
-            <string>№ билета</string>
+            <string>id Билета</string>
            </property>
           </widget>
          </item>
@@ -658,8 +567,8 @@
     <widget class="QFrame" name="returnFrame">
      <property name="geometry">
       <rect>
-       <x>220</x>
-       <y>310</y>
+       <x>410</x>
+       <y>350</y>
        <width>400</width>
        <height>141</height>
       </rect>
@@ -675,23 +584,29 @@
        <rect>
         <x>81</x>
         <y>11</y>
-        <width>211</width>
-        <height>91</height>
+        <width>250</width>
+        <height>163</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
-         <property name="leftMargin">
-          <number>60</number>
-         </property>
-         <property name="rightMargin">
-          <number>60</number>
-         </property>
          <item>
           <widget class="QLabel" name="label_2">
+           <property name="minimumSize">
+            <size>
+             <width>10</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>50</width>
+             <height>10</height>
+            </size>
+           </property>
            <property name="text">
-            <string>№ билета</string>
+            <string>id Билета</string>
            </property>
           </widget>
          </item>
@@ -722,6 +637,136 @@
        </item>
       </layout>
      </widget>
+    </widget>
+    <widget class="QSplitter" name="splitter_2">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>0</y>
+       <width>1050</width>
+       <height>290</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <widget class="QTableWidget" name="ticketCartTable">
+      <property name="minimumSize">
+       <size>
+        <width>1100</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="locale">
+       <locale language="Russian" country="Russia"/>
+      </property>
+      <property name="lineWidth">
+       <number>1</number>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="sortingEnabled">
+       <bool>false</bool>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>150</number>
+      </attribute>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>id</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Место отправления</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Место прибытия</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Дата</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Время</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Цена</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Тип места</string>
+       </property>
+      </column>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>420</x>
+       <y>290</y>
+       <width>342</width>
+       <height>52</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_10">
+      <property name="spacing">
+       <number>100</number>
+      </property>
+      <item>
+       <widget class="QPushButton" name="pdfButtonFrame">
+        <property name="minimumSize">
+         <size>
+          <width>120</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>120</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Перевести в PDF</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="returnButtonFrame">
+        <property name="minimumSize">
+         <size>
+          <width>120</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>120</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Вернуть билет</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </widget>
   </widget>

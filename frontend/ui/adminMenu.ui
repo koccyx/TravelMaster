@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>557</height>
+    <width>1920</width>
+    <height>1080</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,8 +21,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
-     <height>561</height>
+     <width>1920</width>
+     <height>1080</height>
     </rect>
    </property>
    <property name="currentIndex">
@@ -32,143 +32,16 @@
     <attribute name="title">
      <string>База данных пользователей</string>
     </attribute>
-    <widget class="QSplitter" name="splitter">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>800</width>
-       <height>290</height>
-      </rect>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <widget class="QWidget" name="layoutWidget">
-      <layout class="QVBoxLayout" name="usersVLayout">
-       <item>
-        <widget class="QTableWidget" name="userTable">
-         <property name="locale">
-          <locale language="Russian" country="Russia"/>
-         </property>
-         <property name="lineWidth">
-          <number>1</number>
-         </property>
-         <property name="editTriggers">
-          <set>QAbstractItemView::NoEditTriggers</set>
-         </property>
-         <property name="sortingEnabled">
-          <bool>false</bool>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
-         </property>
-         <column>
-          <property name="text">
-           <string>Имя</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Фамилия</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Отчество</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Почта</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Логин</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Пароль</string>
-          </property>
-         </column>
-        </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <widget class="QPushButton" name="deletionButton">
-           <property name="minimumSize">
-            <size>
-             <width>120</width>
-             <height>50</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>120</width>
-             <height>50</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Удалить</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="changedButton">
-           <property name="minimumSize">
-            <size>
-             <width>120</width>
-             <height>50</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>120</width>
-             <height>50</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Изменить данные</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="additionButton">
-           <property name="minimumSize">
-            <size>
-             <width>120</width>
-             <height>50</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>140</width>
-             <height>50</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Добавить пользователя</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
-    </widget>
     <widget class="QFrame" name="changedFrame">
      <property name="enabled">
       <bool>true</bool>
      </property>
      <property name="geometry">
       <rect>
-       <x>40</x>
-       <y>290</y>
-       <width>711</width>
-       <height>181</height>
+       <x>330</x>
+       <y>360</y>
+       <width>681</width>
+       <height>121</height>
       </rect>
      </property>
      <property name="frameShape">
@@ -182,23 +55,29 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>684</width>
+        <width>641</width>
         <height>64</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="bottomLayout">
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_8">
-         <property name="leftMargin">
-          <number>30</number>
-         </property>
-         <property name="rightMargin">
-          <number>20</number>
-         </property>
          <item>
-          <widget class="QLabel" name="label_20">
+          <widget class="QLabel" name="numberLabel">
+           <property name="minimumSize">
+            <size>
+             <width>50</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>100</width>
+             <height>16777215</height>
+            </size>
+           </property>
            <property name="text">
-            <string>номер билета</string>
+            <string>номер пользователя</string>
            </property>
           </widget>
          </item>
@@ -491,8 +370,8 @@
     <widget class="QFrame" name="deletionFrame">
      <property name="geometry">
       <rect>
-       <x>310</x>
-       <y>300</y>
+       <x>570</x>
+       <y>370</y>
        <width>191</width>
        <height>101</height>
       </rect>
@@ -573,8 +452,8 @@
     <widget class="QFrame" name="additionFrame">
      <property name="geometry">
       <rect>
-       <x>80</x>
-       <y>300</y>
+       <x>340</x>
+       <y>370</y>
        <width>581</width>
        <height>131</height>
       </rect>
@@ -863,10 +742,140 @@
       </property>
      </widget>
     </widget>
+    <widget class="QTableWidget" name="userTable">
+     <property name="geometry">
+      <rect>
+       <x>250</x>
+       <y>0</y>
+       <width>800</width>
+       <height>271</height>
+      </rect>
+     </property>
+     <property name="locale">
+      <locale language="Russian" country="Russia"/>
+     </property>
+     <property name="lineWidth">
+      <number>1</number>
+     </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="sortingEnabled">
+      <bool>false</bool>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+     <attribute name="verticalHeaderVisible">
+      <bool>false</bool>
+     </attribute>
+     <column>
+      <property name="text">
+       <string>Имя</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Фамилия</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Отчество</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Почта</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Логин</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Пароль</string>
+      </property>
+     </column>
+    </widget>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>390</x>
+       <y>290</y>
+       <width>562</width>
+       <height>52</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="spacing">
+       <number>100</number>
+      </property>
+      <item>
+       <widget class="QPushButton" name="deletionButton">
+        <property name="minimumSize">
+         <size>
+          <width>120</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>120</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Удалить</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="changedButton">
+        <property name="minimumSize">
+         <size>
+          <width>120</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>120</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Изменить данные</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="additionButton">
+        <property name="minimumSize">
+         <size>
+          <width>120</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>140</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Добавить пользователя</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
     <zorder>splitter</zorder>
+    <zorder>changedFrame</zorder>
     <zorder>additionFrame</zorder>
     <zorder>deletionFrame</zorder>
-    <zorder>changedFrame</zorder>
    </widget>
    <widget class="QWidget" name="tab2">
     <attribute name="title">
@@ -875,9 +884,9 @@
     <widget class="QTableWidget" name="ticketTable">
      <property name="geometry">
       <rect>
-       <x>0</x>
+       <x>60</x>
        <y>0</y>
-       <width>798</width>
+       <width>1150</width>
        <height>232</height>
       </rect>
      </property>
@@ -959,8 +968,8 @@
     <widget class="QFrame" name="deletionTicketFrame">
      <property name="geometry">
       <rect>
-       <x>260</x>
-       <y>330</y>
+       <x>480</x>
+       <y>320</y>
        <width>400</width>
        <height>141</height>
       </rect>
@@ -1033,8 +1042,8 @@
     <widget class="QFrame" name="additionTicketFrame">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>320</y>
+       <x>230</x>
+       <y>310</y>
        <width>781</width>
        <height>211</height>
       </rect>
@@ -1152,7 +1161,7 @@
         <x>280</x>
         <y>140</y>
         <width>200</width>
-        <height>24</height>
+        <height>21</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_24">
@@ -1167,7 +1176,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="quantityOfPlaces"/>
+        <widget class="QLineEdit" name="placeLine"/>
        </item>
       </layout>
      </widget>
@@ -1175,8 +1184,8 @@
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>150</x>
-       <y>240</y>
+       <x>370</x>
+       <y>230</y>
        <width>481</width>
        <height>81</height>
       </rect>
@@ -1197,7 +1206,7 @@
          </size>
         </property>
         <property name="text">
-         <string>Добавить рейс</string>
+         <string>Добавить билет</string>
         </property>
        </widget>
       </item>
